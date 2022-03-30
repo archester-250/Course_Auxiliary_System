@@ -1,10 +1,39 @@
 /**
  * @file main.cpp
  * @author your name (you@domain.com)
- * @brief ä¸»ç¨‹åº
+ * @brief Ö÷³ÌĞò
  * @version 0.1
  * @date 2022-03-17
  * 
  * @copyright Copyright (c) 2022
  * 
  */
+#include "course.h"
+#include <cstring>
+void input();
+void writeIn(char * user, char * password);
+bool match(char * user, char * password);
+
+int main()
+{
+    printf("»¶Ó­Ê¹ÓÃ¿Î³Ì¸¨ÖúÏµÍ³£¡ÇëÑ¡ÔñµÇÂ¼·½Ê½\n1¡¢Ñ§ÉúÓÃ»§\t2¡¢¹ÜÀíÔ±\t3¡¢×¢²á");
+    int loginCode;
+    scanf("%d", &loginCode);
+    printf("ÇëÊäÈëÓÃ»§Ãû(²»ÄÜ³¬¹ı20Î»£¬ÖĞÎÄÒ»¸ö×ÖÕ¼2Î»):");
+    char * user = (char *)malloc(sizeof(char) * 20);
+    scanf("%s", user);
+    printf("ÇëÊäÈëÃÜÂë(²»ÄÜ³¬¹ı20Î»£¬ÖĞÎÄÒ»¸ö×ÖÕ¼2Î»):");
+    char * password = (char *)malloc(sizeof(char) * 20);
+    scanf("%s", password);
+    if(loginCode != 3 && match(user, password))
+    {
+        printf("µÇÂ½³É¹¦£¡");
+    }
+    else if(loginCode == 3)
+    {
+        writeIn(user, password);
+    }
+    delete password;
+    delete user;
+    return 0;
+}

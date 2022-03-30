@@ -8,3 +8,35 @@
  * @copyright Copyright (c) 2022
  * 
  */
+#ifndef COURSE_H
+#define COURSE_H
+
+#include <stdio.h>
+#include <iostream>
+
+class course
+{
+private:
+    /* data */
+    int time;
+    char * address;
+    char ** documents;
+    char * current;
+    char ** finished;
+    char ** unfinished;
+    int extime;
+    char * exaddress;
+public:
+    course(int time, 
+                    char * address, 
+                    char ** documents,
+                    char * current,
+                    char ** finished,
+                    char ** unfinished,
+                    int extime,
+                    char * exaddress);
+    ~course();
+};
+
+
+#endif
