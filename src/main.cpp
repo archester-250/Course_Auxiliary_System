@@ -16,7 +16,7 @@ bool match(char * user, char * password, int loginCode);
 
 int main()
 {
-    printf("欢迎使用课程辅助系统！请选择登录方式\n1、学生用户\t2、管理员\t3、注册用户\t4、注册管理员");
+    printf("欢迎使用课程辅助系统！请选择登录方式\n1、学生用户\t2、管理员\t3、注册用户\t4、注册管理员\n");
     int loginCode;
     scanf("%d", &loginCode);getchar();
     char * user = (char *)malloc(sizeof(char) * 21);
@@ -142,7 +142,8 @@ bool inputString(char * str)
         switch (error)
         {
         case 0:
-            printf("The input exceeds the maximum limit!");
+            printf("The input exceeds the maximum limit!\n");
+            while(getchar() != '\n');
             return false;
             break;
         
