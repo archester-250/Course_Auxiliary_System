@@ -8,3 +8,12 @@
  * @copyright Copyright (c) 2022
  * 
  */
+#ifndef STUDENT_H
+#define STUDENT_H
+
+class Student {
+    int id;
+    Clock clock;
+};
+
+#endif
