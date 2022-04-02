@@ -1,7 +1,7 @@
 /**
  * @file student.h
  * @author your name (you@domain.com)
- * @brief 瀹屾垚瀛︾敓绫伙紝鍦ㄥ鐢熺被涓嬪畾涔夊鐢熺殑涓�绯诲垪鎿嶄綔
+ * @brief 完成学生类，在学生类下定义学生的一系列操作
  * @version 0.1
  * @date 2022-03-17
  * 
@@ -13,7 +13,6 @@
 
 class Student {
     int id;
-    Clock clock;
 };
 
 #endif
