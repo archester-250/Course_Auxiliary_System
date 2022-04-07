@@ -14,6 +14,7 @@ bool inputString(char * str);
 void writeIn(char * user, char * password, int loginCode);
 bool match(char * user, char * password, int loginCode);
 
+
 int main()
 {
     printf("欢迎使用课程辅助系统！请选择登录方式\n1、学生用户\t2、管理员\t3、注册用户\t4、注册管理员\n");

@@ -11,8 +11,22 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
+#include "activity.h"
+#include "utils.h"
+
+class Activity;
+
 class Student {
+
+public:
     int id;
+    int activityIDs[32];
+
+    int getId() const;
+
+    void setId(int id);
+
+    void addActivity();
 };
 
 #endif

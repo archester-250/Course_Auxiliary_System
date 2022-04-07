@@ -1,7 +1,7 @@
 /**
  * @file activity.h
  * @author your name (you@domain.com)
- * @brief å®Œæˆè¯¾å¤–æ´»åŠ¨ç®¡ç†åŠŸèƒ½ï¼ŒåŒ…æ‹¬è®¾å®šé—¹é’Ÿã€å¢åˆ æŸ¥æ”¹ç›¸å…³ä¿¡æ¯ã€æ£€æµ‹æ˜¯å¦æœ‰æ—¶é—´é‡å ç­‰
+ * @brief Íê³É¿ÎÍâ»î¶¯¹ÜÀí¹¦ÄÜ£¬°üÀ¨Éè¶¨ÄÖÖÓ¡¢ÔöÉ¾²é¸ÄÏà¹ØĞÅÏ¢¡¢¼ì²âÊÇ·ñÓĞÊ±¼äÖØµşµÈ
  * @version 0.1
  * @date 2022-03-17
  * 
@@ -14,24 +14,21 @@
 
 #include "student.h"
 #include <iostream>
+#include "utils.h"
 
-class Time{
-private:
-    short year, month, day, hr, minute = 0, second = 0;
-    short weekday = -1;
-};
+
 
 class Activity {
 private:
     Time startTime;
-    Time endTime;//æ´»åŠ¨èµ·æ­¢æ—¶é—´
+    Time endTime;//»î¶¯ÆğÖ¹Ê±¼ä
     char *address;
-    Student students[32];//æ¶‰åŠåˆ°çš„å­¦ç”Ÿ
-    bool clk;//é—¹é’Ÿæ ‡è¯†ï¼ŒTodo
-    char description[128];//æ´»åŠ¨å†…å®¹æè¿°
+    int studentIDs[32];//Éæ¼°µ½µÄÑ§Éú
+    bool clk;//ÄÖÖÓ±êÊ¶£¬Todo
+    char description[128];//»î¶¯ÄÚÈİÃèÊö
 
 public:
-    // Get å’Œ Set æ–¹æ³•
+    // Get ºÍ Set ·½·¨
     const Time &getStartTime() const;
 
     void setStartTime(const Time &startTime);
@@ -44,13 +41,17 @@ public:
 
     void setAddress(char *address);
 
-    const Student *getStudents() const;
+    const int *getStudentIDs() const;
 
     bool isClk() const;
 
     void setClk(bool clk);
 
     const char *getDescription() const;
+
+    void setDescription(char* description);
+    // ²éÏµÁĞ·½·¨
+    char* toString();
 
 };
 

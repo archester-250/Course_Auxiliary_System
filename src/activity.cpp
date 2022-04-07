@@ -1,5 +1,7 @@
 #include "activity.h"
 #include <iostream>
+#include <cstring>
+
 using namespace std;
 
 bool time_conflict(Time time){
@@ -43,8 +45,8 @@ void Activity::setAddress(char *address) {
     Activity::address = address;
 }
 
-const Student *Activity::getStudents() const {
-    return students;
+const int *Activity::getStudentIDs() const {
+    return studentIDs;
 }
 
 bool Activity::isClk() const {
@@ -57,4 +59,13 @@ void Activity::setClk(bool clk) {
 
 const char *Activity::getDescription() const {
     return description;
+}
+
+void Activity::setDescription(char *description) {
+    strcpy(Activity::description,description);
+}
+
+char* Activity::toString() {
+    return description;
+    //todo
 }
