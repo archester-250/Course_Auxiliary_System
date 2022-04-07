@@ -9,11 +9,9 @@
 using namespace std;
 
 class Time {
-    int yr, mn, day, hr;
-
-    int timeStamp() const {
-        return hr + day * 100 + mn * 10000 + (yr / 100) * 1000000;
-    }
+public:
+    int yr{}, mn{}, day{}, hr{};
+    int timestamp = timeStamp();
 
     void desc(int h) {//ºı…Ÿh–° ±
         while (h--) {
@@ -26,18 +24,30 @@ class Time {
         }
     }
 
-public:
-    int inputTime(int timestamp) {
-        hr = timestamp % 100;
-        timestamp /= 100;
-        day = timestamp % 100;
-        timestamp /= 100;
-        mn = timestamp % 100;
-        timestamp /= 100;
-        yr = timestamp + 2000;
+
+    int inputTime(int _timestamp) {
+        hr = _timestamp % 100;
+        _timestamp /= 100;
+        day = _timestamp % 100;
+        _timestamp /= 100;
+        mn = _timestamp % 100;
+        _timestamp /= 100;
+        yr = _timestamp + 2000;
         return EXIT_SUCCESS;
     }
-    
+
+    int timeStamp() const {
+        return hr + day * 100 + mn * 10000 + (yr / 100) * 1000000;
+    }
+
+    void incre(){
+        if (hr == 23) {
+            hr = 0;
+            day++;
+            //todo
+        } else
+            hr++;
+    }
 };
 
 
@@ -55,16 +65,16 @@ public:
         return repeat;
     }
 
-    void setRepeat(int repeat) {
-        Clock::repeat = repeat;
+    void setRepeat(int rep) {
+        Clock::repeat = rep;
     }
 
     const Time &getTime() const {
         return time;
     }
 
-    void setTime(const Time &time) {
-        Clock::time = time;
+    void setTime(const Time &t) {
+        Clock::time = t;
     }
 
 };

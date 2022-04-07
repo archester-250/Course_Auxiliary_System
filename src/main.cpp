@@ -9,38 +9,45 @@
  * 
  */
 #include "course.h"
+#include "utils.h"
 #include <cstring>
+#include <time.h>
 bool inputString(char * str);
 void writeIn(char * user, char * password, int loginCode);
 bool match(char * user, char * password, int loginCode);
 
-
+Time modtime;//todo:文件读取
+int systime = time(nullptr);
 int main()
 {
-    printf("欢迎使用课程辅助系统！请选择登录方式\n1、学生用户\t2、管理员\t3、注册用户\t4、注册管理员\n");
-    int loginCode;
-    scanf("%d", &loginCode);getchar();
-    char * user = (char *)malloc(sizeof(char) * 21);
-    do
-    {
-        printf("请输入用户名(不能超过20位，中文一个字占2位):");
-    } while (!inputString(user));
-    char * password = (char *)malloc(sizeof(char) * 21);
-    do
-    {
-        printf("请输入密码(不能超过20位，中文一个字占2位):");
-    } while (!inputString(password));
-    if((loginCode == 1 || loginCode == 2))
-    {
-        if(match(user, password, loginCode)) printf("登陆成功！\n");
-        else printf("登陆失败！\n");
+    while (true) {
+        int tmptime = systime;
+        printf("欢迎使用课程辅助系统！初始时间：%d(输入0退出）\n", modtime.timeStamp());
+        printf("请选择登录方式\n1、学生用户\t2、管理员\t3、注册用户\t4、注册管理员\n");
+        int loginCode;
+        scanf("%d", &loginCode);
+        if (loginCode == 0) break;
+        getchar();
+        char *user = (char *) malloc(sizeof(char) * 21);
+        do {
+            printf("请输入用户名(不能超过20位，中文一个字占2位):");
+        } while (!inputString(user));
+        char *password = (char *) malloc(sizeof(char) * 21);
+        do {
+            printf("请输入密码(不能超过20位，中文一个字占2位):");
+        } while (!inputString(password));
+        if ((loginCode == 1 || loginCode == 2)) {
+            if (match(user, password, loginCode)) printf("登陆成功！\n");
+            else printf("登陆失败！\n");
+        } else if (loginCode == 3 || loginCode == 4) {
+            writeIn(user, password, loginCode);
+        }
+        delete password;
+        delete user;
+        //WARNING: 目前的计时应该都是错的
+        if (clock() - systime == 10000)
+            modtime.incre();
     }
-    else if(loginCode == 3 || loginCode == 4)
-    {
-        writeIn(user, password, loginCode);
-    }
-    delete password;
-    delete user;
     return 0;
 }
 void writeIn(char * user, char * password, int loginCode)

@@ -16,10 +16,10 @@
 #include <iostream>
 #include "utils.h"
 
-
+class Time;
 
 class Activity {
-private:
+public:
     Time startTime;
     Time endTime;//活动起止时间
     char *address;
@@ -27,7 +27,6 @@ private:
     bool clk;//闹钟标识，Todo
     char description[128];//活动内容描述
 
-public:
     // Get 和 Set 方法
     const Time &getStartTime() const;
 
