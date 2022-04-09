@@ -15,6 +15,9 @@
 #include <ctime>
 #include <fstream>
 
+
+/*const */ int SYS_TIME_BIAS_TIMES 10000;
+//时间倍率，默认是10秒一小时
 using namespace std;
 
 Time modtime;//todo:文件读取
@@ -29,7 +32,7 @@ int main()
     while (notEnd) {
         printf("初始时间：%d(输入0退出）\n", modtime.timeStamp());
         //WARNING: 目前的计时应该都是错的
-        if (clock() - systime > 98765){
+        if (clock() - systime > SYS_TIME_BIAS_TIMES){
             systime = clock();
             modtime.incre();
             // 检查闹钟
