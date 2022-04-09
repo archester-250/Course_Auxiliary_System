@@ -1,8 +1,6 @@
 #ifndef COURSE_AUXILIARY_SYSTEM_UTILS_H
 #define COURSE_AUXILIARY_SYSTEM_UTILS_H
 
-#include "activity.h"
-#include "student.h"
 #include <iostream>
 #include <cstdlib>
 
@@ -40,6 +38,7 @@ public:
                     return 28;
 
         }
+        return 28;
     }
 
     void desc(int h) {//ºı…Ÿh–° ±
@@ -47,9 +46,10 @@ public:
             if (hr == 0) {
                 hr = 24;
                 if (day == 1) {
-                    if (mn != 1)
-                        day = MonthDays(mn - 1);
+                    if (mn != 1) {
+                        day = MonthDays(yr, mn - 1);
                         mn--;
+                    }
                     else {
                         day = 31;
                         mn = 12;
@@ -83,6 +83,7 @@ public:
             hr = 0;
             if (day == MonthDays(yr, mn)) {
                 day = 1;
+                mn++;
             } else
                 day++;
         } else
