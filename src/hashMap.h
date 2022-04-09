@@ -19,9 +19,9 @@ struct Pair {
     T1 first;
     T2 second;
 
-    pair() : first(T1()), second(T2()) {}
+    Pair() : first(T1()), second(T2()) {}
 
-    pair(const T1 &a, const T2 &b) : first(a), second(b) {}
+    Pair(const T1 &a, const T2 &b) : first(a), second(b) {}
 };
 
 template<class T>

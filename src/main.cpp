@@ -11,7 +11,7 @@
 #include "login.h"
 #include "course.h"
 #include "utils.h"
-#include <time.h>
+#include <ctime>
 
 Time modtime;//todo:文件读取
 int systime = time(nullptr);
@@ -19,11 +19,13 @@ int main()
 {
     int notEnd = 1;
     while (notEnd) {
-        int tmptime = systime;
         printf("初始时间：%d(输入0退出）\n", modtime.timeStamp());
         //WARNING: 目前的计时应该都是错的
-        if (clock() - systime == 10000)
+        if (clock() - systime > 98765){
+            tmptime = clock();
             modtime.incre();
+            // 检查闹钟
+        }
         notEnd = login::dologin();
     }
     return 0;
