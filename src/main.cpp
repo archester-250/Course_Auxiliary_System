@@ -14,10 +14,11 @@
 #include <iostream>
 #include <ctime>
 #include <fstream>
+#include <io.h>
 
 
-/*const */ int SYS_TIME_BIAS_TIMES = 10000;
-//时间倍率，现在好像是1秒一小时
+/*const */ int SYS_TIME_BIAS_TIMES = 5000;
+//时间倍率，现在好像是5秒一小时
 using namespace std;
 
 Time modtime;
@@ -32,6 +33,7 @@ int main()
     int init_time = 0;
     config >> init_time;
     modtime.inputTime(init_time);
+    config.close();
     int notEnd = 1;
     while (notEnd) {
         printf("初始时间：%d(输入0退出）\n", modtime.timeStamp());
@@ -44,5 +46,8 @@ int main()
         notEnd = login::dologin();
     }
     clog.rdbuf(clogbuf);
+    ofstream _config("../database/config");
+    _config << modtime.timeStamp();
+    _config.close();
     return 0;
 }
