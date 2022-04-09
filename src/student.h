@@ -13,8 +13,10 @@
 
 #include "activity.h"
 #include "utils.h"
+#include "course.h"
 
 class Activity;
+class course;
 
 class Student {
 

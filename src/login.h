@@ -14,8 +14,8 @@
 #include <stdio.h>
 #include <iostream>
 #include <cstring>
+#include "hashMap.h"
 
-#endif
 class login
 {
 private:
@@ -158,3 +158,5 @@ public:
         return true;
     }
 };
+
+#endif
