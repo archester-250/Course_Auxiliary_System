@@ -26,7 +26,7 @@ struct Pair {
 
 template<class T>
 struct TreeNode {
-    TreeNode *left, right;
+    TreeNode *left, *right;
     T val;
 
     TreeNode() : left(nullptr), right(nullptr) {}
@@ -125,7 +125,7 @@ bool HashMap<T1, T2, HashFunc>::put(const T1 &_key, const T2 &_value) {
 
 template<class T1, class T2, class HashFunc>
 T2 &HashMap<T1, T2, HashFunc>::get(const T1 &_key) {
-    int index = hash(_key) % _size;
+    int index = hash(_key) % size;
     HashNode<T1, T2> *node = table[index];
     while (node) {
         if (node->key == _key) {

@@ -20,7 +20,7 @@ using namespace std;
 Time modtime;//todo:нд╪Ч╤ах║
 int systime = time(nullptr);
 
-ofstream log("log");
+ofstream _log("log");
 streambuf *clogbuf = std::clog.rdbuf();
 
 int main()
