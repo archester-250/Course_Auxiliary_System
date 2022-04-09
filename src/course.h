@@ -27,7 +27,7 @@ private:
     int extime;
     char * exaddress;
 public:
-    course(int time, 
+    course(         int time, 
                     char * address, 
                     char ** documents,
                     char * current,
@@ -36,6 +36,23 @@ public:
                     int extime,
                     char * exaddress);
     ~course();
+    int getTime();
+    void setTime(int time);
+    char * getAddress();
+    void setAddress(char * address);
+    char ** getDocuments();
+    void setDocuments(char ** documents);
+    char * getCurrent();
+    void setCurrent(char * current);
+    char ** getFinished();
+    void setFinished(char ** finished);
+    char ** getUnfinished();
+    void setUnfinished(char ** unfinished);
+    int getExtime();
+    void setExtime(int extime);
+    char * getExaddress();
+    void setExaddress(char * exaddress);
+    
 };
 
 

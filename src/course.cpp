@@ -22,3 +22,4 @@ course::course(int time,
 course::~course()
 {
 }
+
