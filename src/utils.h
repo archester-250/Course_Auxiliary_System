@@ -1,8 +1,6 @@
 #ifndef COURSE_AUXILIARY_SYSTEM_UTILS_H
 #define COURSE_AUXILIARY_SYSTEM_UTILS_H
 
-#include "activity.h"
-#include "student.h"
 #include <iostream>
 #include <cstdlib>
 
@@ -50,8 +48,6 @@ public:
     }
 };
 
-
-class Student;
 
 // ƒ÷÷”
 class Clock {
