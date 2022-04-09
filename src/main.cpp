@@ -16,18 +16,22 @@
 #include <fstream>
 
 
-/*const */ #define SYS_TIME_BIAS_TIMES 10000
-//时间倍率，默认是10秒一小时
+/*const */ int SYS_TIME_BIAS_TIMES = 10000;
+//时间倍率，现在好像是1秒一小时
 using namespace std;
 
-Time modtime;//todo:文件读取
-int systime = time(nullptr);
+Time modtime;
+int systime = clock();
 
 ofstream _log("log");
 streambuf *clogbuf = std::clog.rdbuf();
 
 int main()
 {
+    ifstream config("../database/config");
+    int init_time = 0;
+    config >> init_time;
+    modtime.inputTime(init_time);
     int notEnd = 1;
     while (notEnd) {
         printf("初始时间：%d(输入0退出）\n", modtime.timeStamp());

@@ -28,6 +28,7 @@ public:
         int loginCode;
         scanf("%d", &loginCode);
         if (loginCode == 0) return 0;
+        getchar();
         char *user = (char *) malloc(sizeof(char) * 21);
         do {
             printf("请输入用户名(不能超过20位，中文一个字占2位):");
