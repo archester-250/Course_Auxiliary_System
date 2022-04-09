@@ -19,14 +19,14 @@
 class Time;
 
 class Activity {
-public:
+private:
     Time startTime;
     Time endTime;//活动起止时间
     char *address;
     int studentIDs[32];//涉及到的学生
     bool clk;//闹钟标识，Todo
     char description[128];//活动内容描述
-
+public:
     // Get 和 Set 方法
     const Time &getStartTime() const;
 

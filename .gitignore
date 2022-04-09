@@ -33,3 +33,9 @@
 
 #.vscode
 /.vscode/
+
+#.build
+/build
+
+#CMakeLists
+CMakeLists.txt
