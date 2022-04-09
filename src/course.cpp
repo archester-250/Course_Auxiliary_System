@@ -1,6 +1,8 @@
 #include "course.h"
 
-course::course(int time, 
+course::course(
+    char * name,
+    int time, 
     char * address, 
     char ** documents,
     char * current,
@@ -9,6 +11,7 @@ course::course(int time,
     int extime,
     char * exaddress)
 {
+    this->name = name;
     this->time = time;
     this->address = address;
     this->current = current;
@@ -21,5 +24,18 @@ course::course(int time,
 
 course::~course()
 {
+}
+
+void course::operator=(course& c)
+{
+    address = c.getAddress();
+    name = c.getName();
+    time = c.getTime();
+    documents = c.getDocuments();
+    current = c.getCurrent();
+    finished = c.getFinished();
+    unfinished = c.getUnfinished();
+    extime = c.getExtime();
+    exaddress = c.getExaddress();
 }
 

@@ -18,6 +18,7 @@ class course
 {
 private:
     /* data */
+    char * name;
     int time;
     char * address;
     char ** documents;
@@ -25,9 +26,11 @@ private:
     char ** finished;
     char ** unfinished;
     int extime;
-    char * exaddress;
+    char * exaddress;//-ex前缀：考试相关信息
 public:
-    course(         int time, 
+    course(){};
+    course(         char * name,
+                    int time,
                     char * address, 
                     char ** documents,
                     char * current,
@@ -36,6 +39,8 @@ public:
                     int extime,
                     char * exaddress);
     ~course();
+    char * getName();
+    void setName(char * name);
     int getTime();
     void setTime(int time);
     char * getAddress();
@@ -52,7 +57,7 @@ public:
     void setExtime(int extime);
     char * getExaddress();
     void setExaddress(char * exaddress);
-    
+    void operator=(course& c);
 };
 
 

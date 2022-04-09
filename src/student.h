@@ -18,15 +18,20 @@ class Activity;
 
 class Student {
 
-public:
+private:
     int id;
     int activityIDs[32];
 
+public:
     int getId() const;
 
     void setId(int id);
 
     void addActivity();
+
+    void addCourse(course * c[], int & size, course newc);
+
+    char * searchCourse();
 };
 
 #endif

@@ -1,5 +1,6 @@
 
 #include "student.h"
+#include "course.h"
 
 using namespace std;
 
@@ -39,4 +40,14 @@ void Student::addActivity() {
 //        clock.setStudent();todo
     }
 
+}
+
+void Student::addCourse(course * c[], int & size, course newc)
+{
+    size++;
+    course * newArray = new course[size];
+    memcpy(newArray, c, sizeof(course) * (size - 1));
+    newArray[size-1] = newc;
+    delete *c;
+    (*c) = newArray;
 }
