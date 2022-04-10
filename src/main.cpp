@@ -36,7 +36,7 @@ int main()
     config.close();
     int notEnd = 1;
     while (notEnd) {
-        printf("初始时间：%d(输入0退出）\n", modtime.timeStamp());
+        printf("初始时间：%d", modtime.timeStamp());
         //WARNING: 目前的计时应该都是错的
         if (clock() - systime > SYS_TIME_BIAS_TIMES){
             systime = clock();
@@ -44,6 +44,14 @@ int main()
             // 检查闹钟
         }
         notEnd = login::dologin();
+        if(notEnd == 1)
+        {
+            
+        }
+        else if(notEnd == 2)
+        {
+
+        }
     }
     clog.rdbuf(clogbuf);
     ofstream _config("../database/config");
