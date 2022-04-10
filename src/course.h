@@ -14,6 +14,14 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+
+struct hwork//家庭作业
+{
+    /* data */
+    string homework;
+    bool finish;
+};
+
 using namespace std;
 
 class course
@@ -26,8 +34,8 @@ private:
     string address;
     string * documents;
     string current;
-    string * finished;
-    string * unfinished;
+    hwork * homeWork;
+    string QQGroup;
     int extime;
     string exaddress;//-ex前缀：考试相关信息
 public:
@@ -38,11 +46,12 @@ public:
                     string address,
                     string * documents,
                     string current,
-                    string * finished,
-                    string * unfinished,
+                    hwork * homeWork,
+                    string QQGroup,
                     int extime,
                     string exaddress);
     ~course();
+    string getStuName();
     string getName();
     void setName(string name);
     int getTime();
@@ -53,10 +62,8 @@ public:
     void setDocuments(string * documents);
     string getCurrent();
     void setCurrent(string current);
-    string * getFinished();
-    void setFinished(string * finished);
-    string * getUnfinished();
-    void setUnfinished(string * unfinished);
+    hwork * getHomeWork();
+    void setHomeWork(hwork * homeWork);
     int getExtime();
     void setExtime(int extime);
     string getExaddress();

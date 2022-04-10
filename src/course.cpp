@@ -7,11 +7,12 @@ course::course(
     string address, 
     string * documents,
     string current,
-    string * finished,
-    string * unfinished,
+    hwork * homeWork,
+    string QQGroup,
     int extime,
     string exaddress)
 {
+    this->stuName = stuName;
     this->name = name;
     this->time = time;
     this->address = address;
@@ -19,27 +20,39 @@ course::course(
     this->documents = documents;
     this->exaddress = exaddress;
     this->extime = extime;
-    this->finished = finished;
-    this->unfinished = unfinished;
+    this->homeWork = homeWork;
+    this->QQGroup = QQGroup;
 }
 
 course::~course()
 {
+    stuName = "";
+    name = "";
+    time = 0;
+    address = "";
+    documents = NULL;
+    current = "";
+    homeWork = NULL;
+    QQGroup = "";
+    extime = 0;
+    exaddress = "";
 }
 
 void course::operator=(course& c)
 {
+    stuName = c.getStuName();
     address = c.getAddress();
     name = c.getName();
     time = c.getTime();
     documents = c.getDocuments();
     current = c.getCurrent();
-    finished = c.getFinished();
-    unfinished = c.getUnfinished();
+    homeWork = c.getHomeWork();
     extime = c.getExtime();
     exaddress = c.getExaddress();
+
 }
 
+string course::getStuName(){return stuName;}
 string course::getName(){return name;}
 void course::setName(string name){this->name = name;}
 int course::getTime(){return time;}
@@ -50,10 +63,9 @@ string* course::getDocuments(){return documents;}
 void course::setDocuments(string * documents){this->documents = documents;}
 string course::getCurrent(){return current;}
 void course::setCurrent(string current){this->current = current;}
-string* course::getFinished(){return finished;}
-void course::setFinished(string* finished){this->finished = finished;}
-string* course::getUnfinished(){return unfinished;}
-void course::setUnfinished(string* unfinished){this->unfinished = unfinished;}
+hwork * course::getHomeWork(){return this->homeWork;}
+void course::setHomeWork(hwork * homeWork){this->homeWork = homeWork;}
+void setHomeWork(hwork homeWork);
 int course::getExtime(){return extime;}
 void course::setExtime(int extime){this->extime = extime;}
 string course::getExaddress(){return exaddress;}
