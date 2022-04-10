@@ -9,8 +9,8 @@
  * 
  */
 #include "login.h"
-#include "course.h"
 #include "utils.h"
+#include "student.h"
 #include <iostream>
 #include <ctime>
 #include <fstream>
@@ -43,10 +43,10 @@ int main()
             modtime.incre();
             // ºÏ≤Èƒ÷÷”
         }
-        notEnd = login::dologin();
+        notEnd = login::dologin().notEnd;
         if(notEnd == 1)
         {
-            
+            Student student;
         }
         else if(notEnd == 2)
         {

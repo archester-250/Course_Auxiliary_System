@@ -12,51 +12,53 @@
 #define COURSE_H
 
 #include <stdio.h>
+#include <string>
 #include <iostream>
+using namespace std;
 
 class course
 {
 private:
     /* data */
-    char * name;
+    string name;
     int time;
-    char * address;
-    char ** documents;
-    char * current;
-    char ** finished;
-    char ** unfinished;
+    string address;
+    string * documents;
+    string current;
+    string * finished;
+    string * unfinished;
     int extime;
-    char * exaddress;//-ex前缀：考试相关信息
+    string exaddress;//-ex前缀：考试相关信息
 public:
     course(){};
-    course(         char * name,
+    course(         string name,
                     int time,
-                    char * address, 
-                    char ** documents,
-                    char * current,
-                    char ** finished,
-                    char ** unfinished,
+                    string address,
+                    string * documents,
+                    string current,
+                    string * finished,
+                    string * unfinished,
                     int extime,
-                    char * exaddress);
+                    string exaddress);
     ~course();
-    char * getName();
-    void setName(char * name);
+    string getName();
+    void setName(string name);
     int getTime();
     void setTime(int time);
-    char * getAddress();
-    void setAddress(char * address);
-    char ** getDocuments();
-    void setDocuments(char ** documents);
-    char * getCurrent();
-    void setCurrent(char * current);
-    char ** getFinished();
-    void setFinished(char ** finished);
-    char ** getUnfinished();
-    void setUnfinished(char ** unfinished);
+    string getAddress();
+    void setAddress(string address);
+    string * getDocuments();
+    void setDocuments(string * documents);
+    string getCurrent();
+    void setCurrent(string current);
+    string * getFinished();
+    void setFinished(string * finished);
+    string * getUnfinished();
+    void setUnfinished(string * unfinished);
     int getExtime();
     void setExtime(int extime);
-    char * getExaddress();
-    void setExaddress(char * exaddress);
+    string getExaddress();
+    void setExaddress(string exaddress);
     void operator=(course& c);
 };
 

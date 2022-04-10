@@ -17,18 +17,33 @@
 #include "hashMap.h"
 #include "utils.h"
 
+using namespace std;
+
+struct info
+{
+    int notEnd;
+    string user;
+    /* data */
+};
+
+
 class login
 {
 private:
     /* data */
 public:
-    static int dologin()
+    static info dologin()
     {
         printf("欢迎使用课程辅助系统！(输入0退出）\n");
         printf("请选择登录方式\n1、学生用户\t2、管理员\t3、注册用户\t4、注册管理员\n");
+        info inf;
         int loginCode;
         scanf("%d", &loginCode);
-        if (loginCode == 0) return 0;
+        if (loginCode == 0)
+        {
+            inf.notEnd = 0;
+            return inf;
+        }
         getchar();
         char *user = (char *) malloc(sizeof(char) * 21);
         memset(user, 0, 21);
@@ -44,7 +59,10 @@ public:
             if (match(user, password, loginCode)) 
             {
                 printf("登陆成功！\n");
-                return loginCode;
+                inf.notEnd = loginCode;
+                string suser(user);
+                inf.user = suser;
+                return inf;
             }
             else printf("登陆失败！\n");
         } else if (loginCode == 3 || loginCode == 4) {
@@ -58,7 +76,8 @@ public:
         }
         delete password;
         delete user;
-        return 1;
+        inf.notEnd = 5;
+        return inf;
     }
     static void writeIn(char * user, char * password, int loginCode)
     {

@@ -1,15 +1,15 @@
 #include "course.h"
 
 course::course(
-    char * name,
+    string name,
     int time, 
-    char * address, 
-    char ** documents,
-    char * current,
-    char ** finished,
-    char ** unfinished,
+    string address, 
+    string * documents,
+    string current,
+    string * finished,
+    string * unfinished,
     int extime,
-    char * exaddress)
+    string exaddress)
 {
     this->name = name;
     this->time = time;
@@ -39,22 +39,22 @@ void course::operator=(course& c)
     exaddress = c.getExaddress();
 }
 
-char * course::getName(){return name;}
-void course::setName(char * name){this->name = name;}
+string course::getName(){return name;}
+void course::setName(string name){this->name = name;}
 int course::getTime(){return time;}
 void course::setTime(int time){this->time = time;}
-char * course::getAddress(){return address;}
-void course::setAddress(char * address){this->address = address;}
-char ** course::getDocuments(){return documents;}
-void course::setDocuments(char ** documents){this->documents = documents;}
-char * course::getCurrent(){return current;}
-void course::setCurrent(char * current){this->current = current;}
-char ** course::getFinished(){return finished;}
-void course::setFinished(char ** finished){this->finished = finished;}
-char ** course::getUnfinished(){return unfinished;}
-void course::setUnfinished(char ** unfinished){this->unfinished = unfinished;}
+string course::getAddress(){return address;}
+void course::setAddress(string address){this->address = address;}
+string* course::getDocuments(){return documents;}
+void course::setDocuments(string * documents){this->documents = documents;}
+string course::getCurrent(){return current;}
+void course::setCurrent(string current){this->current = current;}
+string* course::getFinished(){return finished;}
+void course::setFinished(string* finished){this->finished = finished;}
+string* course::getUnfinished(){return unfinished;}
+void course::setUnfinished(string* unfinished){this->unfinished = unfinished;}
 int course::getExtime(){return extime;}
 void course::setExtime(int extime){this->extime = extime;}
-char * course::getExaddress(){return exaddress;}
-void course::setExaddress(char * exaddress){this->exaddress = exaddress;}
+string course::getExaddress(){return exaddress;}
+void course::setExaddress(string exaddress){this->exaddress = exaddress;}
 
