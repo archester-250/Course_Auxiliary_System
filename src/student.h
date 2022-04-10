@@ -39,8 +39,6 @@ public:
     void addCourse(course * c[], int & size, course newc);
 
     char * searchCourse(course * c[], int size, string name);
-
-    bool uploadFile(string name);
 };
 
 #endif

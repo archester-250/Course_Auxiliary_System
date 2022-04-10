@@ -1,6 +1,7 @@
 #include "course.h"
 
 course::course(
+    string stuName,
     string name,
     int time, 
     string address, 
@@ -58,3 +59,8 @@ void course::setExtime(int extime){this->extime = extime;}
 string course::getExaddress(){return exaddress;}
 void course::setExaddress(string exaddress){this->exaddress = exaddress;}
 
+void course::uploadFile(string road)
+{
+    string cmd = "copy " + road + " ..\\documents\\users\\" + stuName + "\\" + name;
+    system(cmd.c_str());
+}

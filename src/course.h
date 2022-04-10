@@ -20,6 +20,7 @@ class course
 {
 private:
     /* data */
+    string stuName;
     string name;
     int time;
     string address;
@@ -31,7 +32,8 @@ private:
     string exaddress;//-ex前缀：考试相关信息
 public:
     course(){};
-    course(         string name,
+    course(         string stuName,
+                    string name,
                     int time,
                     string address,
                     string * documents,
@@ -60,6 +62,8 @@ public:
     string getExaddress();
     void setExaddress(string exaddress);
     void operator=(course& c);
+    
+    void uploadFile(string road);
 };
 
 
