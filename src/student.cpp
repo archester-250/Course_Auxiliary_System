@@ -12,6 +12,16 @@ void Student::setId(int id) {
     Student::id = id;
 }
 
+string Student::getName()
+{
+    return name;
+}
+
+void Student::setName(string name)
+{
+    this->name = name;
+}
+
 void Student::addActivity() {
     Activity activity;
     Time startTime, endTime;
@@ -50,4 +60,6 @@ void Student::addCourse(course * c[], int & size, course newc)
     newArray[size-1] = newc;
     delete *c;
     (*c) = newArray;
+    string cmd = "mkdir ..\\documents\\users\\" + name + "\\" + newc.getName();
+    system(cmd.c_str());
 }

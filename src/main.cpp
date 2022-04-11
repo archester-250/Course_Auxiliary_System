@@ -9,8 +9,8 @@
  * 
  */
 #include "login.h"
-#include "course.h"
 #include "utils.h"
+#include "student.h"
 #include <iostream>
 #include <ctime>
 #include <fstream>
@@ -36,14 +36,22 @@ int main()
     config.close();
     int notEnd = 1;
     while (notEnd) {
-        printf("初始时间：%d(输入0退出）\n", modtime.timeStamp());
+        printf("初始时间：%d", modtime.timeStamp());
         //WARNING: 目前的计时应该都是错的
         if (clock() - systime > SYS_TIME_BIAS_TIMES){
             systime = clock();
             modtime.incre(1);
             // 检查闹钟
         }
-        notEnd = login::dologin();
+        notEnd = login::dologin().notEnd;
+        if(notEnd == 1)
+        {
+            Student student;
+        }
+        else if(notEnd == 2)
+        {
+
+        }
     }
     clog.rdbuf(clogbuf);
     ofstream _config("../database/config");
