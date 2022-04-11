@@ -28,11 +28,11 @@ public:
             case 11:
                 return 30;
             case 2:
-                if (yr % 100 == 0 && yr % 400 != 0) {
+                if (yr % 400 == 0) {
                     return 29;
                 } else if (yr % 100 == 0) {
                     return 28;
-                } else if (yr % 100 != 0 && yr % 4 == 0) {
+                } else if (yr % 4 == 0) {
                     return 29;
                 } else
                     return 28;
@@ -49,8 +49,7 @@ public:
                     if (mn != 1) {
                         day = MonthDays(yr, mn - 1);
                         mn--;
-                    }
-                    else {
+                    } else {
                         day = 31;
                         mn = 12;
                         yr--;
@@ -78,17 +77,23 @@ public:
         return hr + day * 100 + mn * 10000 + (yr / 100) * 1000000;
     }
 
-    void incre() {
-        if (hr == 23) {
-            hr = 0;
-            if (day == MonthDays(yr, mn)) {
-                day = 1;
-                mn++;
+    void incre(int h) {
+        while (h--) {
+            if (hr == 23) {
+                hr = 0;
+                if (day == MonthDays(yr, mn)) {
+                    day = 1;
+                    mn++;
+                } else
+                    day++;
             } else
-                day++;
-        } else
-            hr++;
+                hr++;
+        }
     }
+
+    void pause();
+
+    void recover(){};
 };
 
 

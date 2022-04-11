@@ -40,7 +40,7 @@ int main()
         //WARNING: 目前的计时应该都是错的
         if (clock() - systime > SYS_TIME_BIAS_TIMES){
             systime = clock();
-            modtime.incre();
+            modtime.incre(1);
             // 检查闹钟
         }
         notEnd = login::dologin();
