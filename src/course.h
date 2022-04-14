@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-
+using namespace std;
 struct hwork//家庭作业
 {
     /* data */

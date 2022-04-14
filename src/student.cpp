@@ -46,7 +46,8 @@ void Student::addActivity() {
     activity.setClk(clk);
     if (clk){
         Clock clock;
-        clock.setTime(startTime);
+        Time time = startTime.desc(1);
+        clock.setTime(time);
 //        clock.setStudent();todo
     }
 

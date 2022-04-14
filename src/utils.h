@@ -41,7 +41,7 @@ public:
         return 28;
     }
 
-    void desc(int h) {//减少h小时
+    Time desc(int h) {//减少h小时
         while (h--) {
             if (hr == 0) {
                 hr = 24;
@@ -59,6 +59,7 @@ public:
             }
             hr--;
         }
+        return *this;
     }
 
 
@@ -117,7 +118,7 @@ public:
         return time;
     }
 
-    void setTime(const Time &t) {
+    void setTime(Time t) {
         Clock::time = t;
     }
 
