@@ -86,6 +86,7 @@ public:
 private:
     HashNode<T1, T2> **table;//ึธี๋สýื้
     int size{};
+    T2 valNull;
 };
 
 template<class T1, class T2>
@@ -128,7 +129,7 @@ T2 HashMap<T1, T2>::get(T1 _key) {
         }
         node = node->next;
     }
-    return nullptr;
+    return valNull;
 }
 
 template<class T1, class T2>

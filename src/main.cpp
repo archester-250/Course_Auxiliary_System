@@ -44,7 +44,7 @@ int main()
             modtime.incre(1);
             // ºÏ≤Èƒ÷÷”
             Clock clock = clocks.get(modtime.timeStamp());
-            if (clock){
+            if (clock.toString()){//BUG here
                 cout << "[Ã·–—]" << clock.toString();
             }
         }
