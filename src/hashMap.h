@@ -15,7 +15,7 @@ static int primes[27] =
         };//from web
 
 template<class T1, class T2>
-struct Pair {
+struct Pair {//no use
     T1 first;
     T2 second;
 
@@ -25,7 +25,7 @@ struct Pair {
 };
 
 template<class T>
-struct TreeNode {
+struct TreeNode {// no use
     TreeNode *left, *right;
     T val;
 
@@ -35,7 +35,7 @@ struct TreeNode {
 };
 
 template<class T>
-struct Node {
+struct Node {//no use
     T val;
     Node *next;
 
@@ -57,7 +57,7 @@ public:
         next = nullptr;
     }
 
-    HashNode &operator = (const HashNode &node) {
+    HashNode &operator=(const HashNode &node) {
         key = node.key;
         value = node.value;
         next = node.next;
@@ -65,37 +65,48 @@ public:
     }
 };
 
-template<class T1, class T2, class HashFunc>
+template<class T1, class T2>
 class HashMap {
+
 public:
-    HashMap(int size);
+    HashMap(int);
+
+    int put(T1 key, T2 value);
+
+    T2 get(T1 key);
+
+    int hash(int h) {
+        h ^= (h >> 20) ^ (h >> 12);
+        return h ^ (h >> 7) ^ (h >> 4);
+    }//steal
+
 
     ~HashMap();
 
-    bool put(const T1 &key, const T2 &value);
-
-    bool del(const T1 &key);
-
-    T2 &get(const T1 &key);
-
-    T2 &operator[](const T1 &key);
-
 private:
-    HashFunc hash;//需定义传入对于T1的哈希值计算函数！
     HashNode<T1, T2> **table;//指针数组
-    int size;
+    int size{};
 };
 
-template<class T1, class T2, class HashFunc>
-HashMap<T1, T2, HashFunc>::HashMap(int _size):size(_size) {
-    table = new HashNode<T1, T2> *[_size];
-    for (int i = 0; i < _size; i++) {
-        table[i] = nullptr;
+template<class T1, class T2>
+int HashMap<T1, T2>::put(T1 _key, T2 _value) {
+    int index = hash(_key) % size;
+    HashNode<T1, T2> *node = table[index];
+    while (node) {
+        if (node->key == _key) {
+            node->value = _value;
+            return -1;//已有该值,[修改]
+        }
+        node = node->next;
     }
+    node = new HashNode<T1, T2>(_key, _value);
+    node->next = table[index];
+    table[index] = node;
+    return index;
 }
 
-template<class T1, class T2, class HashFunc>
-HashMap<T1, T2, HashFunc>::~HashMap() {
+template<class T1, class T2>
+HashMap<T1, T2>::~HashMap() {
     for (int i = 0; i < size; i++) {
         HashNode<T1, T2> *node = table[i];
         while (node) {
@@ -107,24 +118,8 @@ HashMap<T1, T2, HashFunc>::~HashMap() {
     delete table;
 }
 
-template<class T1, class T2, class HashFunc>
-bool HashMap<T1, T2, HashFunc>::put(const T1 &_key, const T2 &_value) {
-    int index = hash(_key) % size;
-    HashNode<T1, T2> *node = table[index];
-    while (node) {
-        if (node->key == _key) {
-            return false;//已有该值
-        }
-        node = node->next;
-    }
-    node = new HashNode<T1, T2>(_key, _value);
-    node->next = table[index];
-    table[index] = node;
-    return true;
-}
-
-template<class T1, class T2, class HashFunc>
-T2 &HashMap<T1, T2, HashFunc>::get(const T1 &_key) {
+template<class T1, class T2>
+T2 HashMap<T1, T2>::get(T1 _key) {
     int index = hash(_key) % size;
     HashNode<T1, T2> *node = table[index];
     while (node) {
@@ -133,39 +128,16 @@ T2 &HashMap<T1, T2, HashFunc>::get(const T1 &_key) {
         }
         node = node->next;
     }
-    return nullptr;
-//    node = new HashNode<T1, T2>(key, valueNull);
-//    node->next = table[index];
-//    table[index] = node;
-//    return table[index]->value;//没有就添加
+    return nullptr;;
 }
 
-
-template<class T1, class T2, class HashFunc>
-T2 &HashMap<T1, T2, HashFunc>::operator[](const T1 &key) {
-    return get(key);
-}
-
-template<class T1, class T2, class HashFunc>
-bool HashMap<T1, T2, HashFunc>::del(const T1 &_key) {
-    int index = hash(_key) % size;
-    HashNode<T1, T2> *node = table[index];
-    HashNode<T1, T2> *preNode = NULL;
-    while (node) {
-        if (node->key == _key) {
-            if (preNode == nullptr) {
-                table[index] = node->next;
-            } else {
-                preNode->next = node->next;
-            }
-            delete node;
-            return true;
-        } else {
-            preNode = node;
-            node = node->next;
-        }
+template<class T1, class T2>
+HashMap<T1, T2>::HashMap(int _size) {
+    this->size = _size;
+    table = new HashNode<T1, T2> *[_size];
+    for (int i = 0; i < _size; i++) {
+        table[i] = nullptr;
     }
-    return false;
 }
 
 
