@@ -122,6 +122,9 @@ public:
         Clock::time = t;
     }
 
+    const char* toString(){
+        return "todo";
+    }
 };
 
 #endif

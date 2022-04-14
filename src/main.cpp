@@ -15,7 +15,9 @@
 #include <ctime>
 #include <fstream>
 #include <io.h>
+#include "hashMap.h"
 
+HashMap<int, Clock> clocks(64);
 
 /*const */ int SYS_TIME_BIAS_TIMES = 5000;
 //时间倍率，现在好像是5秒一小时
@@ -37,11 +39,14 @@ int main()
     int notEnd = 1;
     while (notEnd) {
         printf("初始时间：%d", modtime.timeStamp());
-        //WARNING: 目前的计时应该都是错的
         if (clock() - systime > SYS_TIME_BIAS_TIMES){
             systime = clock();
             modtime.incre(1);
             // 检查闹钟
+            Clock clock = clocks.get(modtime.timeStamp());
+            if (clock){
+                cout << "[提醒]" << clock.toString();
+            }
         }
         notEnd = login::dologin().notEnd;
         if(notEnd == 1)

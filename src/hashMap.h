@@ -57,7 +57,7 @@ public:
         next = nullptr;
     }
 
-    HashNode &operator=(const HashNode &node) {
+    HashNode &operator =(const HashNode &node) {
         key = node.key;
         value = node.value;
         next = node.next;
@@ -128,7 +128,7 @@ T2 HashMap<T1, T2>::get(T1 _key) {
         }
         node = node->next;
     }
-    return nullptr;;
+    return nullptr;
 }
 
 template<class T1, class T2>
