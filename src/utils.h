@@ -9,7 +9,7 @@ using namespace std;
 
 class Time {
 public:
-    int yr{}, mn{}, day{}, hr{};
+    int yr = 0, mn = 0, day = 0, hr = 0;
     int timestamp = timeStamp();
 
     int MonthDays(int yr, int mn) {

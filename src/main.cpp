@@ -44,8 +44,8 @@ int main()
             modtime.incre(1);
             // 检查闹钟
             Clock clock = clocks.get(modtime.timeStamp());
-            if (clock.toString()){//BUG here
-                cout << "[提醒]" << clock.toString();
+            if (clock.time.timeStamp()){//BUG here
+                cout << "[事件提醒]" << clock.toString();
             }
         }
         notEnd = login::dologin().notEnd;
