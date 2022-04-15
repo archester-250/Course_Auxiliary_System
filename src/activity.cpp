@@ -24,6 +24,7 @@ void Activity::setStartTime(const Time &startTime) {
 }
 
 const Time &Activity::getEndTime() const {
+    int time;
     return endTime;
 }
 
