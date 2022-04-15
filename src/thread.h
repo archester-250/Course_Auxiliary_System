@@ -1,3 +1,5 @@
+#ifndef THREAD_H
+#define THREAD_H
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -22,7 +24,7 @@ void *wrapper(void *arg) {
   return NULL;
 }
 
-void create(void *fn) {
+void create(void fn(int)) {
   assert(tptr - tpool < NTHREAD);
   *tptr = (struct thread) {
     .id = tptr - tpool + 1,
@@ -46,3 +48,5 @@ void join() {
 __attribute__((destructor)) void cleanup() {
   join();
 }
+
+#endif
