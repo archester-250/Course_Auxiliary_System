@@ -165,7 +165,7 @@ int main()
 	MD5 md5;
     md5.MD5Update(md5.getContext(), encrypt, strlen((char*)encrypt));
     md5.MD5Final(md5.getContext(), decrypt);
- 
+	md5.~MD5();
 	//Md5加密后的32位结果
 	printf("\n加密前:%s\n加密后32位:", encrypt);
 	for (i = 0; i<16; i++)

@@ -16,6 +16,7 @@
 #include <cstring>
 #include "hashMap.h"
 #include "utils.h"
+#include "input.h"
 
 using namespace std;
 
@@ -35,16 +36,16 @@ public:
     static info dologin()
     {
         printf("欢迎使用课程辅助系统！(输入0退出）\n");
-        printf("请选择登录方式\n1、学生用户\t2、管理员\t3、注册用户\t4、注册管理员\n");
+        printf("请选择登录方式\n1、学生用户\t2、管理员\t3、注册用户\t4、注册管理员\n(不需要打enter噢!^_^)");
         info inf;
+        input in;
         int loginCode;
-        scanf("%d", &loginCode);
+        loginCode = in.getOperatorNum();
         if (loginCode == 0)
         {
             inf.notEnd = 0;
             return inf;
         }
-        getchar();
         char *user = (char *) malloc(sizeof(char) * 21);
         memset(user, 0, 21);
         do {
