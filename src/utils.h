@@ -10,8 +10,6 @@ using namespace std;
 
 extern int sys_time_bias_times;
 
-int _tmptime = clock();
-
 class Time {
 public:
     int yr = 0, mn = 0, day = 0, hr = 0;
@@ -98,13 +96,9 @@ public:
         }
     }
 
-    void pause(){
-        _tmptime = clock();
-    }
+    void pause();
 
-    void recover(){
-        sys_time_bias_times += (clock() - _tmptime);
-    };
+    void recover();
 };
 
 
