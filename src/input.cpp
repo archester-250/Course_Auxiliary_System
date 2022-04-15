@@ -2,6 +2,10 @@
 
 string input::getString()
 {
-    
+    string s;
+    if(_kbhit())
+    {
+        
+    }
     return s;
 }
