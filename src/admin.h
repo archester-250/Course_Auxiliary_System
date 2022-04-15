@@ -8,3 +8,9 @@
  * @copyright Copyright (c) 2022
  * 
  */
+#ifndef ADMIN_H_
+#define ADMIN_H_
+
+#define SYS_TIME_BIAS_TIMES 5000
+
+#endif

@@ -16,15 +16,15 @@
 #include <fstream>
 #include <io.h>
 #include "hashMap.h"
-
+#include "admin.h"
 HashMap<int, Clock> clocks(64);
 
-/*const */ int SYS_TIME_BIAS_TIMES = 5000;
 //时间倍率，现在好像是5秒一小时
 using namespace std;
 
 Time modtime;
 int systime = clock();
+int sys_time_bias_times = SYS_TIME_BIAS_TIMES;
 
 ofstream _log("log");
 streambuf *clogbuf = std::clog.rdbuf();
@@ -39,7 +39,7 @@ int main()
     int notEnd = 1;
     while (notEnd) {
         printf("初始时间：%d", modtime.timeStamp());
-        if (clock() - systime > SYS_TIME_BIAS_TIMES){
+        if (clock() - systime > sys_time_bias_times){
             systime = clock();
             modtime.incre(1);
             // 检查闹钟

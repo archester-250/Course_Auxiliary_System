@@ -3,9 +3,14 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
+#include "admin.h"
 
 using namespace std;
 
+extern int sys_time_bias_times;
+
+int _tmptime = clock();
 
 class Time {
 public:
@@ -79,6 +84,7 @@ public:
     }
 
     void incre(int h) {
+        sys_time_bias_times = SYS_TIME_BIAS_TIMES;
         while (h--) {
             if (hr == 23) {
                 hr = 0;
@@ -92,9 +98,13 @@ public:
         }
     }
 
-    void pause();
+    void pause(){
+        _tmptime = clock();
+    }
 
-    void recover(){};
+    void recover(){
+        sys_time_bias_times += (clock() - _tmptime);
+    };
 };
 
 
