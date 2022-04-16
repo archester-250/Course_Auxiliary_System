@@ -17,9 +17,10 @@
 #include <io.h>
 #include "hashMap.h"
 #include "admin.h"
-HashMap<int, Clock> clocks(64);
 
-//时间倍率，现在好像是5秒一小时
+HashMap<int, Clock> clocks(64);
+HashMap<int, Activity> activities(128);
+
 using namespace std;
 
 Time modtime;
@@ -38,10 +39,10 @@ int main()
     config.close();
     int notEnd = 1;
     while (notEnd) {
-        printf("初始时间：%d", modtime.timeStamp());
+        cout << "初始时间：" <<  modtime.toString();
         if (clock() - systime > sys_time_bias_times){
+            modtime.incre((clock() - systime) / sys_time_bias_times);
             systime = clock();
-            modtime.incre(1);
             // 检查闹钟
             Clock clock = clocks.get(modtime.timeStamp());
             if (clock.time.timeStamp()){//BUG here
