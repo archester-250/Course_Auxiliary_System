@@ -1,6 +1,7 @@
 
 #include "student.h"
 #include "course.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -50,7 +51,6 @@ void Student::addActivity() {
         clock.setTime(time);
 //        clock.setStudent();todo
     }
-
 }
 
 void Student::addCourse(course * c[], int & size, course newc)
@@ -63,4 +63,17 @@ void Student::addCourse(course * c[], int & size, course newc)
     (*c) = newArray;
     string cmd = "mkdir ..\\documents\\users\\" + name + "\\" + newc.getName();
     system(cmd.c_str());
+}
+
+course Student::searchCourse(course c[], int size, string name)
+{
+    course temp;
+    for(int i = 0; i < size; i++)
+    {
+        if(!OurStr::StrCmp(c[i].getName(), name))
+        {
+            return c[i];
+        }
+    }
+    return temp;
 }

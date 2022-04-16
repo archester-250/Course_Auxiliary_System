@@ -38,7 +38,7 @@ public:
 
     void addCourse(course * c[], int & size, course newc);
 
-    char * searchCourse(course * c[], int size, string name);
+    course searchCourse(course c[], int size, string name);
 };
 
 #endif

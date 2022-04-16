@@ -29,7 +29,7 @@ class course
 private:
     /* data */
     string stuName;
-    string name;
+    string name = NULL;
     int time;
     string address;
     string * documents;
