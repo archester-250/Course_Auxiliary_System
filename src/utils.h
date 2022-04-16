@@ -45,7 +45,7 @@ public:
         return 28;
     }
 
-    Time desc(int h) {//减少h小时
+    Time desc(int h) {//????hС?
         while (h--) {
             if (hr == 0) {
                 hr = 24;
@@ -110,7 +110,7 @@ public:
 };
 
 
-// 闹钟
+// ????
 class Clock {
     //todo
 
@@ -143,11 +143,11 @@ class OurStr
 {
     public:
     /**
-     * @brief ???????
+     * @brief 字符串比较函数
      * 
      * @param s1 
      * @param s2 
-     * @return int?-1?s1<s2?0????1?s1>s2
+     * @return int -1时s1<s2,0时字符串相等,1时s1>s2
      */
         static int StrCmp(string s1, string s2)
         {

@@ -19,6 +19,7 @@ struct hwork//家庭作业
 {
     /* data */
     string homework;
+    string road = NULL;//上传的作业名称
     bool finish;
 };
 
@@ -32,7 +33,7 @@ private:
     string name = NULL;
     int time;
     string address;
-    string * documents;
+    string * documents;//课程资料
     string current;
     hwork * homeWork;
     string QQGroup;
@@ -70,7 +71,9 @@ public:
     void setExaddress(string exaddress);
     void operator=(course& c);
     
-    void uploadFile(string road);
+    string uploadDocument(string road);
+    string uploadHomework(string road);
+    bool addHomework(string homework);
 };
 
 

@@ -71,8 +71,33 @@ void course::setExtime(int extime){this->extime = extime;}
 string course::getExaddress(){return exaddress;}
 void course::setExaddress(string exaddress){this->exaddress = exaddress;}
 
-void course::uploadFile(string road)
+/**
+ * @brief 上传课程资料
+ * 
+ * @param road 上传路径
+ */
+string course::uploadDocument(string road)
+{
+    string cmd = "copy " + road + " ..\\documents\\public\\" + name;
+    system(cmd.c_str());
+    return " ..\\documents\\users\\" + stuName + "\\" + name + "\\doc";
+}
+/**
+ * @brief 上传学生作业
+ * 
+ * @param road 
+ * @return string 
+ */
+string course::uploadHomework(string road)
 {
     string cmd = "copy " + road + " ..\\documents\\users\\" + stuName + "\\" + name;
     system(cmd.c_str());
+    return " ..\\documents\\users\\" + stuName + "\\" + name + "\\doc";
+}
+bool addHomework(hwork ** h, string homework)
+{
+    hwork temp;
+    printf("请输入文件路径:(绝对路径噢)\n");
+    cin>>temp.road;
+    temp.homework = homework;
 }

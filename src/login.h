@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <fstream>
 #include <cstring>
 #include "hashMap.h"
 #include "utils.h"
@@ -73,6 +74,7 @@ public:
                 string userstr(user);
                 string cmd = "mkdir ..\\documents\\users\\" + userstr;
                 system(cmd.c_str());
+                cmd = "cd ..\\documents\\users\\" + userstr + " & type nul>" + userstr + ".data";
             }
         }
         delete password;
@@ -84,6 +86,7 @@ public:
     {
         try
         {
+            if(match(user, password, loginCode) && loginCode == 3) throw 2;
             FILE * fp;
             if(loginCode == 3) fp = fopen("../database/users.data", "a");
             else fp = fopen("../database/administers.data", "a");
@@ -105,6 +108,10 @@ public:
 
             case 1:
                 printf("Write in error!\n");
+                break;
+            
+            case 2:
+                printf("Repetive user's name!\n");
             
             default:
                 break;
@@ -115,37 +122,43 @@ public:
     {
         try
         {
-            FILE * fp;
-            if(loginCode == 1) fp = fopen("../database/users.data", "r");
-            else fp = fopen("../database/administers.data", "r");
-            if(fp == NULL) throw 0;
+            
+            string s0;
+            if(loginCode == 1 || loginCode == 3) s0 = "../database/users.data";
+            else s0 = "../database/administers.data";
+            ifstream in(s0);
             char c;int index = 0;
-            char * str = (char *)malloc(50 * sizeof(char));
-            char * temp = (char *)malloc(50 * sizeof(char));
-            for(int i = 0; i < strlen(user); i++)
+            string s1(user);
+            string temp;
+            if(loginCode == 1 || loginCode == 2)
             {
-                str[i] = user[i];
-            }
-            str[strlen(user)] = ',';
-            for(int i = 0; i < strlen(password); i++)
-            {
-                str[strlen(user) + i + 1] = password[i];
-            }
-            while (fscanf(fp, "%s", temp) == 1)
-            {
-                int i;
-                for(i = 0; i < strlen(temp) && str[i] == temp[i]; i++);
-                if(i == strlen(temp))
+                string s2(password);
+                s1 = s1 + ',' +  s2;
+                while (in >> temp)
                 {
-                    delete temp;
-                    delete str;
-                    fclose(fp);
-                    return true;
+                    if(!OurStr::StrCmp(s1, temp))
+                    {
+                        in.close();
+                        return true;
+                    }
                 }
             }
-            delete temp;
-            delete str;
-            fclose(fp);
+            else
+            {
+                while (in >> temp)
+                {
+                    int l;//','À˘‘⁄Œª÷√
+                    for(l = 0; temp[l] != ','; l++);
+                    temp = temp.substr(0, l);
+                    if(!OurStr::StrCmp(s1, temp))
+                    {
+                        in.close();
+                        return true;
+                    }
+                }
+                
+            }
+            in.close();
             return false;
         }
         catch(int error)
@@ -154,7 +167,6 @@ public:
             {
             case 0:
                 printf("Not found the file!\n");
-                return false;
                 break;
 
             default:
