@@ -15,6 +15,7 @@
 #include "student.h"
 #include <iostream>
 #include "utils.h"
+#include <string>
 
 class Time;
 
@@ -22,10 +23,11 @@ class Activity {
 private:
     Time startTime;
     Time endTime;//活动起止时间
-    char *address;
+    string address;
+    int member;
     int studentIDs[32];//涉及到的学生
     bool clk = false;//闹钟标识，Todo
-    char description[128];//活动内容描述
+    string description;//活动内容描述
 public:
     // Get 和 Set 方法
     const Time &getStartTime() const;
@@ -36,9 +38,9 @@ public:
 
     void setEndTime(const Time &endTime);
 
-    char *getAddress() const;
+    const string &getAddress() const;
 
-    void setAddress(char *address);
+    void setAddress(const string &address);
 
     const int *getStudentIDs() const;
 
@@ -46,11 +48,11 @@ public:
 
     void setClk(bool clk);
 
-    const char *getDescription() const;
+    const string &getDescription() const;
 
-    void setDescription(char* description);
-    // 查系列方法
-    char* toString();
+    void setDescription(const string &description);
+
+    string toString();
 
 };
 

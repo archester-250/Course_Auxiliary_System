@@ -36,7 +36,7 @@ void Student::addActivity() {
     endTime.inputTime(tmp);
     cout << "输入活动地址" << endl;
     cin >> address;
-    cout << "输入活动成员" << endl;
+    cout << "输入活动成员(不含自己)" << endl;
     //todo
     cout << "是否设定闹钟（提前一小时提醒)？true/false" << endl;
     cin >> clk;
