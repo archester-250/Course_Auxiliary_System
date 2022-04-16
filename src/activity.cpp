@@ -38,14 +38,6 @@ void Activity::setEndTime(const Time &endTime) {
         cout << "时间冲突，请重输入\n";
 }
 
-char *Activity::getAddress() const {
-    return address;
-}
-
-void Activity::setAddress(char *address) {
-    Activity::address = address;
-}
-
 const int *Activity::getStudentIDs() const {
     return studentIDs;
 }
@@ -58,15 +50,24 @@ void Activity::setClk(bool clk) {
     Activity::clk = clk;
 }
 
-const char *Activity::getDescription() const {
+
+const string &Activity::getDescription() const {
     return description;
 }
 
-void Activity::setDescription(char *description) {
-    strcpy(Activity::description,description);
+void Activity::setDescription(const string &description) {
+    Activity::description = description;
 }
 
-char* Activity::toString() {
-    return description;
-    //todo
+const string &Activity::getAddress() const {
+    return address;
+}
+
+void Activity::setAddress(const string &address) {
+    Activity::address = address;
+}
+
+string Activity::toString() {
+    return "from" + startTime.toString() + "to" + endTime.toString() + ":\n"\
+            "In" + address + ":" + description;
 }

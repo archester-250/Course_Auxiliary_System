@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 #include "admin.h"
+#include <string>
 
 using namespace std;
 
@@ -99,6 +100,8 @@ public:
     void pause();
 
     void recover();
+
+    string toString();
 };
 
 
