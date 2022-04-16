@@ -159,7 +159,7 @@ class OurStr
                 else if(s1.length() > s2.length()) return 1;
                 return 0;
             }
-            if(s1[i] < s2[i]) return -1;
+            if(i == s1.length() || s1[i] < s2[i]) return -1;
             return 1;
         }
 };

@@ -9,14 +9,11 @@
  * 
  */
 #include "login.h"
-#include "utils.h"
 #include "student.h"
-#include <iostream>
 #include <ctime>
 #include <fstream>
 #include <io.h>
-#include "hashMap.h"
-#include "admin.h"
+
 
 HashMap<int, Clock> clocks(64);
 HashMap<int, Activity> activities(128);

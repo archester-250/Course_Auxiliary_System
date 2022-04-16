@@ -47,17 +47,18 @@ public:
             inf.notEnd = 0;
             return inf;
         }
-        char *user = (char *) malloc(sizeof(char) * 21);
-        memset(user, 0, 21);
-        do {
-            printf("请输入用户名(不能超过20位，中文一个字占2位):");
-        } while (!inputString(user));
-        char *password = (char *) malloc(sizeof(char) * 21);
-        memset(password, 0, 21);
-        do {
-            printf("请输入密码(不能超过20位，中文一个字占2位):");
-        } while (!inputString(password));
-        if ((loginCode == 1 || loginCode == 2)) {
+        if ((loginCode == 1) || (loginCode == 2)) {
+            printf("%d", loginCode);
+            char *user = (char *) malloc(sizeof(char) * 21);
+            memset(user, 0, 21);
+            do {
+                printf("请输入用户名(不能超过20位，中文一个字占2位):");
+            } while (!inputString(user));
+            char *password = (char *) malloc(sizeof(char) * 21);
+            memset(password, 0, 21);
+            do {
+                printf("请输入密码(不能超过20位，中文一个字占2位):");
+            } while (!inputString(password));
             if (match(user, password, loginCode)) 
             {
                 printf("登陆成功！\n");
@@ -67,7 +68,20 @@ public:
                 return inf;
             }
             else printf("登陆失败！\n");
-        } else if (loginCode == 3 || loginCode == 4) {
+            delete password;
+            delete user;
+        } 
+        else if (loginCode == 3 || loginCode == 4) {
+            char *user = (char *) malloc(sizeof(char) * 21);
+            memset(user, 0, 21);
+            do {
+                printf("请输入用户名(不能超过20位，中文一个字占2位):");
+            } while (!inputString(user));
+            char *password = (char *) malloc(sizeof(char) * 21);
+            memset(password, 0, 21);
+            do {
+                printf("请输入密码(不能超过20位，中文一个字占2位):");
+            } while (!inputString(password));
             writeIn(user, password, loginCode);
             if(loginCode == 3)
             {
@@ -75,10 +89,11 @@ public:
                 string cmd = "mkdir ..\\documents\\users\\" + userstr;
                 system(cmd.c_str());
                 cmd = "cd ..\\documents\\users\\" + userstr + " & type nul>" + userstr + ".data";
+                system(cmd.c_str());
             }
+            delete password;
+            delete user;
         }
-        delete password;
-        delete user;
         inf.notEnd = 5;
         return inf;
     }
