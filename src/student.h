@@ -21,15 +21,10 @@ class course;
 class Student {
 
 private:
-    int id;
     int activityIDs[32];
     string name;
 
 public:
-    int getId() const;
-
-    void setId(int id);
-
     string getName();
 
     void setName(string name);

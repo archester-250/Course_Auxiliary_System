@@ -1,12 +1,17 @@
 #include "activity.h"
+#include "hashMap.h"
 #include <iostream>
 #include <cstring>
 
 using namespace std;
 
+extern HashMap<int, Clock> clocks;
+
 bool time_conflict(Time time){
-    //TODO
-    return true;
+    if (clocks.get(time.timeStamp()).time.timeStamp() != 0){
+        return true;
+    }
+    return false;
 }
 
 const Time &Activity::getStartTime() const {

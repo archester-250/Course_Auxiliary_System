@@ -2,16 +2,11 @@
 #include "student.h"
 #include "course.h"
 #include "utils.h"
+#include "hashMap.h"
 
 using namespace std;
 
-int Student::getId() const {
-    return id;
-}
-
-void Student::setId(int id) {
-    Student::id = id;
-}
+extern HashMap<int, Activity> activities;
 
 string Student::getName()
 {
@@ -49,6 +44,7 @@ void Student::addActivity() {
         Clock clock;
         Time time = startTime.desc(1);
         clock.setTime(time);
+        activities.put(startTime.timeStamp(), activity);
 //        clock.setStudent();todo
     }
 }

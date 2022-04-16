@@ -11,6 +11,7 @@
 #ifndef ADMIN_H_
 #define ADMIN_H_
 
-#define SYS_TIME_BIAS_TIMES 5000
+#define SYS_TIME_BIAS_TIMES 3000
+//时间倍率，现在是3秒一小时
 
 #endif

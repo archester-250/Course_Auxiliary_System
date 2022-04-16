@@ -79,7 +79,7 @@ public:
     }
 
     int timeStamp() const {
-        return hr + day * 100 + mn * 10000 + (yr / 100) * 1000000;
+        return hr + day * 100 + mn * 10000 + (yr % 100) * 1000000;
     }
 
     void incre(int h) {
@@ -89,7 +89,12 @@ public:
                 hr = 0;
                 if (day == MonthDays(yr, mn)) {
                     day = 1;
-                    mn++;
+                    if (mn < 12)
+                        mn++;
+                    else{
+                        mn = 1;
+                        yr++;
+                    }
                 } else
                     day++;
             } else
