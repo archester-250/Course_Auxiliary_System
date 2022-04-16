@@ -47,8 +47,7 @@ public:
             inf.notEnd = 0;
             return inf;
         }
-        if ((loginCode == 1) || (loginCode == 2)) {
-            printf("%d", loginCode);
+        if ((loginCode == 1 || loginCode == 2)) {
             char *user = (char *) malloc(sizeof(char) * 21);
             memset(user, 0, 21);
             do {
