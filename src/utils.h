@@ -4,8 +4,10 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include "admin.h"
 #include <string>
+
+#define SYS_TIME_BIAS_TIMES 3000
+//时间倍率，现在是3秒一小时
 
 using namespace std;
 

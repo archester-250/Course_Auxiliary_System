@@ -33,7 +33,7 @@ private:
     int extime;
     string exaddress;//-ex前缀：考试相关信息
 public:
-    course(){};
+    course();
     course(         string name,
                     int time,
                     string address,
@@ -43,7 +43,7 @@ public:
                     string QQGroup,
                     int extime,
                     string exaddress);
-    ~course();
+    ~course(){};
     string getName();
     void setName(string name);
     int getTime();

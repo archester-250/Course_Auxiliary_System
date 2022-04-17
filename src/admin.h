@@ -14,8 +14,7 @@
 #include "course.h"
 #include "student.h"
 
-#define SYS_TIME_BIAS_TIMES 3000
-//时间倍率，现在是3秒一小时
+
 
 class admin
 {
