@@ -3,6 +3,7 @@
 #include "course.h"
 #include "utils.h"
 #include "hashMap.h"
+#include "prepocess.h"
 
 using namespace std;
 
@@ -49,18 +50,6 @@ void Student::addActivity() {
     }
 }
 
-void Student::addCourse(course * c[], int & size, course newc)
-{
-    size++;
-    course * newArray = new course[size];
-    memcpy(newArray, c, sizeof(course) * (size - 1));
-    newArray[size-1] = newc;
-    delete *c;
-    (*c) = newArray;
-    string cmd = "mkdir ..\\documents\\users\\" + name + "\\" + newc.getName();
-    system(cmd.c_str());
-}
-
 course Student::searchCourse(course c[], int size, string name)
 {
     course temp;
@@ -74,4 +63,35 @@ course Student::searchCourse(course c[], int size, string name)
     return temp;
 }
 
+course * Student::getCourses()
+{
+    return this->courses;
+}
 
+void Student::setCourses(course * courses)
+{
+    this->courses = courses;
+}
+
+Student::Student(string name)
+{
+    this->name = name;
+    ifstream in("../documents/users/"+name+"/"+name+".data");
+    int c_count;//课程总数
+    in>>c_count;
+    courses = new course[c_count];
+    prepocess p;
+    course * allCourses = p.coursesInitialize();//todo
+    for(int i = 0; i < c_count; i++)
+    {
+        string course;int counts;//课程，作业布置次数
+        while(in>>course>>counts)
+        {
+            for(int j = 0; j < counts; j++)
+            {
+
+            }
+        }
+    }
+    in.close();
+}

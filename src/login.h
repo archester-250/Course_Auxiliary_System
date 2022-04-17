@@ -87,7 +87,7 @@ public:
                 string userstr(user);
                 string cmd = "mkdir ..\\documents\\users\\" + userstr;
                 system(cmd.c_str());
-                cmd = "cd ..\\documents\\users\\" + userstr + " & type nul>" + userstr + ".data";
+                cmd = "cd ..\\documents\\users\\" + userstr + " & echo 0 > " + userstr + ".data";
                 system(cmd.c_str());
             }
             delete password;

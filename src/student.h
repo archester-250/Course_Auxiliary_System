@@ -15,6 +15,13 @@
 #include "utils.h"
 #include "course.h"
 
+struct hwork//家庭作业
+{
+    /* data */
+    string road = NULL;//上传的作业名称
+    bool finish;
+};
+
 class Activity;
 class course;
 
@@ -23,15 +30,22 @@ class Student {
 private:
     int activityIDs[32];
     string name;
+    course * courses;
 
 public:
+    Student(string name);
+
+    ~Student(){delete courses;}
+
     string getName();
 
     void setName(string name);
 
-    void addActivity();
+    course * getCourses();
 
-    void addCourse(course * c[], int & size, course newc);
+    void setCourses(course * courses);
+
+    void addActivity();
 
     course searchCourse(course c[], int size, string name);
 

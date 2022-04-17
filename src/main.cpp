@@ -46,10 +46,11 @@ int main()
                 cout << "[ÊÂ¼şÌáĞÑ]" << clock.toString();
             }
         }
-        notEnd = login::dologin().notEnd;
+        info login_info = login::dologin();
+        notEnd = login_info.notEnd;
         if(notEnd == 1)
         {
-            Student student;
+            Student student(login_info.user);
         }
         else if(notEnd == 2)
         {

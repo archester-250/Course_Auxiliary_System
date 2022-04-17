@@ -14,45 +14,36 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
-using namespace std;
-struct hwork//家庭作业
-{
-    /* data */
-    string homework;
-    string road = NULL;//上传的作业名称
-    bool finish;
-};
+#include <fstream>
 
 using namespace std;
+
 
 class course
 {
 private:
     /* data */
-    string stuName;
     string name = NULL;
     int time;
     string address;
     string * documents;//课程资料
     string current;
-    hwork * homeWork;
+    string * homeWork;
     string QQGroup;
     int extime;
     string exaddress;//-ex前缀：考试相关信息
 public:
     course(){};
-    course(         string stuName,
-                    string name,
+    course(         string name,
                     int time,
                     string address,
                     string * documents,
                     string current,
-                    hwork * homeWork,
+                    string * homeWork,
                     string QQGroup,
                     int extime,
                     string exaddress);
     ~course();
-    string getStuName();
     string getName();
     void setName(string name);
     int getTime();
@@ -63,17 +54,15 @@ public:
     void setDocuments(string * documents);
     string getCurrent();
     void setCurrent(string current);
-    hwork * getHomeWork();
-    void setHomeWork(hwork * homeWork);
+    string * getHomeWork();
+    void setHomeWork(string * homeWork);
     int getExtime();
     void setExtime(int extime);
     string getExaddress();
     void setExaddress(string exaddress);
     void operator=(course& c);
     
-    string uploadDocument(string road);
-    string uploadHomework(string road);
-    bool addHomework(string homework);
+    string uploadHomework(string road, string stuName);
 };
 
 
