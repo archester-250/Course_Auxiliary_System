@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "hashMap.h"
 #include "prepocess.h"
+#include "input.h"
 
 using namespace std;
 
@@ -22,21 +23,18 @@ void Student::setName(string name)
 void Student::addActivity() {
     Activity activity;
     Time startTime, endTime;
-    char address[128];
+    string address;
     bool clk = false;
-    int tmp;
     cout << "输入开始时间的字符串格式(如：2022040715)" << endl;
-    cin >> tmp;
-    startTime.inputTime(tmp);
+    startTime.inputTime(Input<int>());
     cout << "输入结束时间的字符串格式(如：2022040718)" << endl;
-    cin >> tmp;
-    endTime.inputTime(tmp);
+    endTime.inputTime(Input<int>());
     cout << "输入活动地址" << endl;
-    cin >> address;
+    string tmp = Input<string>();
     cout << "输入活动成员(不含自己)" << endl;
     //todo
     cout << "是否设定闹钟（提前一小时提醒)？true/false" << endl;
-    cin >> clk;
+    clk = Input<bool>();
     activity.setStartTime(startTime);
     activity.setEndTime(endTime);
     activity.setAddress(address);

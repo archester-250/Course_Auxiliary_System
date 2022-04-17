@@ -5,6 +5,16 @@
 #include <string>
 using namespace std;
 
+extern Time modtime;
+
+template <typename T> T Input() {
+    modtime.pause();
+    T in;
+    cin >> in;
+    modtime.recover();
+    return in;
+}
+
 class input
 {
 private:
@@ -20,6 +30,7 @@ public:
         printf("%d\n", op - '0');
         return op - '0';
     }
+
 };
 
 input::input(/* args */)
