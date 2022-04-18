@@ -75,21 +75,28 @@ Student::Student(string name)
 {
     this->name = name;
     ifstream in("../documents/users/"+name+"/"+name+".data");
-    int c_count;//课程总数
+    int c_count, all_count;//课程总数
     in>>c_count;
     courses = new course[c_count];
     prepocess p;
-    //course * allCourses = p.coursesInitialize();//todo
+    course * allCourses = p.coursesInitialize(all_count);//done
     for(int i = 0; i < c_count; i++)
     {
         string course;int counts;//课程，作业布置次数
-        while(in>>course>>counts)
+        in>>course>>counts;
+        for(int j = 0; j < all_count; j++)
         {
-            for(int j = 0; j < counts; j++)
+            if(!OurStr::StrCmp(allCourses[j].getName(), course))
             {
-
+                courses[i] = allCourses[j];
+                break;
             }
         }
+        for(int j = 0; j < counts; j++)
+        {
+            
+        }
     }
+    delete[] allCourses;
     in.close();
 }

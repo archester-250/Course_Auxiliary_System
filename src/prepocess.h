@@ -3,5 +3,5 @@
 class prepocess
 {
     public:
-        course * coursesInitialize();
+        course * coursesInitialize(int & all_count);
 };

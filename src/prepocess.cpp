@@ -1,9 +1,10 @@
 #include "prepocess.h"
-course * prepocess::coursesInitialize()
+course * prepocess::coursesInitialize(int & all_count)
 {
     ifstream fin("../documents/courses.data");
     int c_count;//¿Î³Ì×ÜÊı
     fin>>c_count;
+    all_count = c_count;
     course * courses = new course[c_count];
     for(int i = 0; i < c_count; i++)
     {
