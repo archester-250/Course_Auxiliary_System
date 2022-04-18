@@ -106,7 +106,7 @@ public:
             if(loginCode == 3) fp = fopen("../database/users.data", "a");
             else fp = fopen("../database/administers.data", "a");
             if(fp == NULL) throw 0;
-            if(fprintf(fp, "%s,%s\n", user.c_str(), password.c_str()) < 0)
+            if(fprintf(fp, "%s %s\n", user.c_str(), password.c_str()) < 0)
             {
                 fclose(fp);
                 throw 1;
@@ -144,13 +144,13 @@ public:
             ifstream in(s0);
             char c;
             int index = 0;
-            string temp;
+            string temp, temp1;
             if(loginCode == 1 || loginCode == 2)
             {
-                s1 = s1 + ',' +  s2;
-                while (in >> temp)
+                s1 = s1 + ' ' + s2;
+                while (in >> temp >> temp1)
                 {
-                    if(!OurStr::StrCmp(s1, temp))
+                    if(!OurStr::StrCmp(s1, temp + ' ' + temp1))
                     {
                         in.close();
                         return true;
@@ -161,14 +161,12 @@ public:
             {
                 while (in >> temp)
                 {
-                    int l;//','ËùÔÚÎ»ÖÃ
-                    for(l = 0; temp[l] != ','; l++);
-                    temp = temp.substr(0, l);
                     if(!OurStr::StrCmp(s1, temp))
                     {
                         in.close();
                         return true;
                     }
+                    in >> temp;
                 }
                 
             }

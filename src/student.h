@@ -40,10 +40,7 @@ public:
     {
         for(int i = 0; i < course_size; i++)
         {
-            delete courses[i].getTime();
-            delete courses[i].getDocuments();
-            delete courses[i].getHomeWork();
-            delete courses[i].getFinish();
+            courses[i].~course();
         }
         delete courses;
     }

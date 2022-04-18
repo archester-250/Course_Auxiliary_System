@@ -5,6 +5,7 @@ void admin::addCourse(course * c[], int & size)
     string name;
     size++;
     course newc;
+    //todo
     course * newArray = new course[size];
     memcpy(newArray, c, sizeof(course) * (size - 1));
     newArray[size-1] = newc;

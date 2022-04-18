@@ -1,7 +1,7 @@
 #include "prepocess.h"
 course * prepocess::coursesInitialize(int & all_count)
 {
-    ifstream fin("../documents/courses.data");
+    ifstream fin("../database/course.data");
     int c_count;//¿Î³Ì×ÜÊý
     fin>>c_count;
     all_count = c_count;
@@ -17,7 +17,7 @@ course * prepocess::coursesInitialize(int & all_count)
         time = new course_time[t_count];
         for(int j = 0; j < t_count; j++)
         {
-            fin>>time[j].week>>time[j].hour;
+            fin>>time[j].week>>time[j].starthour>>time[j].endhour;
         }
 
         string address;

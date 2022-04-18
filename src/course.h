@@ -20,7 +20,8 @@
 struct course_time
 {
     int week;//周几
-    int hour;//时间
+    int starthour;//开始时间
+    int endhour;//结束时间
 };
 
 struct hw_con
@@ -57,7 +58,7 @@ public:
                     string QQGroup,
                     Time extime,
                     string exaddress);
-    ~course(){};
+    ~course(){delete time;delete documents;delete homeWork;delete finish_con;};
     string getName();
     void setName(string name);
     course_time * getTime();
