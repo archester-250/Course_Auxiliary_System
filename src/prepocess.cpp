@@ -53,5 +53,6 @@ course * prepocess::coursesInitialize()
         course c(name, time, address, documents, current, homeWork, QQGroup, extime, exaddress);
         courses[i] = c;
     }
+    fin.close();
     return courses;
 }
