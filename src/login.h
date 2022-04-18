@@ -50,31 +50,23 @@ public:
             return inf;
         }
         if ((loginCode == 1 || loginCode == 2)) {
-            char *user = (char *) malloc(sizeof(char) * 21);
-            memset(user, 0, 21);
+            string username;
             modtime.pause();
-            do {
-                printf("请输入用户名(不能超过20位，中文一个字占2位):");
-            } while (!inputString(user));
-            modtime.recover();
-            char *password = (char *) malloc(sizeof(char) * 21);
-            memset(password, 0, 21);
-            modtime.pause();
-            do {
-                printf("请输入密码(不能超过20位，中文一个字占2位):");
-            } while (!inputString(password));
-            modtime.recover();
-            if (match(user, password, loginCode)) 
+            printf("请输入用户名(不能超过20位，中文一个字占2位):");
+            username = Input<string>();
+            string password;
+            printf("请输入密码(不能超过20位，中文一个字占2位):");
+            password = Input<string>();
+            if (match(username, password, loginCode))
             {
                 printf("登陆成功！\n");
                 inf.notEnd = loginCode;
-                string suser(user);
+                string suser(username);
                 inf.user = suser;
                 return inf;
             }
             else printf("登陆失败！\n");
-            delete password;
-            delete user;
+            //bug: string未释放
         } 
         else if (loginCode == 3 || loginCode == 4) {
             char *user = (char *) malloc(sizeof(char) * 21);
@@ -138,7 +130,7 @@ public:
             }
         }
     }
-    static bool match(char * user, char * password, int loginCode)
+    static bool match(string s1, string s2, int loginCode)
     {
         try
         {
@@ -147,12 +139,11 @@ public:
             if(loginCode == 1 || loginCode == 3) s0 = "../database/users.data";
             else s0 = "../database/administers.data";
             ifstream in(s0);
-            char c;int index = 0;
-            string s1(user);
+            char c;
+            int index = 0;
             string temp;
             if(loginCode == 1 || loginCode == 2)
             {
-                string s2(password);
                 s1 = s1 + ',' +  s2;
                 while (in >> temp)
                 {

@@ -79,7 +79,7 @@ Student::Student(string name)
     in>>c_count;
     courses = new course[c_count];
     prepocess p;
-    course * allCourses = p.coursesInitialize();//todo
+    //course * allCourses = p.coursesInitialize();//todo
     for(int i = 0; i < c_count; i++)
     {
         string course;int counts;//课程，作业布置次数
