@@ -16,6 +16,12 @@
 #include <iostream>
 #include <fstream>
 
+struct course_time
+{
+    int week;//周几
+    int hour;
+};
+
 using namespace std;
 
 
@@ -60,6 +66,8 @@ public:
     void setExtime(int extime);
     string getExaddress();
     void setExaddress(string exaddress);
+    string getQQGroup();
+    void setQQGroup(string QQGroup);
     void operator=(course& c);
     
     string uploadHomework(string road, string stuName);

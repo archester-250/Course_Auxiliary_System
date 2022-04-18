@@ -45,7 +45,7 @@ void course::operator=(course& c)
     homeWork = c.getHomeWork();
     extime = c.getExtime();
     exaddress = c.getExaddress();
-
+    QQGroup = c.getQQGroup();
 }
 
 string course::getName(){return name;}
@@ -65,6 +65,8 @@ int course::getExtime(){return extime;}
 void course::setExtime(int extime){this->extime = extime;}
 string course::getExaddress(){return exaddress;}
 void course::setExaddress(string exaddress){this->exaddress = exaddress;}
+string course::getQQGroup(){return QQGroup;}
+void course::setQQGroup(string QQGroup){this->QQGroup = QQGroup;}
 
 /**
  * @brief 上传学生作业

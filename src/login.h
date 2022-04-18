@@ -28,6 +28,8 @@ struct info
     /* data */
 };
 
+extern Time modtime;
+
 
 class login
 {
@@ -50,14 +52,18 @@ public:
         if ((loginCode == 1 || loginCode == 2)) {
             char *user = (char *) malloc(sizeof(char) * 21);
             memset(user, 0, 21);
+            modtime.pause();
             do {
                 printf("请输入用户名(不能超过20位，中文一个字占2位):");
             } while (!inputString(user));
+            modtime.recover();
             char *password = (char *) malloc(sizeof(char) * 21);
             memset(password, 0, 21);
+            modtime.pause();
             do {
                 printf("请输入密码(不能超过20位，中文一个字占2位):");
             } while (!inputString(password));
+            modtime.recover();
             if (match(user, password, loginCode)) 
             {
                 printf("登陆成功！\n");
