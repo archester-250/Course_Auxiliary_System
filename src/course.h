@@ -23,6 +23,12 @@ struct course_time
     int hour;//时间
 };
 
+struct hw_con
+{
+    bool finish;
+    string road = "";
+};
+
 using namespace std;
 
 
@@ -39,6 +45,7 @@ private:
     string QQGroup;
     Time extime;
     string exaddress;//-ex前缀：考试相关信息
+    hw_con * finish_con;
 public:
     course();
     course(         string name,
@@ -69,9 +76,11 @@ public:
     void setExaddress(string exaddress);
     string getQQGroup();
     void setQQGroup(string QQGroup);
+    hw_con * getFinish();
+    void setFinish(hw_con * finish_con);
     void operator=(course& c);
     
-    string uploadHomework(string road, string stuName);
+    string uploadHomework(string road, string stuName, int no);
 };
 
 

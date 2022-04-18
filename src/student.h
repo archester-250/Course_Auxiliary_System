@@ -31,15 +31,28 @@ private:
     int activityIDs[32];
     string name;
     course * courses;
+    int course_size;
 
 public:
     Student(string name);
 
-    ~Student(){delete courses;}
+    ~Student()
+    {
+        for(int i = 0; i < course_size; i++)
+        {
+            delete courses[i].getTime();
+            delete courses[i].getDocuments();
+            delete courses[i].getHomeWork();
+            delete courses[i].getFinish();
+        }
+        delete courses;
+    }
 
     string getName();
 
     void setName(string name);
+
+    int getCourseSize();
 
     course * getCourses();
 

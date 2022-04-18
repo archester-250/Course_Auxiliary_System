@@ -71,12 +71,18 @@ void Student::setCourses(course * courses)
     this->courses = courses;
 }
 
+int Student::getCourseSize()
+{
+    return this->course_size;
+}
+
 Student::Student(string name)
 {
     this->name = name;
     ifstream in("../documents/users/"+name+"/"+name+".data");
     int c_count, all_count;//¿Î³Ì×ÜÊý
     in>>c_count;
+    course_size = c_count;
     courses = new course[c_count];
     prepocess p;
     course * allCourses = p.coursesInitialize(all_count);//done
@@ -92,10 +98,16 @@ Student::Student(string name)
                 break;
             }
         }
+        hw_con * b = new hw_con[counts];
         for(int j = 0; j < counts; j++)
         {
-            
+            in>>b[j].finish;
+            if(b[j].finish)
+            {
+                in>>b[j].road;
+            }
         }
+        courses[i].setFinish(b);
     }
     delete[] allCourses;
     in.close();

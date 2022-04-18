@@ -66,6 +66,8 @@ string course::getExaddress(){return exaddress;}
 void course::setExaddress(string exaddress){this->exaddress = exaddress;}
 string course::getQQGroup(){return QQGroup;}
 void course::setQQGroup(string QQGroup){this->QQGroup = QQGroup;}
+hw_con * course::getFinish(){return finish_con;}
+void course::setFinish(hw_con * finish_con){this->finish_con = finish_con;}
 
 /**
  * @brief 上传学生作业
@@ -73,9 +75,11 @@ void course::setQQGroup(string QQGroup){this->QQGroup = QQGroup;}
  * @param road 
  * @return string 
  */
-string course::uploadHomework(string road, string stuName)
+string course::uploadHomework(string road, string stuName, int no)
 {
+    finish_con[no].finish = true;
+    finish_con[no].road = OurStr::getFilename(road);
     string cmd = "copy " + road + " ..\\documents\\users\\" + stuName + "\\" + name;
     system(cmd.c_str());
-    return " ..\\documents\\users\\" + stuName + "\\" + name + "\\doc";
+    return finish_con[no].road;
 }

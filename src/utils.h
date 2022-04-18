@@ -175,6 +175,16 @@ class OurStr
             if(i == s1.length() || s1[i] < s2[i]) return -1;
             return 1;
         }
+
+        static string getFilename(string path)
+        {
+            int i;
+            for(i = path.length() - 1; i >= 0; i--)
+            {
+                if(path[i] == '/') break;
+            }
+            return path.substr(i + 1);
+        }
 };
 
 #endif

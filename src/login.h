@@ -51,12 +51,17 @@ public:
         }
         if ((loginCode == 1 || loginCode == 2)) {
             string username;
-            modtime.pause();
-            printf("请输入用户名(不能超过20位，中文一个字占2位):");
-            username = Input<string>();
+            do
+            {
+                printf("请输入用户名(不能超过20位，中文一个字占2位):");
+                username = Input<string>();
+            } while (username.length() > 20);
             string password;
-            printf("请输入密码(不能超过20位，中文一个字占2位):");
-            password = Input<string>();
+            do
+            {
+                printf("请输入密码(不能超过20位，中文一个字占2位):");
+                password = Input<string>();
+            }while(password.length() > 20);
             if (match(username, password, loginCode))
             {
                 printf("登陆成功！\n");
@@ -66,35 +71,33 @@ public:
                 return inf;
             }
             else printf("登陆失败！\n");
-            //bug: string未释放
         } 
         else if (loginCode == 3 || loginCode == 4) {
-            char *user = (char *) malloc(sizeof(char) * 21);
-            memset(user, 0, 21);
-            do {
+            string username;
+            do
+            {
                 printf("请输入用户名(不能超过20位，中文一个字占2位):");
-            } while (!inputString(user));
-            char *password = (char *) malloc(sizeof(char) * 21);
-            memset(password, 0, 21);
-            do {
+                username = Input<string>();
+            } while (username.length() > 20);
+            string password;
+            do
+            {
                 printf("请输入密码(不能超过20位，中文一个字占2位):");
-            } while (!inputString(password));
-            writeIn(user, password, loginCode);
+                password = Input<string>();
+            }while(password.length() > 20);
+            writeIn(username, password, loginCode);
             if(loginCode == 3)
             {
-                string userstr(user);
-                string cmd = "mkdir ..\\documents\\users\\" + userstr;
+                string cmd = "mkdir ..\\documents\\users\\" + username;
                 system(cmd.c_str());
-                cmd = "cd ..\\documents\\users\\" + userstr + " & echo 0 > " + userstr + ".data";
+                cmd = "cd ..\\documents\\users\\" + username + " & echo 0 > " + username + ".data";
                 system(cmd.c_str());
             }
-            delete password;
-            delete user;
         }
         inf.notEnd = 5;
         return inf;
     }
-    static void writeIn(char * user, char * password, int loginCode)
+    static void writeIn(string user, string password, int loginCode)
     {
         try
         {
@@ -103,7 +106,7 @@ public:
             if(loginCode == 3) fp = fopen("../database/users.data", "a");
             else fp = fopen("../database/administers.data", "a");
             if(fp == NULL) throw 0;
-            if(fprintf(fp, "%s,%s\n", user, password) < 0)
+            if(fprintf(fp, "%s,%s\n", user.c_str(), password.c_str()) < 0)
             {
                 fclose(fp);
                 throw 1;
