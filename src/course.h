@@ -15,11 +15,12 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "utils.h"
 
 struct course_time
 {
     int week;//周几
-    int hour;
+    int hour;//时间
 };
 
 using namespace std;
@@ -30,30 +31,30 @@ class course
 private:
     /* data */
     string name = NULL;
-    int time;
+    course_time * time;
     string address;
     string * documents;//课程资料
     string current;
     string * homeWork;
     string QQGroup;
-    int extime;
+    Time extime;
     string exaddress;//-ex前缀：考试相关信息
 public:
     course();
     course(         string name,
-                    int time,
+                    course_time * time,
                     string address,
                     string * documents,
                     string current,
                     string * homeWork,
                     string QQGroup,
-                    int extime,
+                    Time extime,
                     string exaddress);
     ~course(){};
     string getName();
     void setName(string name);
-    int getTime();
-    void setTime(int time);
+    course_time * getTime();
+    void setTime(course_time * time);
     string getAddress();
     void setAddress(string address);
     string * getDocuments();
@@ -62,8 +63,8 @@ public:
     void setCurrent(string current);
     string * getHomeWork();
     void setHomeWork(string * homeWork);
-    int getExtime();
-    void setExtime(int extime);
+    Time getExtime();
+    void setExtime(Time extime);
     string getExaddress();
     void setExaddress(string exaddress);
     string getQQGroup();

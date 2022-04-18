@@ -21,8 +21,6 @@ class input
 private:
     /* data */
 public:
-    input(/* args */);
-    ~input();
     static int getOperatorNum()
     {
         char op;
@@ -34,12 +32,5 @@ public:
 
 };
 
-input::input(/* args */)
-{
-}
-
-input::~input()
-{
-}
 
 #endif

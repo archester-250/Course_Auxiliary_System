@@ -2,13 +2,13 @@
 
 course::course(
     string name,
-    int time, 
+    course_time * time, 
     string address, 
     string * documents,
     string current,
     string * homeWork,
     string QQGroup,
-    int extime,
+    Time extime,
     string exaddress)
 {
     this->name = name;
@@ -25,13 +25,12 @@ course::course(
 course::course()
 {
     name = "";
-    time = 0;
+    time = NULL;
     address = "";
     documents = NULL;
     current = "";
     homeWork = NULL;
     QQGroup = "";
-    extime = 0;
     exaddress = "";
 }
 
@@ -50,8 +49,8 @@ void course::operator=(course& c)
 
 string course::getName(){return name;}
 void course::setName(string name){this->name = name;}
-int course::getTime(){return time;}
-void course::setTime(int time){this->time = time;}
+course_time * course::getTime(){return time;}
+void course::setTime(course_time * time){this->time = time;}
 string course::getAddress(){return address;}
 void course::setAddress(string address){this->address = address;}
 string* course::getDocuments(){return documents;}
@@ -61,8 +60,8 @@ void course::setCurrent(string current){this->current = current;}
 string * course::getHomeWork(){return this->homeWork;}
 void course::setHomeWork(string * homeWork){this->homeWork = homeWork;}
 void setHomeWork(string * homeWork);
-int course::getExtime(){return extime;}
-void course::setExtime(int extime){this->extime = extime;}
+Time course::getExtime(){return extime;}
+void course::setExtime(Time extime){this->extime = extime;}
 string course::getExaddress(){return exaddress;}
 void course::setExaddress(string exaddress){this->exaddress = exaddress;}
 string course::getQQGroup(){return QQGroup;}

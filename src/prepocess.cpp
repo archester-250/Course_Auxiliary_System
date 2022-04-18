@@ -8,9 +8,20 @@ course * prepocess::coursesInitialize()
     for(int i = 0; i < c_count; i++)
     {
         string name;
-        int time;
+        fin>>name;
+
+        course_time * time;
+        int t_count;
+        fin>>t_count;
+        time = new course_time[t_count];
+        for(int j = 0; j < t_count; j++)
+        {
+            fin>>time[j].week>>time[j].hour;
+        }
+
         string address;
-        fin>>name>>time>>address;
+        fin>>address;
+
         string * documents;
         int doc_count;
         fin>>doc_count;
@@ -19,8 +30,10 @@ course * prepocess::coursesInitialize()
         {
             fin>>documents[j];
         }
+
         string current;
         fin>>current;
+
         string * homeWork;
         int hw_count;
         fin>>hw_count;
@@ -29,12 +42,16 @@ course * prepocess::coursesInitialize()
         {
             fin>>homeWork[j];
         }
+
         string QQGroup;
-        int extime;
+        fin>>QQGroup;
+
+        Time extime;
+        fin>>extime.yr>>extime.mn>>extime.day>>extime.hr;
         string exaddress;
-        fin>>QQGroup>>extime>>exaddress;
+        fin>>exaddress;
         course c(name, time, address, documents, current, homeWork, QQGroup, extime, exaddress);
         courses[i] = c;
     }
-    return NULL;
+    return courses;
 }
