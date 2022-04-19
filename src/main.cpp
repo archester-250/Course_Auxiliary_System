@@ -51,6 +51,7 @@ int main()
         if(notEnd == 1)
         {
             Student student(login_info.user);
+            student.showMenu();
         }
         else if(notEnd == 2)
         {

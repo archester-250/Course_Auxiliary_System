@@ -24,14 +24,14 @@ course::course(
 
 course::course()
 {
-    name = "";
+    name = "null";
     time = NULL;
-    address = "";
+    address = "null";
     documents = NULL;
-    current = "";
+    current = "null";
     homeWork = NULL;
-    QQGroup = "";
-    exaddress = "";
+    QQGroup = "null";
+    exaddress = "null";
 }
 
 void course::operator=(course& c)

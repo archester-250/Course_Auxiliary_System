@@ -38,11 +38,11 @@ public:
 
     ~Student()
     {
-        for(int i = 0; i < course_size; i++)
-        {
-            courses[i].~course();
-        }
-        delete courses;
+        // for(int i = 0; i < course_size; i++)
+        // {
+        //     courses[i].~course();
+        // }
+        // delete courses;
     }
 
     string getName();
@@ -58,6 +58,12 @@ public:
     void addActivity();
 
     course searchCourse(course c[], int size, string name);
+
+    void showMenu();//显示学生操作菜单
+
+    int showCourseMenu();//显示课程操作菜单
+
+    int showActivityMenu();//显示活动操作菜单
 
 };
 

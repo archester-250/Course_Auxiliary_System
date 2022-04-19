@@ -27,7 +27,7 @@ struct course_time
 struct hw_con
 {
     bool finish;
-    string road = "";
+    string road = "null";
 };
 
 using namespace std;
@@ -37,7 +37,7 @@ class course
 {
 private:
     /* data */
-    string name = NULL;
+    string name;
     course_time * time;
     string address;
     string * documents;//课程资料
@@ -58,7 +58,16 @@ public:
                     string QQGroup,
                     Time extime,
                     string exaddress);
-    ~course(){delete time;delete documents;delete homeWork;delete finish_con;};
+    ~course(){
+        // if(time != NULL)
+        //     delete time;
+        // if(documents != NULL)
+        //     delete documents;
+        // if(homeWork != NULL)
+        //     delete homeWork;
+        // if(finish_con != NULL)
+        //     delete finish_con;
+    }
     string getName();
     void setName(string name);
     course_time * getTime();
