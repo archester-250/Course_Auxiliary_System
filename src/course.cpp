@@ -32,6 +32,7 @@ course::course()
     homeWork = NULL;
     QQGroup = "null";
     exaddress = "null";
+    finish_con = NULL;
 }
 
 void course::operator=(course& c)

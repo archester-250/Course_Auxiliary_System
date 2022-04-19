@@ -42,7 +42,7 @@ public:
         {
             courses[i].~course();
         }
-        delete courses;
+        delete[] courses;
     }
 
     string getName();

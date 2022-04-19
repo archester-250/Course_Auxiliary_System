@@ -60,13 +60,13 @@ public:
                     string exaddress);
     ~course(){
         if(time != NULL)
-            delete time;
+            delete[] time;
         if(documents != NULL)
-            delete documents;
+            delete[] documents;
         if(homeWork != NULL)
-            delete homeWork;
+            delete[] homeWork;
         if(finish_con != NULL)
-            delete finish_con;
+            delete[] finish_con;
     }
     string getName();
     void setName(string name);
