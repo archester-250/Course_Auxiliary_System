@@ -59,14 +59,14 @@ public:
                     Time extime,
                     string exaddress);
     ~course(){
-        // if(time != NULL)
-        //     delete time;
-        // if(documents != NULL)
-        //     delete documents;
-        // if(homeWork != NULL)
-        //     delete homeWork;
-        // if(finish_con != NULL)
-        //     delete finish_con;
+        if(time != NULL)
+            delete time;
+        if(documents != NULL)
+            delete documents;
+        if(homeWork != NULL)
+            delete homeWork;
+        if(finish_con != NULL)
+            delete finish_con;
     }
     string getName();
     void setName(string name);

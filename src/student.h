@@ -38,11 +38,11 @@ public:
 
     ~Student()
     {
-        // for(int i = 0; i < course_size; i++)
-        // {
-        //     courses[i].~course();
-        // }
-        // delete courses;
+        for(int i = 0; i < course_size; i++)
+        {
+            courses[i].~course();
+        }
+        delete courses;
     }
 
     string getName();
