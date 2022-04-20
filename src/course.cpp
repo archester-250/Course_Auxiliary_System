@@ -14,7 +14,7 @@ course::course( string name,
                 string exaddress)
 {
     this->name = name;
-    this->time = new course_time[t_size];
+    this->time = new course_time[t_size];//构造函数新建另一个对象，而非直接赋值
     this->t_size = t_size;
     for(int i = 0; i < t_size; i++)
     {

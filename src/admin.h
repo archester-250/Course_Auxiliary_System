@@ -24,7 +24,7 @@ private:
 public:
     admin();
     ~admin();
-    course * addCourse(course * c, int & size);
+    course * addCourse(course * c, int & size, string stuname);
     void addHomework(string Course_name, string Homework);//todo
     string uploadDocument(string road, string name);
     void showMenu();

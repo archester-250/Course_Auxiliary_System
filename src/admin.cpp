@@ -1,6 +1,6 @@
 #include "admin.h"
 
-course * admin::addCourse(course * c, int & size)
+course * admin::addCourse(course * c, int & size, string stuname)
 {
     size++;
     //done
@@ -38,9 +38,10 @@ course * admin::addCourse(course * c, int & size)
     newArray[size - 1].setExaddress("null");
     newArray[size - 1].setHomeWork(newDocuments, 0);
     cout << "Ìí¼Ó³É¹¦£¡" << endl;
+    string cmd = "mkdir ..\\documents\\users\\" + stuname + "\\" + newArray[size - 1].getName();
+    system(cmd.c_str());
     delete[] newTime;
     delete[] newDocuments;
-    delete newArray;
     delete[] c;
     return newArray;
 }
