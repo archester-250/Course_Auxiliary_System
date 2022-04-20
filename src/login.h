@@ -93,6 +93,7 @@ public:
                 cmd = "cd ..\\documents\\users\\" + username + " & echo 0 > " + username + ".data";
                 system(cmd.c_str());
             }
+            printf("×¢²á³É¹¦£¡\n");
         }
         inf.notEnd = 5;
         return inf;

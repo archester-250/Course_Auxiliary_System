@@ -13,6 +13,7 @@
 
 #include "course.h"
 #include "student.h"
+#include "input.h"
 
 
 
@@ -23,9 +24,10 @@ private:
 public:
     admin();
     ~admin();
-    void addCourse(course * c[], int & size);
+    course * addCourse(course * c, int & size);
     void addHomework(string Course_name, string Homework);//todo
     string uploadDocument(string road, string name);
+    void showMenu();
 };
 
 admin::admin(/* args */)
