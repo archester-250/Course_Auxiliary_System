@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <string>
+#include <cstring>
 #include <iostream>
 #include <fstream>
 #include "utils.h"
@@ -39,47 +40,76 @@ private:
     /* data */
     string name;
     course_time * time;
+    int t_size;
     string address;
     string * documents;//课程资料
+    int doc_size;
     string current;
     string * homeWork;
+    int hw_size;
     string QQGroup;
     Time extime;
     string exaddress;//-ex前缀：考试相关信息
     hw_con * finish_con;
+    int finish_size;
 public:
     course();
     course(         string name,
                     course_time * time,
+                    int t_size,
                     string address,
                     string * documents,
+                    int doc_count,
                     string current,
                     string * homeWork,
+                    int hw_size,
                     string QQGroup,
                     Time extime,
                     string exaddress);
     ~course(){
         if(time != NULL)
-            delete[] time;
+        {
+            delete [] time;
+            time = NULL;
+            t_size = 0;
+        }
         if(documents != NULL)
-            delete[] documents;
+        {
+            delete [] documents;
+            documents = NULL;
+            doc_size = 0;
+        }
         if(homeWork != NULL)
-            delete[] homeWork;
+        {
+            delete [] homeWork;
+            homeWork = NULL;
+            hw_size = 0;
+        }
         if(finish_con != NULL)
-            delete[] finish_con;
+        {
+            delete [] finish_con;
+            finish_con = NULL;
+            finish_size = 0;
+        }
     }
     string getName();
     void setName(string name);
     course_time * getTime();
-    void setTime(course_time * time);
+    void setTime(course_time * time, int size);
+    int getTimeSize();
+    void setTimeSize(int size);
     string getAddress();
     void setAddress(string address);
     string * getDocuments();
-    void setDocuments(string * documents);
+    void setDocuments(string * documents, int size);
+    int getDocumentsSize();
+    void setDocumentsSize(int size);
     string getCurrent();
     void setCurrent(string current);
     string * getHomeWork();
-    void setHomeWork(string * homeWork);
+    void setHomeWork(string * homeWork, int size);
+    int getHomeWorkSize();
+    void setHomeWorkSize(int size);
     Time getExtime();
     void setExtime(Time extime);
     string getExaddress();
@@ -87,7 +117,9 @@ public:
     string getQQGroup();
     void setQQGroup(string QQGroup);
     hw_con * getFinish();
-    void setFinish(hw_con * finish_con);
+    void setFinish(hw_con * finish_con, int size);
+    int getFinishSize();
+    void setFinishSize(int size);
     void operator=(course& c);
     
     string uploadHomework(string road, string stuName, int no);

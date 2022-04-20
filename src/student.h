@@ -53,7 +53,7 @@ public:
 
     course * getCourses();
 
-    void setCourses(course * courses);
+    void setCourses(course * courses, int c_count);
 
     void addActivity();
 

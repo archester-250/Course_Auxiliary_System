@@ -66,9 +66,13 @@ course * Student::getCourses()
     return this->courses;
 }
 
-void Student::setCourses(course * courses)
+void Student::setCourses(course * courses, int c_count)
 {
-    this->courses = courses;
+    this->courses = new course[c_count];
+    for(int i = 0; i < c_count; i++)
+    {
+        this->courses[i] = courses[i];
+    }
 }
 
 int Student::getCourseSize()
@@ -90,6 +94,7 @@ Student::Student(string name)
     {
         string course;int counts;//课程，作业布置次数
         in>>course>>counts;
+        courses[i].setFinishSize(counts);
         for(int j = 0; j < all_count; j++)
         {
             if(!OurStr::StrCmp(allCourses[j].getName(), course))
@@ -107,7 +112,8 @@ Student::Student(string name)
                 in>>b[j].road;
             }
         }
-        courses[i].setFinish(b);
+        courses[i].setFinish(b, counts);
+        delete[] b;
     }
     delete[] allCourses;
     in.close();

@@ -14,12 +14,14 @@ course * prepocess::coursesInitialize(int & all_count)
 
         int t_count;
         fin>>t_count;
+        courses[i].setTimeSize(t_count);
         course_time * time = new course_time[t_count];
         for(int j = 0; j < t_count; j++)
         {
             fin>>time[j].week>>time[j].starthour>>time[j].endhour;
         }
-        courses[i].setTime(time);
+        courses[i].setTime(time, t_count);
+        delete[] time;
 
         string address;
         fin>>address;
@@ -27,26 +29,29 @@ course * prepocess::coursesInitialize(int & all_count)
 
         int doc_count;
         fin>>doc_count;
+        courses[i].setDocumentsSize(doc_count);
         string * documents = new string[doc_count];
         for(int j = 0; j < doc_count; j++)
         {
             fin>>documents[j];
         }
-        courses[i].setDocuments(documents);
+        courses[i].setDocuments(documents, doc_count);
+        delete[] documents;
 
         string current;
         fin>>current;
         courses[i].setCurrent(current);
 
-        string * homeWork;
         int hw_count;
         fin>>hw_count;
-        homeWork = new string[hw_count];
+        courses[i].setHomeWorkSize(hw_count);
+        string * homeWork = new string[hw_count];
         for(int j = 0; j < hw_count; j++)
         {
             fin>>homeWork[j];
         }
-        courses[i].setHomeWork(homeWork);
+        courses[i].setHomeWork(homeWork, hw_count);
+        delete[] homeWork;
 
         string QQGroup;
         fin>>QQGroup;
