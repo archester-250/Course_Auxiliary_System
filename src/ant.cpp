@@ -1,5 +1,5 @@
 #include<iostream>
-#include<Eigen\Dense>
+#include<Eigen/Dense>
 #include<stdlib.h>
 #include<time.h>
 #include<math.h>
@@ -343,9 +343,9 @@ void evolution()
 	}
 }
 
-int main()
-{
-	srand((unsigned)time(NULL));
+// int main()
+// {
+// 	srand((unsigned)time(NULL));
 
-	evolution();
-}
+// 	evolution();
+// }
