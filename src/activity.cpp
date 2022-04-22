@@ -16,7 +16,7 @@ const Time &Activity::getStartTime() const {
     return startTime;
 }
 
-void Activity::setStartTime(const Time &startTime) {
+void Activity::setStartTime(Time startTime) {
     if(!time_conflict(startTime))
     {
         Activity::startTime = startTime;
@@ -30,7 +30,7 @@ const Time &Activity::getEndTime() const {
     return endTime;
 }
 
-void Activity::setEndTime(const Time &endTime) {
+void Activity::setEndTime(Time endTime) {
     if(!time_conflict(endTime))
     {
         Activity::endTime = endTime;

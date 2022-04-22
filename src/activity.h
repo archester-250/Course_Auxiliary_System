@@ -34,11 +34,11 @@ public:
     // Get ºÍ Set ·½·¨
     const Time &getStartTime() const;
 
-    void setStartTime(const Time &startTime);
+    void setStartTime(Time startTime);
 
     const Time &getEndTime() const;
 
-    void setEndTime(const Time &endTime);
+    void setEndTime(Time endTime);
 
     const string &getAddress() const;
 

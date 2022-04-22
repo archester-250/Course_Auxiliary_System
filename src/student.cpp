@@ -266,5 +266,13 @@ void Student::InitStudent() {
     int startTime, endTime;
     string address, description;
     db >> startTime >> endTime >> address >> description;
-    //todo£º add to student
+    Activity activity;
+    Time start, end;
+    start.inputTime(startTime);
+    end.inputTime(endTime);
+    activity.setStartTime(start);
+    activity.setEndTime(end);
+    activity.setAddress(address);
+    activity.setDescription(description);
+    student.getActivities()->put(activity.getStartTime().timeStamp(), activity);
 }
