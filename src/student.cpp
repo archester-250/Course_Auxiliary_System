@@ -10,16 +10,15 @@
 using namespace std;
 
 extern void updateTime();
+
 extern HashMap<string, Student> students;
 Student student("wxl");
 
-string Student::getName()
-{
+string Student::getName() {
     return name;
 }
 
-void Student::setName(string name)
-{
+void Student::setName(string name) {
     this->name = name;
 }
 
@@ -35,87 +34,78 @@ void Student::addActivity() {
     string address = Input<string>();
     cout << "输入活动成员(不含自己)" << endl;
     //todo
+    cout << "输入活动描述" << endl;
+    string description = Input<string>();
     cout << "是否设定闹钟（提前一小时提醒)？true/false" << endl;
     clk = Input<bool>();
     activity.setStartTime(startTime);
     activity.setEndTime(endTime);
     activity.setAddress(address);
     activity.setClk(clk);
-    if (clk){
+    activity.setDescription(description);
+    if (clk) {
         Clock clock;
         Time time = startTime.desc(1);
         clock.setTime(time);
         this->activities->put(startTime.timeStamp(), activity);
     }
     clog << student.name << "添加事件：" << activity.toString() << endl;
-    ofstream _config("../database/activities/" + student.name, ios::out);
+    ofstream _config("../database/activities/" + student.name, ios::app);
     assert(_config);
-    _config << activity.storeStr();
+    _config << activity.storeStr() << endl;
     _config.close();
 }
 
-course Student::searchCourse(course c[], int size, string name)
-{
+course Student::searchCourse(course c[], int size, string name) {
     course temp;
-    for(int i = 0; i < size; i++)
-    {
-        if(!OurStr::StrCmp(c[i].getName(), name))
-        {
+    for (int i = 0; i < size; i++) {
+        if (!OurStr::StrCmp(c[i].getName(), name)) {
             return c[i];
         }
     }
     return temp;
 }
 
-course * Student::getCourses()
-{
+course *Student::getCourses() {
     return this->courses;
 }
 
-void Student::setCourses(course * courses, int c_count)
-{
+void Student::setCourses(course *courses, int c_count) {
     this->courses = new course[c_count];
-    for(int i = 0; i < c_count; i++)
-    {
+    for (int i = 0; i < c_count; i++) {
         this->courses[i] = courses[i];
     }
 }
 
-int Student::getCourseSize()
-{
+int Student::getCourseSize() {
     return this->course_size;
 }
 
-Student::Student(string name)
-{
+Student::Student(string name) {
     this->name = name;
-    ifstream in("../documents/users/"+name+"/"+name+".data");
+    ifstream in("../documents/users/" + name + "/" + name + ".data");
     int c_count, all_count;//课程总数
-    in>>c_count;
+    in >> c_count;
     course_size = c_count;
     courses = new course[c_count];
     prepocess p;
-    course * allCourses = p.coursesInitialize(all_count);//done
-    for(int i = 0; i < c_count; i++)
-    {
-        string course;int counts;//课程，作业布置次数
-        in>>course>>counts;
+    course *allCourses = p.coursesInitialize(all_count);//done
+    for (int i = 0; i < c_count; i++) {
+        string course;
+        int counts;//课程，作业布置次数
+        in >> course >> counts;
         courses[i].setFinishSize(counts);
-        for(int j = 0; j < all_count; j++)
-        {
-            if(!OurStr::StrCmp(allCourses[j].getName(), course))
-            {
+        for (int j = 0; j < all_count; j++) {
+            if (!OurStr::StrCmp(allCourses[j].getName(), course)) {
                 courses[i] = allCourses[j];
                 break;
             }
         }
-        hw_con * b = new hw_con[counts];
-        for(int j = 0; j < counts; j++)
-        {
-            in>>b[j].finish;
-            if(b[j].finish)
-            {
-                in>>b[j].road;
+        hw_con *b = new hw_con[counts];
+        for (int j = 0; j < counts; j++) {
+            in >> b[j].finish;
+            if (b[j].finish) {
+                in >> b[j].road;
             }
         }
         courses[i].setFinish(b, counts);
@@ -125,14 +115,13 @@ Student::Student(string name)
     in.close();
 }
 
-void Student::showMenu()
-{
+void Student::showMenu() {
     printf("欢迎学生 %s，", getName().c_str());
     int choice = 0;
-    do{
+    do {
         updateTime();
         auto clockCheck = student.getClocks()->get(modtime.timeStamp());
-        if (clockCheck->first){
+        if (clockCheck->first) {
             cout << "[事件提醒]" << clockCheck->second.toString();
         }
         cout << "当前时间：" << modtime.toString() << endl;
@@ -140,29 +129,27 @@ void Student::showMenu()
         printf("1.课内信息管理系统\n");
         printf("2.课外信息管理系统\n");
         choice = input::getOperatorNum();
-            switch(choice)
-            {
-                case 1:
-                    choice = showCourseMenu();
-                    break;
-                case 2:
-                    choice = showActivityMenu();
-                    break;
-                case 0:
-                    return;
-                default:
-                    printf("输入错误，请重新输入\n");
-                    break;
-            }
-    }while (choice);
+        switch (choice) {
+            case 1:
+                choice = showCourseMenu();
+                break;
+            case 2:
+                choice = showActivityMenu();
+                break;
+            case 0:
+                return;
+            default:
+                printf("输入错误，请重新输入\n");
+                break;
+        }
+    } while (choice);
     return;
 }
 
-int Student::showCourseMenu()
-{
+int Student::showCourseMenu() {
     updateTime();
     auto clockCheck = student.getClocks()->get(modtime.timeStamp());
-    if (clockCheck->first){
+    if (clockCheck->first) {
         cout << "[事件提醒]" << clockCheck->second.toString();
     }
     printf("欢迎进入课内管理系统!请选择要进行的操作:\n");
@@ -174,10 +161,8 @@ int Student::showCourseMenu()
     printf("9.返回上一级\n");
     printf("0.返回主页\n");
     int choice = input::getOperatorNum();
-    while(choice)
-    {
-        switch(choice)
-        {
+    while (choice) {
+        switch (choice) {
             case 1:
                 // showTodayCourse();//todo
                 break;
@@ -214,22 +199,21 @@ int Student::showCourseMenu()
     return 1;
 }
 
-int Student::showActivityMenu()
-{
+int Student::showActivityMenu() {
     int choice;
-    do{
-    updateTime();
-    auto clockCheck = student.getClocks()->get(modtime.timeStamp());
-    if (clockCheck->first){
-        cout << "[事件提醒]" << clockCheck->second.toString();
-    }
-    //亮神finish
-    printf("欢迎进入活动管理系统!请选择要进行的操作:\n");
-    cout << "1.增加事件" << endl;
-    cout << "2.事件一览" << endl;
-    printf("9.返回上级\n");
-    printf("0.返回主页\n");
-    int choice = input::getOperatorNum();
+    do {
+        updateTime();
+        auto clockCheck = student.getClocks()->get(modtime.timeStamp());
+        if (clockCheck->first) {
+            cout << "[事件提醒]" << clockCheck->second.toString();
+        }
+        //亮神finish
+        printf("欢迎进入活动管理系统!请选择要进行的操作:\n");
+        cout << "1.增加事件" << endl;
+        cout << "2.事件一览" << endl;
+        printf("9.返回上级\n");
+        printf("0.返回主页\n");
+        int choice = input::getOperatorNum();
         switch (choice) {
             case 1:
                 student.addActivity();
@@ -245,7 +229,7 @@ int Student::showActivityMenu()
                 printf("输入错误，请重新输入\n");
                 break;
         }
-    }while (choice);
+    } while (choice);
     return 1;
 }
 
@@ -265,14 +249,16 @@ void Student::InitStudent() {
     ifstream db("../database/activities/" + student.name);
     int startTime, endTime;
     string address, description;
-    db >> startTime >> endTime >> address >> description;
-    Activity activity;
-    Time start, end;
-    start.inputTime(startTime);
-    end.inputTime(endTime);
-    activity.setStartTime(start);
-    activity.setEndTime(end);
-    activity.setAddress(address);
-    activity.setDescription(description);
-    student.getActivities()->put(activity.getStartTime().timeStamp(), activity);
+    while (db >> startTime >> endTime >> address >> description) {
+        Activity activity;
+        Time start, end;
+        start.inputTime(startTime);
+        end.inputTime(endTime);
+        activity.setStartTime(start);
+        activity.setEndTime(end);
+        activity.setAddress(address);
+        activity.setDescription(description);
+        student.getActivities()->put(activity.getStartTime().timeStamp(), activity);
+        clog << "读取本地活动：" << activity.toString() << endl;
+    }
 }
