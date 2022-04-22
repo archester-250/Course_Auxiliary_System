@@ -125,11 +125,12 @@ public:
 
 // ????
 class Clock {
-    //todo
 
 public:
     int repeat{};
     Time time{};
+
+    Clock() {}
 
     int getRepeat() const {
         return repeat;
@@ -147,7 +148,7 @@ public:
         Clock::time = t;
     }
 
-    const char* toString(){
+    string toString(){
         return "todo";
     }
 };

@@ -29,6 +29,8 @@ private:
     bool clk = false;//闹钟标识，Todo
     string description;//活动内容描述
 public:
+    Activity();
+
     // Get 和 Set 方法
     const Time &getStartTime() const;
 

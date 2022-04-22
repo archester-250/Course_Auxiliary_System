@@ -8,7 +8,8 @@
 
 using namespace std;
 
-extern HashMap<int, Activity> activities;
+extern HashMap<int, Student> students;
+Student student("wxl");
 
 string Student::getName()
 {
@@ -43,8 +44,7 @@ void Student::addActivity() {
         Clock clock;
         Time time = startTime.desc(1);
         clock.setTime(time);
-        activities.put(startTime.timeStamp(), activity);
-//        clock.setStudent();todo
+        this->activities->put(startTime.timeStamp(), activity);
     }
 }
 
@@ -121,6 +121,10 @@ Student::Student(string name)
 
 void Student::showMenu()
 {
+    auto clockCheck = student.getClocks()->get(modtime.timeStamp());
+    if (clockCheck->first){
+        cout << "[事件提醒]" << clockCheck->second.toString();
+    }
     printf("欢迎学生 %s\n请选择要进入的系统:\n", getName().c_str());
     printf("1.课内信息管理系统\n");
     printf("2.课外信息管理系统\n");
@@ -230,4 +234,16 @@ int Student::showActivityMenu()
         choice = input::getOperatorNum();
     }
     return 1;
+}
+
+Student::Student() {
+
+}
+
+HashMap<int, Activity> *Student::getActivities() const {
+    return activities;
+}
+
+HashMap<int, Clock> *Student::getClocks() const {
+    return clocks;
 }

@@ -13,10 +13,10 @@
 #include <ctime>
 #include <fstream>
 #include <io.h>
+#include "hashMap.h"
 
 
-HashMap<int, Clock> clocks(64);
-HashMap<int, Activity> activities(128);
+HashMap<int, Student> students(128);
 
 using namespace std;
 
@@ -36,15 +36,10 @@ int main()
     config.close();
     int notEnd = 1;
     while (notEnd) {
-        cout << "初始时间：" <<  modtime.toString();
+        cout << "=====BUPT GUIDE====\n" << "时间：" <<  modtime.toString();
         if (clock() - systime > sys_time_bias_times){
             modtime.incre((clock() - systime) / sys_time_bias_times);
             systime = clock();
-            // 检查闹钟
-            Clock clock = clocks.get(modtime.timeStamp());
-            if (clock.time.timeStamp()){//BUG here
-                cout << "[事件提醒]" << clock.toString();
-            }
         }
         info login_info = login::dologin();
         notEnd = login_info.notEnd;

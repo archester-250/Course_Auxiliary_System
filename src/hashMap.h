@@ -15,13 +15,13 @@ static int primes[27] =
         };//from web
 
 template<class T1, class T2>
-struct Pair {//no use
+struct Pair {
     T1 first;
     T2 second;
 
     Pair() : first(T1()), second(T2()) {}
 
-    Pair(const T1 &a, const T2 &b) : first(a), second(b) {}
+    Pair(T1 a, T2 b) : first(a), second(b) {}
 };
 
 template<class T>
@@ -73,7 +73,7 @@ public:
 
     int put(T1 key, T2 value);
 
-    T2 get(T1 key);
+    Pair<bool, T2> * get(T1 key);
 
     int hash(int h) {
         h ^= (h >> 20) ^ (h >> 12);
@@ -86,7 +86,7 @@ public:
 private:
     HashNode<T1, T2> **table;//Ö¸ÕëÊý×é
     int size{};
-    T2 valNull;
+    T2* valNull = new T2();
 };
 
 template<class T1, class T2>
@@ -120,16 +120,16 @@ HashMap<T1, T2>::~HashMap() {
 }
 
 template<class T1, class T2>
-T2 HashMap<T1, T2>::get(T1 _key) {
+Pair<bool, T2>* HashMap<T1, T2>::get(T1 _key) {
     int index = hash(_key) % size;
     HashNode<T1, T2> *node = table[index];
     while (node) {
         if (node->key == _key) {
-            return node->value;
+            return new Pair<bool, T2>(true, node->value);
         }
         node = node->next;
     }
-    return valNull;
+    return new Pair<bool, T2>(false, *valNull);
 }
 
 template<class T1, class T2>

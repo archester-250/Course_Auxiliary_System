@@ -6,12 +6,11 @@
 using namespace std;
 
 extern HashMap<int, Clock> clocks;
+extern Student student;
 
 bool time_conflict(Time time){
-    if (clocks.get(time.timeStamp()).time.timeStamp() != 0){
-        return true;
-    }
-    return false;
+
+        return false;
 }
 
 const Time &Activity::getStartTime() const {
@@ -76,3 +75,5 @@ string Activity::toString() {
     return "from" + startTime.toString() + "to" + endTime.toString() + ":\n"\
             "In" + address + ":" + description;
 }
+
+Activity::Activity() {}
