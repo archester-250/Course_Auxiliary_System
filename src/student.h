@@ -72,6 +72,7 @@ public:
 
     int showActivityMenu();//显示活动操作菜单
 
+    void InitStudent();
 };
 
 #endif

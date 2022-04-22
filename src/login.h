@@ -18,8 +18,10 @@
 #include "hashMap.h"
 #include "utils.h"
 #include "input.h"
+#include "student.h"
 
 using namespace std;
+extern Student student;
 
 struct info
 {
@@ -68,10 +70,11 @@ public:
                 inf.notEnd = loginCode;
                 string suser(username);
                 inf.user = suser;
+                student.InitStudent();
                 return inf;
             }
             else printf("µÇÂ½Ê§°Ü£¡\n");
-        } 
+        }
         else if (loginCode == 3 || loginCode == 4) {
             string username;
             do
@@ -124,10 +127,10 @@ public:
             case 1:
                 printf("Write in error!\n");
                 break;
-            
+
             case 2:
                 printf("Repetive user's name!\n");
-            
+
             default:
                 break;
             }
@@ -137,7 +140,7 @@ public:
     {
         try
         {
-            
+
             string s0;
             if(loginCode == 1 || loginCode == 3) s0 = "../database/users.data";
             else s0 = "../database/administers.data";
@@ -168,7 +171,7 @@ public:
                     }
                     in >> temp;
                 }
-                
+
             }
             in.close();
             return false;
@@ -208,7 +211,7 @@ public:
                 while(getchar() != '\n');
                 return false;
                 break;
-            
+
             default:
                 break;
             }

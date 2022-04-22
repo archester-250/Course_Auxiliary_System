@@ -56,6 +56,7 @@ public:
 
     string toString();
 
+    string storeStr();
 };
 
 

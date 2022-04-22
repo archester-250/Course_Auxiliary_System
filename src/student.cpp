@@ -1,4 +1,5 @@
 
+#include <cassert>
 #include "student.h"
 #include "course.h"
 #include "utils.h"
@@ -25,14 +26,13 @@ void Student::setName(string name)
 void Student::addActivity() {
     Activity activity;
     Time startTime, endTime;
-    string address;
     bool clk = false;
-    cout << "输入开始时间的字符串格式(如：2022040715)" << endl;
+    cout << "输入开始时间的字符串格式(如：22040715)" << endl;
     startTime.inputTime(Input<int>());
-    cout << "输入结束时间的字符串格式(如：2022040718)" << endl;
+    cout << "输入结束时间的字符串格式(如：22040718)" << endl;
     endTime.inputTime(Input<int>());
     cout << "输入活动地址" << endl;
-    string tmp = Input<string>();
+    string address = Input<string>();
     cout << "输入活动成员(不含自己)" << endl;
     //todo
     cout << "是否设定闹钟（提前一小时提醒)？true/false" << endl;
@@ -47,6 +47,11 @@ void Student::addActivity() {
         clock.setTime(time);
         this->activities->put(startTime.timeStamp(), activity);
     }
+    clog << student.name << "添加事件：" << activity.toString() << endl;
+    ofstream _config("../database/activities/" + student.name, ios::out);
+    assert(_config);
+    _config << activity.storeStr();
+    _config.close();
 }
 
 course Student::searchCourse(course c[], int size, string name)
@@ -254,4 +259,12 @@ HashMap<int, Activity> *Student::getActivities() const {
 
 HashMap<int, Clock> *Student::getClocks() const {
     return clocks;
+}
+
+void Student::InitStudent() {
+    ifstream db("../database/activities/" + student.name);
+    int startTime, endTime;
+    string address, description;
+    db >> startTime >> endTime >> address >> description;
+    //todo： add to student
 }

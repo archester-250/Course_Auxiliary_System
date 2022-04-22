@@ -34,7 +34,6 @@ void Activity::setEndTime(const Time &endTime) {
     if(!time_conflict(endTime))
     {
         Activity::endTime = endTime;
-        clog << "[INFO]设置时间结束活动\n";
     }
     else
         cout << "时间冲突，请重输入\n";
@@ -70,8 +69,13 @@ void Activity::setAddress(const string &address) {
 }
 
 string Activity::toString() {
-    return "from" + startTime.toString() + "to" + endTime.toString() + ":\n"\
-            "In" + address + ":" + description;
+    return "from " + startTime.toString() + " to " + endTime.toString() + ": "\
+            "In " + address + ":" + description;
 }
 
+
 Activity::Activity() {}
+
+string Activity::storeStr() {
+    return to_string(startTime.timeStamp()) + " " + to_string(endTime.timeStamp()) + " " + address + " " + description;
+}
