@@ -39,7 +39,7 @@ public:
     static info dologin()
     {
         printf("欢迎使用课程辅助系统！(输入0退出）\n");
-        printf("请选择登录方式\n1、学生用户\t2、管理员\t3、注册用户\t4、注册管理员\n(不需要打enter噢!^_^)");
+        printf("请选择登录方式\n1、学生用户\t2、管理员\t3、注册学生\t4、注册管理员\n(不需要打enter噢!^_^)");
         info inf;
         input in;
         int loginCode;

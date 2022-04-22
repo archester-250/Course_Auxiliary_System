@@ -9,7 +9,6 @@ extern HashMap<int, Clock> clocks;
 extern Student student;
 
 bool time_conflict(Time time){
-
         return false;
 }
 
@@ -21,7 +20,6 @@ void Activity::setStartTime(const Time &startTime) {
     if(!time_conflict(startTime))
     {
         Activity::startTime = startTime;
-        clog << "[INFO]设置时间开始活动\n";
     }   
     else
         cout << "时间冲突，请重输入\n";

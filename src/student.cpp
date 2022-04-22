@@ -8,7 +8,8 @@
 
 using namespace std;
 
-extern HashMap<int, Student> students;
+extern void updateTime();
+extern HashMap<string, Student> students;
 Student student("wxl");
 
 string Student::getName()
@@ -121,45 +122,44 @@ Student::Student(string name)
 
 void Student::showMenu()
 {
-    auto clockCheck = student.getClocks()->get(modtime.timeStamp());
-    if (clockCheck->first){
-        cout << "[事件提醒]" << clockCheck->second.toString();
-    }
-    printf("欢迎学生 %s\n请选择要进入的系统:\n", getName().c_str());
-    printf("1.课内信息管理系统\n");
-    printf("2.课外信息管理系统\n");
-    printf("0.退出系统\n");
-    int choice = input::getOperatorNum();
-    while(choice)
-    {
-        switch(choice)
-        {
-            case 1:
-                choice = showCourseMenu();
-                break;
-            case 2:
-                choice = showActivityMenu();
-                break;
-            case 0:
-                return;
-            default:
-                printf("输入错误，请重新输入\n");
-                break;
+    printf("欢迎学生 %s，", getName().c_str());
+    int choice = 0;
+    do{
+        updateTime();
+        auto clockCheck = student.getClocks()->get(modtime.timeStamp());
+        if (clockCheck->first){
+            cout << "[事件提醒]" << clockCheck->second.toString();
         }
-        if(!choice)
-        {
-            return;
-        }
-        printf("请选择要进入的系统:\n");
+        cout << "当前时间：" << modtime.toString() << endl;
+        cout << "请选择要进入的系统(按0退出)\n";
         printf("1.课内信息管理系统\n");
         printf("2.课外信息管理系统\n");
-        printf("0.退出系统\n");
         choice = input::getOperatorNum();
-    }
+            switch(choice)
+            {
+                case 1:
+                    choice = showCourseMenu();
+                    break;
+                case 2:
+                    choice = showActivityMenu();
+                    break;
+                case 0:
+                    return;
+                default:
+                    printf("输入错误，请重新输入\n");
+                    break;
+            }
+    }while (choice);
+    return;
 }
 
 int Student::showCourseMenu()
 {
+    updateTime();
+    auto clockCheck = student.getClocks()->get(modtime.timeStamp());
+    if (clockCheck->first){
+        cout << "[事件提醒]" << clockCheck->second.toString();
+    }
     printf("欢迎进入课内管理系统!请选择要进行的操作:\n");
     printf("1.查看今日课程信息\n");
     printf("2.查看课程表\n");
@@ -211,15 +211,27 @@ int Student::showCourseMenu()
 
 int Student::showActivityMenu()
 {
+    int choice;
+    do{
+    updateTime();
+    auto clockCheck = student.getClocks()->get(modtime.timeStamp());
+    if (clockCheck->first){
+        cout << "[事件提醒]" << clockCheck->second.toString();
+    }
     //亮神finish
     printf("欢迎进入活动管理系统!请选择要进行的操作:\n");
-    printf("9.返回上一级\n");
+    cout << "1.增加事件" << endl;
+    cout << "2.事件一览" << endl;
+    printf("9.返回上级\n");
     printf("0.返回主页\n");
     int choice = input::getOperatorNum();
-    while(choice)
-    {
-        switch(choice)
-        {
+        switch (choice) {
+            case 1:
+                student.addActivity();
+                break;
+            case 2:
+                //这里需要一个循环
+                break;
             case 9:
                 return 1;
             case 0:
@@ -228,11 +240,7 @@ int Student::showActivityMenu()
                 printf("输入错误，请重新输入\n");
                 break;
         }
-        printf("欢迎进入活动管理系统!请选择要进行的操作:\n");
-        printf("9.返回上一级\n");
-        printf("0.返回主页\n");
-        choice = input::getOperatorNum();
-    }
+    }while (choice);
     return 1;
 }
 

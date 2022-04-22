@@ -24,6 +24,13 @@ Time modtime;
 int systime = clock();
 int sys_time_bias_times = SYS_TIME_BIAS_TIMES;
 
+void updateTime(){
+    if (clock() - systime > sys_time_bias_times){
+        modtime.incre((clock() - systime) / sys_time_bias_times);
+        systime = clock();
+    }
+}
+
 ofstream _log("log");
 streambuf *clogbuf = std::clog.rdbuf();
 
@@ -37,10 +44,7 @@ int main()
     int notEnd = 1;
     while (notEnd) {
         cout << "=====BUPT GUIDE====\n" << "ʱ�䣺" <<  modtime.toString();
-        if (clock() - systime > sys_time_bias_times){
-            modtime.incre((clock() - systime) / sys_time_bias_times);
-            systime = clock();
-        }
+        updateTime();
         info login_info = login::dologin();
         notEnd = login_info.notEnd;
         if(notEnd == 1)
