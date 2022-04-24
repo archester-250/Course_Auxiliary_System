@@ -6,23 +6,20 @@
 using namespace std;
 
 extern HashMap<int, Clock> clocks;
+extern Student student;
 
 bool time_conflict(Time time){
-    if (clocks.get(time.timeStamp()).time.timeStamp() != 0){
-        return true;
-    }
-    return false;
+        return false;
 }
 
 const Time &Activity::getStartTime() const {
     return startTime;
 }
 
-void Activity::setStartTime(const Time &startTime) {
+void Activity::setStartTime(Time startTime) {
     if(!time_conflict(startTime))
     {
         Activity::startTime = startTime;
-        clog << "[INFO]设置时间开始活动\n";
     }   
     else
         cout << "时间冲突，请重输入\n";
@@ -33,11 +30,10 @@ const Time &Activity::getEndTime() const {
     return endTime;
 }
 
-void Activity::setEndTime(const Time &endTime) {
+void Activity::setEndTime(Time endTime) {
     if(!time_conflict(endTime))
     {
         Activity::endTime = endTime;
-        clog << "[INFO]设置时间结束活动\n";
     }
     else
         cout << "时间冲突，请重输入\n";
@@ -73,6 +69,13 @@ void Activity::setAddress(const string &address) {
 }
 
 string Activity::toString() {
-    return "from" + startTime.toString() + "to" + endTime.toString() + ":\n"\
-            "In" + address + ":" + description;
+    return "from " + startTime.toString() + " to " + endTime.toString() + ": "\
+            "In " + address + ":" + description;
+}
+
+
+Activity::Activity() {}
+
+string Activity::storeStr() {
+    return to_string(startTime.timeStamp()) + " " + to_string(endTime.timeStamp()) + " " + address + " " + description;
 }

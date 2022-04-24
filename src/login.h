@@ -18,8 +18,10 @@
 #include "hashMap.h"
 #include "utils.h"
 #include "input.h"
+#include "student.h"
 
 using namespace std;
+extern Student student;
 
 struct info
 {
@@ -39,7 +41,7 @@ public:
     static info dologin()
     {
         printf("欢迎使用课程辅助系统！(输入0退出）\n");
-        printf("请选择登录方式\n1、学生用户\t2、管理员\t3、注册用户\t4、注册管理员\n(不需要打enter噢!^_^)");
+        printf("请选择登录方式\n1、学生用户\t2、管理员\t3、注册学生\t4、注册管理员\n(不需要打enter噢!^_^)");
         info inf;
         input in;
         int loginCode;
@@ -68,10 +70,11 @@ public:
                 inf.notEnd = loginCode;
                 string suser(username);
                 inf.user = suser;
+                student.InitStudent();
                 return inf;
             }
             else printf("登陆失败！\n");
-        } 
+        }
         else if (loginCode == 3 || loginCode == 4) {
             string username;
             do
@@ -93,7 +96,6 @@ public:
                 cmd = "cd ..\\documents\\users\\" + username + " & echo 0 > " + username + ".data";
                 system(cmd.c_str());
             }
-            printf("注册成功！\n");
         }
         inf.notEnd = 5;
         return inf;
@@ -125,10 +127,10 @@ public:
             case 1:
                 printf("Write in error!\n");
                 break;
-            
+
             case 2:
                 printf("Repetive user's name!\n");
-            
+
             default:
                 break;
             }
@@ -138,7 +140,7 @@ public:
     {
         try
         {
-            
+
             string s0;
             if(loginCode == 1 || loginCode == 3) s0 = "../database/users.data";
             else s0 = "../database/administers.data";
@@ -169,7 +171,7 @@ public:
                     }
                     in >> temp;
                 }
-                
+
             }
             in.close();
             return false;
@@ -209,7 +211,7 @@ public:
                 while(getchar() != '\n');
                 return false;
                 break;
-            
+
             default:
                 break;
             }

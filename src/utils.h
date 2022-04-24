@@ -84,25 +84,7 @@ public:
         return hr + day * 100 + mn * 10000 + (yr % 100) * 1000000;
     }
 
-    void incre(int h) {
-        sys_time_bias_times = SYS_TIME_BIAS_TIMES;
-        while (h--) {
-            if (hr == 23) {
-                hr = 0;
-                if (day == MonthDays(yr, mn)) {
-                    day = 1;
-                    if (mn < 12)
-                        mn++;
-                    else{
-                        mn = 1;
-                        yr++;
-                    }
-                } else
-                    day++;
-            } else
-                hr++;
-        }
-    }
+    void incre(int h);
 
     int calculateWeekDay() const {
         int m = mn, d = day, y = yr;
@@ -125,11 +107,12 @@ public:
 
 // ????
 class Clock {
-    //todo
 
 public:
     int repeat{};
     Time time{};
+
+    Clock() {}
 
     int getRepeat() const {
         return repeat;
@@ -147,7 +130,7 @@ public:
         Clock::time = t;
     }
 
-    const char* toString(){
+    string toString(){
         return "todo";
     }
 };

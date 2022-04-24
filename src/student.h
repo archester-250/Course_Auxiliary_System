@@ -11,9 +11,10 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
-#include "activity.h"
 #include "utils.h"
+#include "activity.h"
 #include "course.h"
+#include "hashMap.h"
 
 struct hwork//家庭作业
 {
@@ -28,13 +29,19 @@ class course;
 class Student {
 
 private:
-    int activityIDs[32];
     string name;
     course * courses;
+    HashMap<int, Activity>* activities = new HashMap<int, Activity>(32);
+    HashMap<int, Clock>* clocks = new HashMap<int, Clock>(32);
     int course_size;
 
 public:
+    Student();
     Student(string name);
+
+    HashMap<int, Activity> *getActivities() const;
+
+    HashMap<int, Clock> *getClocks() const;
 
     ~Student()
     {
@@ -65,6 +72,7 @@ public:
 
     int showActivityMenu();//显示活动操作菜单
 
+    void InitStudent();
 };
 
 #endif

@@ -29,14 +29,16 @@ private:
     bool clk = false;//闹钟标识，Todo
     string description;//活动内容描述
 public:
+    Activity();
+
     // Get 和 Set 方法
     const Time &getStartTime() const;
 
-    void setStartTime(const Time &startTime);
+    void setStartTime(Time startTime);
 
     const Time &getEndTime() const;
 
-    void setEndTime(const Time &endTime);
+    void setEndTime(Time endTime);
 
     const string &getAddress() const;
 
@@ -54,6 +56,7 @@ public:
 
     string toString();
 
+    string storeStr();
 };
 
 

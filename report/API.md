@@ -1,6 +1,10 @@
-# define
+# HashMap类
 
-In admin.h
+`get`方法不再直接对不存在的值返回初始化对象，而是通过`Pair<bool, T2>`返回。
+
+通过`->first`判断查询的对象是否存在。
+
+# define
 
 - 时间倍速
 
