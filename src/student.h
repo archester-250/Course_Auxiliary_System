@@ -34,6 +34,7 @@ private:
     HashMap<int, Activity>* activities = new HashMap<int, Activity>(32);
     HashMap<int, Clock>* clocks = new HashMap<int, Clock>(32);
     int course_size;
+    Array<Activity>* Activities = new Array<Activity>(32);
 
 public:
     Student();
@@ -50,6 +51,7 @@ public:
             courses[i].~course();
         }
         delete[] courses;
+        delete Activities;
     }
 
     string getName();
@@ -69,6 +71,8 @@ public:
     void showMenu();//显示学生操作菜单
 
     void showTodayCourse();//显示今天的课程
+
+    void showActivities(bool today);
 
     void courseTable();
 

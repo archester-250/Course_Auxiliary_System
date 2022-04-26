@@ -1,7 +1,7 @@
-#include "activity.h"
 #include "hashMap.h"
 #include <iostream>
 #include <cstring>
+#include "activity.h"
 
 using namespace std;
 
@@ -79,3 +79,5 @@ Activity::Activity() {}
 string Activity::storeStr() {
     return to_string(startTime.timeStamp()) + " " + to_string(endTime.timeStamp()) + " " + address + " " + description;
 }
+
+Activity::~Activity() {};

@@ -1,9 +1,9 @@
 
 #include <cassert>
+#include "hashMap.h"
 #include "student.h"
 #include "course.h"
 #include "utils.h"
-#include "hashMap.h"
 #include "prepocess.h"
 #include "input.h"
 
@@ -54,6 +54,7 @@ void Student::addActivity() {
     assert(_config);
     _config << activity.storeStr() << endl;
     _config.close();
+    Activities->push(activity);
 }
 
 course Student::searchCourse(course c[], int size, string name) {
@@ -282,7 +283,8 @@ int Student::showActivityMenu() {
         //亮神finish
         printf("欢迎进入活动管理系统!请选择要进行的操作:\n");
         cout << "1.增加事件" << endl;
-        cout << "2.事件一览" << endl;
+        cout << "2.事件一览(全部)" << endl;
+        cout << "3.今日事件一览" << endl;
         printf("9.返回上级\n");
         printf("0.返回主页\n");
         int choice = input::getOperatorNum();
@@ -291,11 +293,15 @@ int Student::showActivityMenu() {
                 student.addActivity();
                 break;
             case 2:
-                //这里需要一个循环
+                student.showActivities(false);
+                break;
+            case 3:
+                student.showActivities(true);
                 break;
             case 9:
                 return 1;
             case 0:
+                student.Activities->size = 0;
                 return 0;
             default:
                 printf("输入错误，请重新输入\n");
@@ -332,5 +338,17 @@ void Student::InitStudent() {
         activity.setDescription(description);
         student.getActivities()->put(activity.getStartTime().timeStamp(), activity);
         clog << "读取本地活动：" << activity.toString() << endl;
+        Activities->push(activity);
+    }
+}
+
+void Student::showActivities(bool today) {
+    int sz = Activities->size;
+    for (int i = 0; i < sz; i++){
+        Activity activity = Activities->get(i);
+        if (today && activity.getStartTime().day != modtime.day){
+            continue;
+        }
+        cout << Activities->get(i).toString() << endl;
     }
 }
