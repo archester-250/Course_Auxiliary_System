@@ -149,10 +149,6 @@ void Student::showMenu() {
 
 int Student::showCourseMenu() {
     updateTime();
-    auto clockCheck = student->getClocks()->get(modtime.timeStamp());
-    if (clockCheck->first) {
-        cout << "[事件提醒]" << clockCheck->second.toString();
-    }
     printf("欢迎进入课内管理系统!请选择要进行的操作:\n");
     printf("1.查看今日课程信息\n");
     printf("2.导出课程表\n");
