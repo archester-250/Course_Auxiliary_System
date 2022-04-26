@@ -14,29 +14,30 @@
 #include "course.h"
 #include "student.h"
 #include "input.h"
+#include "prepocess.h"
 
 
 
 class admin
 {
 private:
+    string name;
+    int course_size;
+    course * courses;
     /* data */
 public:
     admin();
+    admin(string name);
     ~admin();
-    course * addCourse(course * c, int & size, string stuname);
+    int getCourse_size();
+    void setCourse_size(int course_size);
+    course * getCourses();
+    void setCourses(course * courses);
+    void addCourse();
     void addHomework(string Course_name, string Homework);//todo
     string uploadDocument(string road, string name);
     void showMenu();
 };
-
-admin::admin(/* args */)
-{
-}
-
-admin::~admin()
-{
-}
 
 
 #endif

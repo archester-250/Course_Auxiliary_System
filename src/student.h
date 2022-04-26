@@ -64,9 +64,11 @@ public:
 
     void addActivity();
 
-    course searchCourse(course c[], int size, string name);
+    course searchCourse(course c[], int size, string name);//搜索课程功能
 
     void showMenu();//显示学生操作菜单
+
+    void showTodayCourse();//显示今天的课程
 
     int showCourseMenu();//显示课程操作菜单
 

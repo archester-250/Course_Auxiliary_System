@@ -164,7 +164,7 @@ int Student::showCourseMenu() {
     while (choice) {
         switch (choice) {
             case 1:
-                // showTodayCourse();//todo
+                showTodayCourse();//done
                 break;
             case 2:
                 // showCourseTable();//todo
@@ -197,6 +197,24 @@ int Student::showCourseMenu() {
         choice = input::getOperatorNum();
     }
     return 1;
+}
+
+void Student::showTodayCourse()
+{
+    cout << "今天是" << modtime.yr << "年" << modtime.mn << "月" << modtime.day << "日,星期";
+    string week[7] = {"日", "一", "二", "三", "四", "五", "六"};
+    int weekDay = modtime.calculateWeekDay();
+    cout << week[weekDay] << endl;
+    for(int i = 0; i < course_size; i++)
+    {
+        for(int j = 0; j < courses[i].getTimeSize(); j++)
+        {
+            if(courses[i].getTime()[j].week == weekDay)
+            {
+                printf("%s\t%d时--%d时\n", courses[i].getName().c_str(), courses[i].getTime()[j].starthour, courses[i].getTime()[j].endhour);
+            }
+        }
+    }
 }
 
 int Student::showActivityMenu() {
