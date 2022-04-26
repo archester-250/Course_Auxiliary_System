@@ -95,6 +95,8 @@ public:
                 system(cmd.c_str());
                 cmd = "cd ..\\documents\\users\\" + username + " & echo 0 > " + username + ".data";
                 system(cmd.c_str());
+                cmd = "cd ..\\documents\\users\\" + username + " & type nul > courseTable_" + username + ".csv";
+                system(cmd.c_str());
             }
         }
         inf.notEnd = 5;

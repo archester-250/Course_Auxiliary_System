@@ -154,7 +154,7 @@ int Student::showCourseMenu() {
     }
     printf("欢迎进入课内管理系统!请选择要进行的操作:\n");
     printf("1.查看今日课程信息\n");
-    printf("2.查看课程表\n");
+    printf("2.导出课程表\n");
     printf("3.搜索课程查看详情\n");
     printf("4.查看课程作业\n");
     printf("5.上传作业\n");
@@ -164,10 +164,10 @@ int Student::showCourseMenu() {
     while (choice) {
         switch (choice) {
             case 1:
-                showTodayCourse();//done
+                showTodayCourse();//显示今日课程表
                 break;
             case 2:
-                // showCourseTable();//todo
+                courseTable();//todo
                 break;
             case 3:
                 // showCourseDetail();//todo
@@ -188,7 +188,7 @@ int Student::showCourseMenu() {
         }
         printf("欢迎进入课内管理系统!请选择要进行的操作:\n");
         printf("1.查看今日课程信息\n");
-        printf("2.查看课程表\n");
+        printf("2.导出课程表并打开查看\n");
         printf("3.搜索课程查看详情\n");
         printf("4.查看课程作业\n");
         printf("5.上传作业\n");
@@ -215,6 +215,60 @@ void Student::showTodayCourse()
             }
         }
     }
+}
+
+void Student::courseTable()
+{
+    ofstream out("../documents/users/" + this->name + "/courseTable_" + name + ".csv");
+    out << ",星期一,星期二,星期三,星期四,星期五,星期六,星期日\n";
+    string table[14][7];
+    for(int i = 0; i < course_size; i++)
+    {
+        for(int j = 0; j < courses[i].getTimeSize(); j++)
+        {
+            for(int k = courses[i].getTime()[j].starthour; k <= courses[i].getTime()[j].endhour; k++)
+            {
+                table[k - 8][(courses[i].getTime()[j].week + 6) % 7] = courses[i].getName();
+            }
+        }
+    }
+    for(int i = 0; i < 14; i++)
+    {
+        out << i + 8 << ":00";
+        for(int j = 0; j < 7; j++)
+        {
+            out << ',' << table[i][j];
+        }
+        out << endl;
+    }
+    out.close();
+    cout << "已经生成课程表。正在打开..." << endl;
+    string cmd = "cd ..\\documents\\users\\" + this->name + " & courseTable_" + this->name + ".csv";
+    system(cmd.c_str());
+}
+
+void Student::saveStuInfo()
+{
+    ofstream out("../documents/users/" + this->name + "/" + this->name + ".data");
+    out << course_size << endl;
+    for(int i = 0; i < course_size; i++)
+    {
+        out << courses[i].getName() << ' ';
+        out << courses[i].getFinishSize() << endl;
+        for(int j = 0; j < courses[i].getFinishSize(); j++)
+        {
+            out << courses[i].getFinish()[j].finish;
+            if(courses[i].getFinish()[j].finish)
+            {
+                out << ' ' << courses[i].getFinish()[j].road << endl;
+            }
+            else
+            {
+                out << endl;
+            }
+        }
+    }
+    cout << "已自动保存学生课程信息" << endl;
 }
 
 int Student::showActivityMenu() {

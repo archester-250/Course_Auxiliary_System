@@ -70,6 +70,10 @@ public:
 
     void showTodayCourse();//显示今天的课程
 
+    void courseTable();
+
+    void saveStuInfo();//保存数据至文件
+
     int showCourseMenu();//显示课程操作菜单
 
     int showActivityMenu();//显示活动操作菜单

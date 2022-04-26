@@ -51,6 +51,7 @@ int main()
         {
             Student student(login_info.user);
             student.showMenu();
+            student.saveStuInfo();//保存学生个人信息至文件
         }
         else if(notEnd == 2)
         {
