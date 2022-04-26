@@ -5,6 +5,7 @@
 #ifndef COURSE_AUXILIARY_SYSTEM_HASHMAP_H
 #define COURSE_AUXILIARY_SYSTEM_HASHMAP_H
 #include <iostream>
+#include <cassert>
 
 using namespace std;
 

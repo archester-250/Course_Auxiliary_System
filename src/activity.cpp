@@ -6,7 +6,7 @@
 using namespace std;
 
 extern HashMap<int, Clock> clocks;
-extern Student student;
+extern Student* student;
 
 bool time_conflict(Time time){
         return false;

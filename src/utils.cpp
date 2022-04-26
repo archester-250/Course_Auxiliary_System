@@ -22,7 +22,7 @@ string Time::toString() {
 void Time::incre(int h) {
     sys_time_bias_times = SYS_TIME_BIAS_TIMES;
     while (h--) {
-        auto clockCheck = student.getClocks()->get(modtime.timeStamp());
+        auto clockCheck = student->getClocks()->get(modtime.timeStamp());
         if (clockCheck->first){
             cout << "[ÊÂ¼þÌáÐÑ]" << clockCheck->second.toString();
         }
