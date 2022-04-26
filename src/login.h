@@ -21,7 +21,7 @@
 #include "student.h"
 
 using namespace std;
-extern Student student;
+extern Student* student;
 
 struct info
 {
@@ -70,7 +70,8 @@ public:
                 inf.notEnd = loginCode;
                 string suser(username);
                 inf.user = suser;
-                student.InitStudent();
+                student = new Student(inf.user);
+                student->InitStudent();
                 return inf;
             }
             else printf("µÇÂ½Ê§°Ü£¡\n");

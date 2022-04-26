@@ -12,10 +12,10 @@
 #ifndef ACTIVITY_H
 #define ACTIVITY_H
 
-#include "student.h"
 #include <iostream>
 #include "utils.h"
 #include <string>
+#include "student.h"
 
 class Time;
 
@@ -28,7 +28,9 @@ private:
     int studentIDs[32];//涉及到的学生
     bool clk = false;//闹钟标识，Todo
     string description;//活动内容描述
+
 public:
+    virtual ~Activity();
     Activity();
 
     // Get 和 Set 方法

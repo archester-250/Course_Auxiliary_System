@@ -1,9 +1,9 @@
 
 #include <cassert>
+#include "hashMap.h"
 #include "student.h"
 #include "course.h"
 #include "utils.h"
-#include "hashMap.h"
 #include "prepocess.h"
 #include "input.h"
 
@@ -12,7 +12,7 @@ using namespace std;
 extern void updateTime();
 
 extern HashMap<string, Student> students;
-Student student("wxl");
+Student* student;
 
 string Student::getName() {
     return name;
@@ -49,11 +49,12 @@ void Student::addActivity() {
         clock.setTime(time);
         this->activities->put(startTime.timeStamp(), activity);
     }
-    clog << student.name << "添加事件：" << activity.toString() << endl;
-    ofstream _config("../database/activities/" + student.name, ios::app);
+    clog << student->name << "添加事件：" << activity.toString() << endl;
+    ofstream _config("../database/activities/" + student->name, ios::app);
     assert(_config);
     _config << activity.storeStr() << endl;
     _config.close();
+    Activities->push(activity);
 }
 
 course Student::searchCourse(course c[], int size, string name) {
@@ -120,7 +121,7 @@ void Student::showMenu() {
     int choice = 0;
     do {
         updateTime();
-        auto clockCheck = student.getClocks()->get(modtime.timeStamp());
+        auto clockCheck = student->getClocks()->get(modtime.timeStamp());
         if (clockCheck->first) {
             cout << "[事件提醒]" << clockCheck->second.toString();
         }
@@ -148,10 +149,6 @@ void Student::showMenu() {
 
 int Student::showCourseMenu() {
     updateTime();
-    auto clockCheck = student.getClocks()->get(modtime.timeStamp());
-    if (clockCheck->first) {
-        cout << "[事件提醒]" << clockCheck->second.toString();
-    }
     printf("欢迎进入课内管理系统!请选择要进行的操作:\n");
     printf("1.查看今日课程信息\n");
     printf("2.导出课程表\n");
@@ -275,27 +272,28 @@ int Student::showActivityMenu() {
     int choice;
     do {
         updateTime();
-        auto clockCheck = student.getClocks()->get(modtime.timeStamp());
-        if (clockCheck->first) {
-            cout << "[事件提醒]" << clockCheck->second.toString();
-        }
         //亮神finish
         printf("欢迎进入活动管理系统!请选择要进行的操作:\n");
         cout << "1.增加事件" << endl;
-        cout << "2.事件一览" << endl;
+        cout << "2.事件一览(全部)" << endl;
+        cout << "3.今日事件一览" << endl;
         printf("9.返回上级\n");
         printf("0.返回主页\n");
-        int choice = input::getOperatorNum();
+        choice = input::getOperatorNum();
         switch (choice) {
             case 1:
-                student.addActivity();
+                student->addActivity();
                 break;
             case 2:
-                //这里需要一个循环
+                student->showActivities(false);
+                break;
+            case 3:
+                student->showActivities(true);
                 break;
             case 9:
                 return 1;
             case 0:
+                student->Activities->size = 0;
                 return 0;
             default:
                 printf("输入错误，请重新输入\n");
@@ -318,7 +316,7 @@ HashMap<int, Clock> *Student::getClocks() const {
 }
 
 void Student::InitStudent() {
-    ifstream db("../database/activities/" + student.name);
+    ifstream db("../database/activities/" + student->name);
     int startTime, endTime;
     string address, description;
     while (db >> startTime >> endTime >> address >> description) {
@@ -330,7 +328,19 @@ void Student::InitStudent() {
         activity.setEndTime(end);
         activity.setAddress(address);
         activity.setDescription(description);
-        student.getActivities()->put(activity.getStartTime().timeStamp(), activity);
+        student->getActivities()->put(activity.getStartTime().timeStamp(), activity);
         clog << "读取本地活动：" << activity.toString() << endl;
+        Activities->push(activity);
+    }
+}
+
+void Student::showActivities(bool today) {
+    int sz = Activities->size;
+    for (int i = 0; i < sz; i++){
+        Activity activity = Activities->get(i);
+        if (today && activity.getStartTime().day != modtime.day){
+            continue;
+        }
+        cout << Activities->get(i).toString() << endl;
     }
 }

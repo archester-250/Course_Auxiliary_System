@@ -1,12 +1,12 @@
-#include "activity.h"
 #include "hashMap.h"
 #include <iostream>
 #include <cstring>
+#include "activity.h"
 
 using namespace std;
 
 extern HashMap<int, Clock> clocks;
-extern Student student;
+extern Student* student;
 
 bool time_conflict(Time time){
         return false;
@@ -79,3 +79,5 @@ Activity::Activity() {}
 string Activity::storeStr() {
     return to_string(startTime.timeStamp()) + " " + to_string(endTime.timeStamp()) + " " + address + " " + description;
 }
+
+Activity::~Activity() {};

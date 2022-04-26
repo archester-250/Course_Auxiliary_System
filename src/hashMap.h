@@ -4,6 +4,54 @@
 
 #ifndef COURSE_AUXILIARY_SYSTEM_HASHMAP_H
 #define COURSE_AUXILIARY_SYSTEM_HASHMAP_H
+#include <iostream>
+#include <cassert>
+
+using namespace std;
+
+template<class T>
+class Array{
+private:
+    T* vals;
+public:
+    int size;
+    int maxSize;
+    Array(int _size) {
+        size = 0;
+        vals = new T[_size];
+        maxSize = _size;
+    }
+
+    const T *getVals() const {
+        return vals;
+    }
+
+    T get(int i){
+        if (i < size)
+            return vals[i];
+        else {
+            cout << "出现错误，请联系开发者\n";
+            return vals[0];
+        }
+    }
+
+    bool push(T t){
+        if (size >= maxSize)    return false;
+        try {
+            vals[size] = t;
+        } catch (...){
+            cout << "出现错误，请联系开发者\n";
+            return false;
+        }
+        size++;
+        return true;
+    }
+
+    virtual ~Array() {
+        size = 0;
+    }
+};
+
 
 static int primes[27] =
         {
