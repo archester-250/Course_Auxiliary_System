@@ -36,10 +36,36 @@ void Time::incre(int h) {
                 day++;
         } else
             hr++;
-        auto clockCheck = student->getActivities()->get(modtime.timeStamp());
+        auto clockCheck = student->getClocks()->get(modtime.timeStamp());
         if (clockCheck->first){
-            cout << "[事件提醒]" << clockCheck->second.toString() << endl;
+            for (int i = 0; i < clockCheck->second.info->size; i++)
+            cout << "[事件提醒]" << clockCheck->second.info->get(i) << endl;
         }
     }
     cout << "[当前时间]" << toString() << endl;
+}
+
+Clock::Clock() {}
+
+int Clock::getTimestamp() const {
+    return timestamp;
+}
+
+void Clock::setTimestamp(int timestamp) {
+    Clock::timestamp = timestamp;
+}
+
+Array<string> *Clock::getInfo() const {
+    return info;
+}
+
+void Clock::setInfo(Array<string> *info) {
+    Clock::info = info;
+}
+
+Clock::Clock(int timestamp) : timestamp(timestamp) {}
+
+bool Clock::addEvent(string event) {
+    info->push(event);
+    return true;
 }

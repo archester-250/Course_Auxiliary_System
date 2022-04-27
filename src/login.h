@@ -99,7 +99,8 @@ public:
                 cmd = "cd ..\\documents\\users\\" + username + " & type nul > courseTable_" + username + ".csv";
                 system(cmd.c_str());
             }
-        }
+        } else
+            return inf;
         inf.notEnd = 5;
         return inf;
     }

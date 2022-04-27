@@ -1,6 +1,6 @@
 #ifndef COURSE_AUXILIARY_SYSTEM_UTILS_H
 #define COURSE_AUXILIARY_SYSTEM_UTILS_H
-
+#include "hashMap.h"
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -109,30 +109,22 @@ public:
 class Clock {
 
 public:
-    int repeat{};
-    Time time{};
+    int timestamp;
+    Array<string>* info = new Array<string>(16);
 
-    Clock() {}
+    Clock(int timestamp);
 
-    int getRepeat() const {
-        return repeat;
-    }
+    Clock();
 
-    void setRepeat(int rep) {
-        Clock::repeat = rep;
-    }
+    int getTimestamp() const;
 
-    const Time &getTime() const {
-        return time;
-    }
+    void setTimestamp(int timestamp);
 
-    void setTime(Time t) {
-        Clock::time = t;
-    }
+    Array<string> *getInfo() const;
 
-    string toString(){
-        return "todo";
-    }
+    void setInfo(Array<string> *info);
+
+    bool addEvent(string event);
 };
 
 class OurStr

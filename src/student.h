@@ -33,7 +33,7 @@ private:
     string name;
     course * courses;
     HashMap<int, Activity>* activities = new HashMap<int, Activity>(32);
-    HashMap<int, string>* clocks = new HashMap<int, string>(32);
+    HashMap<int, Clock>* clocks = new HashMap<int, Clock>(32);
     int course_size;
     Array<Activity>* Activities = new Array<Activity>(32);
 
@@ -61,7 +61,7 @@ public:
 
     course * getCourses();
 
-    HashMap<int, string> *getClocks() const;
+    HashMap<int, Clock> *getClocks() const;
 
     void setCourses(course * courses, int c_count);
 

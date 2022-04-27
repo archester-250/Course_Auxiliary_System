@@ -8,6 +8,8 @@
  * @copyright Copyright (c) 2022
  * 
  */
+
+#define DEBUG
 #include "login.h"
 #include "student.h"
 #include <ctime>
@@ -41,6 +43,9 @@ int main()
     config >> init_time;
     modtime.inputTime(init_time);
     config.close();
+#ifdef DEBUG
+    modtime.inputTime(21010818);
+#endif
     int notEnd = 1;
     while (notEnd) {
         cout << "=====BUPT GUIDE====\n" << "ʱ�䣺" <<  modtime.toString();

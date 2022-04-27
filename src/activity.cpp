@@ -5,11 +5,15 @@
 
 using namespace std;
 
-extern HashMap<int, Clock> clocks;
 extern Student* student;
 
-bool time_conflict(Time time){
-        return false;
+bool time_conflict(int timestamp){
+    auto check =  student->getActivities()->get(timestamp);
+    if (!check->first) return false;
+    else {
+        cout << "Ê±¼ä³åÍ»£¬ÇëÖØÊäÈë\n";
+        return true;
+    }
 }
 
 const Time &Activity::getStartTime() const {
@@ -17,12 +21,7 @@ const Time &Activity::getStartTime() const {
 }
 
 void Activity::setStartTime(Time startTime) {
-    if(!time_conflict(startTime))
-    {
-        Activity::startTime = startTime;
-    }   
-    else
-        cout << "æ—¶é—´å†²çªï¼Œè¯·é‡è¾“å…¥\n";
+    Activity::startTime = startTime;
 }
 
 const Time &Activity::getEndTime() const {
@@ -31,26 +30,14 @@ const Time &Activity::getEndTime() const {
 }
 
 void Activity::setEndTime(Time endTime) {
-    if(!time_conflict(endTime))
-    {
-        Activity::endTime = endTime;
-    }
-    else
-        cout << "æ—¶é—´å†²çªï¼Œè¯·é‡è¾“å…¥\n";
+
+    Activity::endTime = endTime;
+
 }
 
 const int *Activity::getStudentIDs() const {
     return studentIDs;
 }
-
-bool Activity::isClk() const {
-    return clk;
-}
-
-void Activity::setClk(bool clk) {
-    Activity::clk = clk;
-}
-
 
 const string &Activity::getDescription() const {
     return description;
@@ -77,7 +64,24 @@ string Activity::toString() {
 Activity::Activity() {}
 
 string Activity::storeStr() {
-    return to_string(startTime.timeStamp()) + " " + to_string(endTime.timeStamp()) + " " + address + " " + description;
+    return to_string(startTime.timeStamp()) + " " + to_string(endTime.timeStamp()) + " " + address +\
+    " " + description + " " + to_string(clk);
 }
 
-Activity::~Activity() {};
+Activity::~Activity() {}
+
+int Activity::getClk() const {
+    return clk;
+}
+
+void Activity::setClk(int clk) {
+    Activity::clk = clk;
+}
+
+int Activity::getMemberCnt() const {
+    return memberCnt;
+}
+
+void Activity::setMemberCnt(int memberCnt) {
+    Activity::memberCnt = memberCnt;
+};
