@@ -22,10 +22,6 @@ string Time::toString() {
 void Time::incre(int h) {
     sys_time_bias_times = SYS_TIME_BIAS_TIMES;
     while (h--) {
-        auto clockCheck = student->getClocks()->get(modtime.timeStamp());
-        if (clockCheck->first){
-            cout << "[事件提醒]" << clockCheck->second.toString();
-        }
         if (hr == 23) {
             hr = 0;
             if (day == MonthDays(yr, mn)) {
@@ -40,5 +36,10 @@ void Time::incre(int h) {
                 day++;
         } else
             hr++;
+        auto clockCheck = student->getActivities()->get(modtime.timeStamp());
+        if (clockCheck->first){
+            cout << "[事件提醒]" << clockCheck->second.toString() << endl;
+        }
     }
+    cout << "[当前时间]" << toString() << endl;
 }

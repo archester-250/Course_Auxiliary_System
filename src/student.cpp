@@ -121,11 +121,6 @@ void Student::showMenu() {
     int choice = 0;
     do {
         updateTime();
-        auto clockCheck = student->getClocks()->get(modtime.timeStamp());
-        if (clockCheck->first) {
-            cout << "[事件提醒]" << clockCheck->second.toString();
-        }
-        cout << "当前时间：" << modtime.toString() << endl;
         cout << "请选择要进入的系统(按0退出)\n";
         printf("1.课内信息管理系统\n");
         printf("2.课外信息管理系统\n");
@@ -311,10 +306,6 @@ HashMap<int, Activity> *Student::getActivities() const {
     return activities;
 }
 
-HashMap<int, Clock> *Student::getClocks() const {
-    return clocks;
-}
-
 void Student::InitStudent() {
     ifstream db("../database/activities/" + student->name);
     int startTime, endTime;
@@ -329,6 +320,7 @@ void Student::InitStudent() {
         activity.setAddress(address);
         activity.setDescription(description);
         student->getActivities()->put(activity.getStartTime().timeStamp(), activity);
+        student->getClocks()->put(activity.getStartTime().timeStamp(), activity.toString());
         clog << "读取本地活动：" << activity.toString() << endl;
         Activities->push(activity);
     }
@@ -343,4 +335,8 @@ void Student::showActivities(bool today) {
         }
         cout << Activities->get(i).toString() << endl;
     }
+}
+
+HashMap<int, string> *Student::getClocks() const {
+    return clocks;
 }
