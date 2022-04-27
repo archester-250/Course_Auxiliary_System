@@ -17,6 +17,7 @@
 #include <string>
 #include "student.h"
 
+bool time_conflict(int);
 class Time;
 
 class Activity {
@@ -24,9 +25,9 @@ private:
     Time startTime;
     Time endTime;//活动起止时间
     string address;
-    int member;
+    int clk;
+    int memberCnt;
     int studentIDs[32];//涉及到的学生
-    bool clk = false;//闹钟标识，Todo
     string description;//活动内容描述
 
 public:
@@ -48,9 +49,13 @@ public:
 
     const int *getStudentIDs() const;
 
-    bool isClk() const;
+    int getClk() const;
 
-    void setClk(bool clk);
+    void setClk(int clk);
+
+    int getMemberCnt() const;
+
+    void setMemberCnt(int memberCnt);
 
     const string &getDescription() const;
 

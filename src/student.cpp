@@ -1,6 +1,7 @@
 
 #include <cassert>
 #include "hashMap.h"
+#include "activity.h"
 #include "student.h"
 #include "course.h"
 #include "utils.h"
@@ -12,7 +13,7 @@ using namespace std;
 extern void updateTime();
 
 extern HashMap<string, Student> students;
-Student* student;
+Student *student;
 
 string Student::getName() {
     return name;
@@ -25,9 +26,13 @@ void Student::setName(string name) {
 void Student::addActivity() {
     Activity activity;
     Time startTime, endTime;
-    bool clk = false;
+    int clk = 0;
+    int inTime;
     cout << "输入开始时间的字符串格式(如：22040715)" << endl;
-    startTime.inputTime(Input<int>());
+    do {
+        inTime = Input<int>();
+    } while (time_conflict(inTime));
+    startTime.inputTime(inTime);
     cout << "输入结束时间的字符串格式(如：22040718)" << endl;
     endTime.inputTime(Input<int>());
     cout << "输入活动地址" << endl;
@@ -36,18 +41,23 @@ void Student::addActivity() {
     //todo
     cout << "输入活动描述" << endl;
     string description = Input<string>();
-    cout << "是否设定闹钟（提前一小时提醒)？true/false" << endl;
-    clk = Input<bool>();
+    cout << "提前多少小时进行提醒(输入-1则不提醒)" << endl;
+    clk = Input<int>();
     activity.setStartTime(startTime);
     activity.setEndTime(endTime);
     activity.setAddress(address);
-    activity.setClk(clk);
     activity.setDescription(description);
-    if (clk) {
-        Clock clock;
-        Time time = startTime.desc(1);
-        clock.setTime(time);
-        this->activities->put(startTime.timeStamp(), activity);
+    activity.setClk(clk);
+    if (clk >= 0) {
+        Time time = startTime.desc(clk);
+        if (clocks->get(time.timeStamp())->first) {
+            clocks->get(time.timeStamp())->second.addEvent(activity.toString());
+        } else {
+            Clock clock;
+            clock.setTimestamp(time.timeStamp());
+            clock.addEvent(activity.toString());
+            clocks->put(time.timeStamp(), clock);
+        }
     }
     clog << student->name << "添加事件：" << activity.toString() << endl;
     ofstream _config("../database/activities/" + student->name, ios::app);
@@ -191,44 +201,35 @@ int Student::showCourseMenu() {
     return 1;
 }
 
-void Student::showTodayCourse()
-{
+void Student::showTodayCourse() {
     cout << "今天是" << modtime.yr << "年" << modtime.mn << "月" << modtime.day << "日,星期";
     string week[7] = {"日", "一", "二", "三", "四", "五", "六"};
     int weekDay = modtime.calculateWeekDay();
     cout << week[weekDay] << endl;
-    for(int i = 0; i < course_size; i++)
-    {
-        for(int j = 0; j < courses[i].getTimeSize(); j++)
-        {
-            if(courses[i].getTime()[j].week == weekDay)
-            {
-                printf("%s\t%d时--%d时\n", courses[i].getName().c_str(), courses[i].getTime()[j].starthour, courses[i].getTime()[j].endhour);
+    for (int i = 0; i < course_size; i++) {
+        for (int j = 0; j < courses[i].getTimeSize(); j++) {
+            if (courses[i].getTime()[j].week == weekDay) {
+                printf("%s\t%d时--%d时\n", courses[i].getName().c_str(), courses[i].getTime()[j].starthour,
+                       courses[i].getTime()[j].endhour);
             }
         }
     }
 }
 
-void Student::courseTable()
-{
+void Student::courseTable() {
     ofstream out("../documents/users/" + this->name + "/courseTable_" + name + ".csv");
     out << ",星期一,星期二,星期三,星期四,星期五,星期六,星期日\n";
     string table[14][7];
-    for(int i = 0; i < course_size; i++)
-    {
-        for(int j = 0; j < courses[i].getTimeSize(); j++)
-        {
-            for(int k = courses[i].getTime()[j].starthour; k <= courses[i].getTime()[j].endhour; k++)
-            {
+    for (int i = 0; i < course_size; i++) {
+        for (int j = 0; j < courses[i].getTimeSize(); j++) {
+            for (int k = courses[i].getTime()[j].starthour; k <= courses[i].getTime()[j].endhour; k++) {
                 table[k - 8][(courses[i].getTime()[j].week + 6) % 7] = courses[i].getName();
             }
         }
     }
-    for(int i = 0; i < 14; i++)
-    {
+    for (int i = 0; i < 14; i++) {
         out << i + 8 << ":00";
-        for(int j = 0; j < 7; j++)
-        {
+        for (int j = 0; j < 7; j++) {
             out << ',' << table[i][j];
         }
         out << endl;
@@ -239,23 +240,17 @@ void Student::courseTable()
     system(cmd.c_str());
 }
 
-void Student::saveStuInfo()
-{
+void Student::saveStuInfo() {
     ofstream out("../documents/users/" + this->name + "/" + this->name + ".data");
     out << course_size << endl;
-    for(int i = 0; i < course_size; i++)
-    {
+    for (int i = 0; i < course_size; i++) {
         out << courses[i].getName() << ' ';
         out << courses[i].getFinishSize() << endl;
-        for(int j = 0; j < courses[i].getFinishSize(); j++)
-        {
+        for (int j = 0; j < courses[i].getFinishSize(); j++) {
             out << courses[i].getFinish()[j].finish;
-            if(courses[i].getFinish()[j].finish)
-            {
+            if (courses[i].getFinish()[j].finish) {
                 out << ' ' << courses[i].getFinish()[j].road << endl;
-            }
-            else
-            {
+            } else {
                 out << endl;
             }
         }
@@ -308,9 +303,9 @@ HashMap<int, Activity> *Student::getActivities() const {
 
 void Student::InitStudent() {
     ifstream db("../database/activities/" + student->name);
-    int startTime, endTime;
+    int startTime, endTime, clk;
     string address, description;
-    while (db >> startTime >> endTime >> address >> description) {
+    while (db >> startTime >> endTime >> address >> description >> clk) {
         Activity activity;
         Time start, end;
         start.inputTime(startTime);
@@ -319,8 +314,19 @@ void Student::InitStudent() {
         activity.setEndTime(end);
         activity.setAddress(address);
         activity.setDescription(description);
+        activity.setClk(clk);
         student->getActivities()->put(activity.getStartTime().timeStamp(), activity);
-        student->getClocks()->put(activity.getStartTime().timeStamp(), activity.toString());
+        if (clk >= 0) {
+            Time time = start.desc(clk);
+            if (clocks->get(time.timeStamp())->first) {
+                clocks->get(time.timeStamp())->second.addEvent(activity.toString());
+            } else {
+                Clock clock;
+                clock.setTimestamp(time.timeStamp());
+                clock.addEvent(activity.toString());
+                clocks->put(time.timeStamp(), clock);
+            }
+        }
         clog << "读取本地活动：" << activity.toString() << endl;
         Activities->push(activity);
     }
@@ -328,15 +334,15 @@ void Student::InitStudent() {
 
 void Student::showActivities(bool today) {
     int sz = Activities->size;
-    for (int i = 0; i < sz; i++){
+    for (int i = 0; i < sz; i++) {
         Activity activity = Activities->get(i);
-        if (today && activity.getStartTime().day != modtime.day){
+        if (today && activity.getStartTime().day != modtime.day) {
             continue;
         }
         cout << Activities->get(i).toString() << endl;
     }
 }
 
-HashMap<int, string> *Student::getClocks() const {
+HashMap<int, Clock> *Student::getClocks() const {
     return clocks;
 }

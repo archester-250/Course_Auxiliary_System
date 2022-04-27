@@ -105,7 +105,7 @@ public:
         next = nullptr;
     }
 
-    HashNode &operator =(const HashNode &node) {
+    HashNode &operator = (const HashNode &node) {
         key = node.key;
         value = node.value;
         next = node.next;
