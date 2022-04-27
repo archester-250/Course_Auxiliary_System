@@ -15,6 +15,7 @@
 #include "activity.h"
 #include "course.h"
 #include "hashMap.h"
+#include <string>
 
 struct hwork//¼ÒÍ¥×÷Òµ
 {
@@ -32,7 +33,7 @@ private:
     string name;
     course * courses;
     HashMap<int, Activity>* activities = new HashMap<int, Activity>(32);
-    HashMap<int, Clock>* clocks = new HashMap<int, Clock>(32);
+    HashMap<int, string>* clocks = new HashMap<int, string>(32);
     int course_size;
     Array<Activity>* Activities = new Array<Activity>(32);
 
@@ -41,8 +42,6 @@ public:
     Student(string name);
 
     HashMap<int, Activity> *getActivities() const;
-
-    HashMap<int, Clock> *getClocks() const;
 
     ~Student()
     {
@@ -61,6 +60,8 @@ public:
     int getCourseSize();
 
     course * getCourses();
+
+    HashMap<int, string> *getClocks() const;
 
     void setCourses(course * courses, int c_count);
 
