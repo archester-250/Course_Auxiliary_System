@@ -27,7 +27,7 @@ private:
     string address;
     int clk;
     int memberCnt;
-    int studentIDs[32];//涉及到的学生
+    Array<string>* members;
     string description;//活动内容描述
 
 public:
@@ -47,7 +47,6 @@ public:
 
     void setAddress(const string &address);
 
-    const int *getStudentIDs() const;
 
     int getClk() const;
 
@@ -58,6 +57,10 @@ public:
     void setMemberCnt(int memberCnt);
 
     const string &getDescription() const;
+
+    Array<string> *getMembers() const;
+
+    void setMembers(Array<string> *members);
 
     void setDescription(const string &description);
 

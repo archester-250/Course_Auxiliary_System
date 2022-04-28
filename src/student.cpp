@@ -37,11 +37,18 @@ void Student::addActivity() {
     endTime.inputTime(Input<int>());
     cout << "输入活动地址" << endl;
     string address = Input<string>();
-    cout << "输入活动成员(不含自己)" << endl;
-    //todo
+    cout << "输入除自己外的活动成员数" << endl;
+    int memberCnt;
+    memberCnt = Input<int>();
+    activity.setMemberCnt(memberCnt);
+    while (memberCnt--){
+        cout << "添加成员：";
+        string member = Input<string>();
+        activity.getMembers()->push(member);
+    }
     cout << "输入活动描述" << endl;
     string description = Input<string>();
-    cout << "提前多少小时进行提醒(输入-1则不提醒)" << endl;
+    cout << "提前多少小时进行提醒全体成员(输入-1则不提醒)" << endl;
     clk = Input<int>();
     activity.setStartTime(startTime);
     activity.setEndTime(endTime);
@@ -50,13 +57,13 @@ void Student::addActivity() {
     activity.setClk(clk);
     if (clk >= 0) {
         Time time = startTime.desc(clk);
-        if (clocks->get(time.timeStamp())->first) {
-            clocks->get(time.timeStamp())->second.addEvent(activity.toString());
+        if (student->getClocks()->get(time.timeStamp())->first) {
+            student->getClocks()->get(time.timeStamp())->second.addEvent(activity.toString());
         } else {
             Clock clock;
             clock.setTimestamp(time.timeStamp());
             clock.addEvent(activity.toString());
-            clocks->put(time.timeStamp(), clock);
+            student->getClocks()->put(time.timeStamp(), clock);
         }
     }
     clog << student->name << "添加事件：" << activity.toString() << endl;
@@ -64,6 +71,12 @@ void Student::addActivity() {
     assert(_config);
     _config << activity.storeStr() << endl;
     _config.close();
+    for (int i = 0; i < activity.getMemberCnt(); i++){
+        _config.open("../database/activities/" + activity.getMembers()->get(i), ios::app);
+        assert(_config);
+        _config << activity.storeStr() << endl;
+        _config.close();
+    }
     Activities->push(activity);
 }
 

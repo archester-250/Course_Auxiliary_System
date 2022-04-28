@@ -35,9 +35,6 @@ void Activity::setEndTime(Time endTime) {
 
 }
 
-const int *Activity::getStudentIDs() const {
-    return studentIDs;
-}
 
 const string &Activity::getDescription() const {
     return description;
@@ -84,4 +81,13 @@ int Activity::getMemberCnt() const {
 
 void Activity::setMemberCnt(int memberCnt) {
     Activity::memberCnt = memberCnt;
+    this->members = new Array<string>(memberCnt);
+}
+
+Array<string> *Activity::getMembers() const {
+    return members;
+}
+
+void Activity::setMembers(Array<string> *members) {
+    Activity::members = members;
 };
