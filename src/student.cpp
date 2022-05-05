@@ -41,7 +41,7 @@ void Student::addActivity() {
     int memberCnt;
     memberCnt = Input<int>();
     activity.setMemberCnt(memberCnt);
-    while (memberCnt--){
+    while (memberCnt--) {
         cout << "添加成员：";
         string member = Input<string>();
         activity.getMembers()->push(member);
@@ -71,7 +71,7 @@ void Student::addActivity() {
     assert(_config);
     _config << activity.storeStr() << endl;
     _config.close();
-    for (int i = 0; i < activity.getMemberCnt(); i++){
+    for (int i = 0; i < activity.getMemberCnt(); i++) {
         _config.open("../database/activities/" + activity.getMembers()->get(i), ios::app);
         assert(_config);
         _config << activity.storeStr() << endl;
@@ -280,6 +280,7 @@ int Student::showActivityMenu() {
         cout << "1.增加事件" << endl;
         cout << "2.事件一览(全部)" << endl;
         cout << "3.今日事件一览" << endl;
+        cout << "4.增加(周期)闹钟" << endl;
         printf("9.返回上级\n");
         printf("0.返回主页\n");
         choice = input::getOperatorNum();
@@ -292,6 +293,9 @@ int Student::showActivityMenu() {
                 break;
             case 3:
                 student->showActivities(true);
+                break;
+            case 4:
+                student->addClocks();
                 break;
             case 9:
                 return 1;
@@ -343,6 +347,15 @@ void Student::InitStudent() {
         clog << "读取本地活动：" << activity.toString() << endl;
         Activities->push(activity);
     }
+    db.close();
+    db = ifstream ("../database/clocks/" + student->name);
+    while (db >> startTime >> description){
+        Clock clock;
+        clock.setTimestamp(startTime);
+        clock.addEvent(description);
+        student->getClocks()->put(startTime, clock);
+        clog << "读取本地闹钟：" << clock.timestamp << ":" << description << endl;
+    }
 }
 
 void Student::showActivities(bool today) {
@@ -358,4 +371,35 @@ void Student::showActivities(bool today) {
 
 HashMap<int, Clock> *Student::getClocks() const {
     return clocks;
+}
+
+void Student::addClocks() {
+    updateTime();
+    cout << "[注意]只能给自己设置周期闹钟且不支持删除，请手动清理数据库文件" << endl;
+    int timestamp = modtime.timeStamp(), rep = 0, interval = 1;
+    Time time;
+
+    cout << "从哪个时间开始（格式如：21010820）" << endl;
+    timestamp = Input<int>();
+    time.inputTime(timestamp);
+    cout << "提醒间隔多少小时(提示：一周168小时）" << endl;
+    interval = Input<int>();
+    cout << "一共需要提醒多少次" << endl;
+    rep = Input<int>();
+    cout << "事件描述(提醒时输出)" << endl;
+    string description = Input<string>();
+
+    for (int i = 0; i < rep; i++) {
+        Clock clock;
+        clock.setTimestamp(time.timeStamp());
+        clock.addEvent(description);
+        student->getClocks()->put(time.timeStamp(), clock);
+        clog << "已设置" << time.toString() << "的闹钟" << endl;
+        time.incre(interval);
+        ofstream _config("../database/clocks/" + student->name, ios::app);
+        assert(_config);
+        _config << clock.timestamp << " " << description << endl;
+        _config.close();
+    }
+    return;
 }

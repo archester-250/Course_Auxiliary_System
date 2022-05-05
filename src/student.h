@@ -67,6 +67,8 @@ public:
 
     void addActivity();
 
+    void addClocks();
+
     course searchCourse(course c[], int size, string name);//搜索课程功能
 
     void showMenu();//显示学生操作菜单
