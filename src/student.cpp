@@ -34,12 +34,16 @@ void Student::addActivity() {
     } while (time_conflict(inTime));
     startTime.inputTime(inTime);
     cout << "输入结束时间的字符串格式(如：22040718)" << endl;
-    endTime.inputTime(Input<int>());
+    do {
+        endTime.inputTime(Input<int>());
+    } while (endTime.timeStamp() < inTime);
     cout << "输入活动地址" << endl;
     string address = Input<string>();
     cout << "输入除自己外的活动成员数" << endl;
     int memberCnt;
-    memberCnt = Input<int>();
+    do {
+        memberCnt = Input<int>();
+    } while (memberCnt >= 0);
     activity.setMemberCnt(memberCnt);
     while (memberCnt--) {
         cout << "添加成员：";
@@ -348,8 +352,8 @@ void Student::InitStudent() {
         Activities->push(activity);
     }
     db.close();
-    db = ifstream ("../database/clocks/" + student->name);
-    while (db >> startTime >> description){
+    db = ifstream("../database/clocks/" + student->name);
+    while (db >> startTime >> description) {
         Clock clock;
         clock.setTimestamp(startTime);
         clock.addEvent(description);
@@ -402,4 +406,8 @@ void Student::addClocks() {
         _config.close();
     }
     return;
+}
+
+Array<Activity> *Student::getActivityArray() {
+    return Activities;
 }

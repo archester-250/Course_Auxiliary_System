@@ -22,6 +22,10 @@ public:
         maxSize = _size;
     }
 
+    int getSize() const {
+        return size;
+    }
+
     const T *getVals() const {
         return vals;
     }

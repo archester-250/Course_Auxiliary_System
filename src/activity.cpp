@@ -7,13 +7,18 @@ using namespace std;
 
 extern Student* student;
 
+/* return true if conflict */
 bool time_conflict(int timestamp){
-    auto check =  student->getActivities()->get(timestamp);
-    if (!check->first) return false;
-    else {
-        cout << "时间冲突，请重输入\n";
-        return true;
+    int len = student->getActivityArray()->getSize();
+    for (int i = 0; i < len; i++){
+        Activity activity = student->getActivityArray()->get(i);
+        if (timestamp >= activity.getStartTime().timeStamp() && \
+            timestamp < activity.getEndTime().timeStamp()) {
+            cout << "时间与" << activity.toString() << "冲突" << endl;
+            return true;
+        }
     }
+    return false;
 }
 
 const Time &Activity::getStartTime() const {

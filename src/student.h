@@ -59,6 +59,8 @@ public:
 
     int getCourseSize();
 
+    Array<Activity>* getActivityArray();
+
     course * getCourses();
 
     HashMap<int, Clock> *getClocks() const;
