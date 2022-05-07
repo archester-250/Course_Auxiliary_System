@@ -87,7 +87,11 @@ public:
 
     int showActivityMenu();//显示活动操作菜单
 
-    void InitStudent();
+    void InitStudent();//初始化学生信息
+
+    void showCourseDetail();//显示课程详情
+
+    void showCourseHw();//显示课程作业
 };
 
 #endif

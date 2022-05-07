@@ -186,13 +186,13 @@ int Student::showCourseMenu() {
                 showTodayCourse();//显示今日课程表
                 break;
             case 2:
-                courseTable();//todo
+                courseTable();//done
                 break;
             case 3:
-                // showCourseDetail();//todo
+                showCourseDetail();//done
                 break;
             case 4:
-                // showCourseHw();//todo
+                showCourseHw();//todo
                 break;
             case 5:
                 // uploadHw();//todo
@@ -255,6 +255,56 @@ void Student::courseTable() {
     cout << "已经生成课程表。正在打开..." << endl;
     string cmd = "cd ..\\documents\\users\\" + this->name + " & courseTable_" + this->name + ".csv";
     system(cmd.c_str());
+}
+
+void Student::showCourseDetail()
+{
+    cout << "输入要搜索的课程名称:";
+    string name = Input<string>();
+    course result = searchCourse(courses, course_size, name);
+    if(result.getName() == "null") printf("搜索的课程不存在!\n");
+    else
+    {
+        string weekday[7] = {"周一", "周二", "周三", "周四", "周五", "周六", "周日"};
+        cout << "课程名称:" << result.getName();
+        cout << "上课时间:" << endl;
+        for(int i = 0; i < result.getTimeSize(); i++)
+        {
+            cout << "\t" << i << "." << weekday[result.getTime()[i].week] << " " << result.getTime()[i].starthour << ":00-" << result.getTime()[i].endhour << ":00" << endl;
+        }
+        cout << "上课地点:" << result.getAddress() << endl;
+        cout << "课程资料:" << endl;
+        for(int i = 0; i < result.getDocumentsSize(); i++)
+        {
+            cout << "\t" << i << "." << result.getDocuments()[i] << endl;
+        }
+        cout << "课程作业:" << endl;
+        for(int i = 0; i < result.getHomeWorkSize(); i++)
+        {
+            cout << "\t" << i + 1 << "." << result.getHomeWork()[i] << endl;
+        }
+        cout << "课程QQ群:" << result.getQQGroup() << endl;
+    }
+}
+
+void Student::showCourseHw()
+{
+    cout << "输入要查看作业的课程名称:";
+    string name = Input<string>();
+    course result = searchCourse(courses, course_size, name);
+    if(result.getName() == "null") printf("搜索的课程不存在!\n");
+    else
+    {
+        cout << "作业完成情况:" << endl;
+        for(int i = 0; i < result.getHomeWorkSize(); i++)
+        {
+            string s;
+            if(result.getFinish()[i].finish) s = "已完成";
+            else s = "未完成";
+            cout << "\t" << i + 1 << "." << result.getHomeWork()[i] << ' ' << s << endl;
+        }
+    }
+    
 }
 
 void Student::saveStuInfo() {
