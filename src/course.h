@@ -1,7 +1,7 @@
 /**
  * @file course.h
  * @author your name (you@domain.com)
- * @brief è¯¾ç¨‹ç®¡ç†åŠŸèƒ½ï¼ŒåŒ…æ‹¬å¢åˆ æŸ¥æ”¹ä¿¡æ¯ã€ä¸Šä¼ æ›´æ–°å‹ç¼©èµ„æ–™ç­‰åŠŸèƒ½
+ * @brief ¿Î³Ì¹ÜÀí¹¦ÄÜ£¬°üÀ¨ÔöÉ¾²é¸ÄĞÅÏ¢¡¢ÉÏ´«¸üĞÂÑ¹Ëõ×ÊÁÏµÈ¹¦ÄÜ
  * @version 0.1
  * @date 2022-03-17
  * 
@@ -20,9 +20,9 @@
 
 struct course_time
 {
-    int week;//å‘¨å‡ 
-    int starthour;//å¼€å§‹æ—¶é—´
-    int endhour;//ç»“æŸæ—¶é—´
+    int week;//ÖÜ¼¸
+    int starthour;//¿ªÊ¼Ê±¼ä
+    int endhour;//½áÊøÊ±¼ä
 };
 
 struct hw_con
@@ -42,14 +42,14 @@ private:
     course_time * time;
     int t_size;
     string address;
-    string * documents;//è¯¾ç¨‹èµ„æ–™
+    string * documents;//¿Î³Ì×ÊÁÏ
     int doc_size;
     string current;
     string * homeWork;
     int hw_size;
     string QQGroup;
     Time extime;
-    string exaddress;//-exå‰ç¼€ï¼šè€ƒè¯•ç›¸å…³ä¿¡æ¯
+    string exaddress;//-exÇ°×º£º¿¼ÊÔÏà¹ØĞÅÏ¢
     hw_con * finish_con;
     int finish_size;
 public:

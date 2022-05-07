@@ -167,7 +167,7 @@ string course::uploadHomework(string road, string stuName, int no)
 {
     finish_con[no].finish = true;
     finish_con[no].road = OurStr::getFilename(road);
-    string cmd = "copy " + road + " ..\\documents\\users\\" + stuName + "\\" + name;
+    string cmd = "copy " + road + " ..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no);
     system(cmd.c_str());
     return finish_con[no].road;
 }

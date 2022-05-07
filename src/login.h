@@ -98,6 +98,23 @@ public:
                 system(cmd.c_str());
                 cmd = "cd ..\\documents\\users\\" + username + " & type nul > courseTable_" + username + ".csv";
                 system(cmd.c_str());
+                ifstream fin("../database/administers.data");
+                int n;
+                fin >> n;
+                string names[n];
+                for(int i = 0; i < n; i++)
+                {
+                    fin >> names[i];
+                }
+                fin.close();
+                ofstream fout("../database/administers.data");
+                fout << n + 1 << endl;
+                fout << username;
+                for(int i = 0; i < n; i++)
+                {
+                    fout << ' ' << names[i];
+                }
+                fout.close();
             }
         } else
             return inf;

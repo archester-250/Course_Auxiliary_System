@@ -59,6 +59,8 @@ public:
 
     int getCourseSize();
 
+    void setCourseSize(int course_size);
+
     Array<Activity>* getActivityArray();
 
     course * getCourses();
@@ -92,6 +94,8 @@ public:
     void showCourseDetail();//显示课程详情
 
     void showCourseHw();//显示课程作业
+
+    void uploadHw();//上传作业
 };
 
 #endif

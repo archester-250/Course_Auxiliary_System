@@ -5,6 +5,8 @@ admin::admin(/* args */)
     this->name = "null";
     this->course_size = 0;
     this->courses = NULL;
+    this->student_size = 0;
+    this->students = NULL;
 }
 
 admin::~admin()
@@ -15,6 +17,12 @@ admin::~admin()
         this->courses = NULL;
         this->course_size = 0;
     }
+    if(this->students != NULL)
+    {
+        delete [] this->students;
+        this->students = NULL;
+        this->student_size = 0;
+    }
 }
 
 admin::admin(string name)
@@ -24,6 +32,21 @@ admin::admin(string name)
     prepocess p;
     courses = p.coursesInitialize(all_count);
     this->course_size = all_count;
+    ifstream in("../database/administers.data");
+    int student_count;
+    in >> student_count;
+    students = new Student[student_count];
+    this->student_size = student_count;
+    for(int i = 0; i < student_count; i++)
+    {
+        string stuname;
+        in >> stuname;
+        Student s(stuname);
+        students[i].setName(stuname);
+        students[i].setCourseSize(s.getCourseSize());
+        students[i].setCourses(s.getCourses(), s.getCourseSize());
+    }
+    in.close();
 }
 
 int admin::getCourse_size()
@@ -130,4 +153,31 @@ string admin::uploadDocument(string road, string name)
     string cmd = "copy " + road + " ..\\documents\\public\\" + name;
     system(cmd.c_str());
     return " ..\\documents\\public\\" + name;
+}
+
+void admin::addHomework(string Course_name, string Homework)
+{
+    for(int i = 0; i < student_size; i++)
+    {
+        course c = students[i].searchCourse(courses, course_size, Course_name);
+        if(c.getName() != "null")
+        {
+            c.setHomeWorkSize(c.getHomeWorkSize() + 1);
+            string * newArray = new string[c.getHomeWorkSize()];
+            for(int j = 0; j < c.getHomeWorkSize() - 1; j++)
+            {
+                newArray[j] = c.getHomeWork()[j];
+            }
+            newArray[c.getHomeWorkSize() - 1] = Homework;
+            c.setHomeWork(newArray, c.getHomeWorkSize());
+            delete[] newArray;
+            string cmd = "mkdir ..\\documents\\users\\" + students[i].getName() + "\\" + Course_name + "\\" + to_string(c.getHomeWorkSize());
+            system(cmd.c_str());
+        }
+    }
+}
+
+void admin::showMenu()
+{
+
 }

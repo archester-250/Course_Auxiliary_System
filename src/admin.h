@@ -24,6 +24,8 @@ private:
     string name;
     int course_size;
     course * courses;
+    Student * students;
+    int student_size;
     /* data */
 public:
     admin();

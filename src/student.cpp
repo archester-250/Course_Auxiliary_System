@@ -99,6 +99,9 @@ course *Student::getCourses() {
 }
 
 void Student::setCourses(course *courses, int c_count) {
+    if(this->courses) {
+        delete[] this->courses;
+    }
     this->courses = new course[c_count];
     for (int i = 0; i < c_count; i++) {
         this->courses[i] = courses[i];
@@ -107,6 +110,10 @@ void Student::setCourses(course *courses, int c_count) {
 
 int Student::getCourseSize() {
     return this->course_size;
+}
+
+void Student::setCourseSize(int course_size) {
+    this->course_size = course_size;
 }
 
 Student::Student(string name) {
@@ -192,10 +199,10 @@ int Student::showCourseMenu() {
                 showCourseDetail();//done
                 break;
             case 4:
-                showCourseHw();//todo
+                showCourseHw();//done
                 break;
             case 5:
-                // uploadHw();//todo
+                uploadHw();//lack compress function
                 break;
             case 9:
                 return 1;
@@ -305,6 +312,23 @@ void Student::showCourseHw()
         }
     }
     
+}
+
+void Student::uploadHw()
+{
+    cout << "输入要上传作业的课程名称:";
+    string name = Input<string>();
+    course result = searchCourse(courses, course_size, name);
+    if(result.getName() == "null") printf("搜索的课程不存在!\n");
+    else
+    {
+        cout << "输入要上传的作业路径(层级目录间以“\\\\”分隔):";
+        string path = Input<string>();
+        cout << "输入要上传第几次作业:(1-" << result.getHomeWorkSize() << ")";
+        int num = Input<int>();
+        result.uploadHomework(path, name, num - 1);
+        cout << "上传成功!" << endl;
+    }
 }
 
 void Student::saveStuInfo() {
