@@ -33,7 +33,6 @@ void updateTime(){
     }
 }
 
-ofstream _log("log");
 streambuf *clogbuf = std::clog.rdbuf();
 
 int main()
@@ -67,6 +66,9 @@ int main()
     ofstream _config("../database/config");
     _config << modtime.timeStamp();
     _config.close();
+    ofstream _log("../log");
+    _log << clogbuf;
+    _log.close();
     return 0;
 }
 
