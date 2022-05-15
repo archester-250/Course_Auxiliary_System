@@ -29,6 +29,7 @@ struct hw_con
 {
     bool finish;
     string road = "null";
+    string MD5 = "null";
 };
 
 using namespace std;
@@ -122,7 +123,7 @@ public:
     void setFinishSize(int size);
     void operator=(course& c);
     
-    string uploadHomework(string road, string stuName, int no);
+    void uploadHomework(string road, string stuName, int no);
 };
 
 

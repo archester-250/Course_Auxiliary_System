@@ -141,6 +141,7 @@ Student::Student(string name) {
             in >> b[j].finish;
             if (b[j].finish) {
                 in >> b[j].road;
+                in >> b[j].MD5;
             }
         }
         courses[i].setFinish(b, counts);
@@ -340,7 +341,7 @@ void Student::saveStuInfo() {
         for (int j = 0; j < courses[i].getFinishSize(); j++) {
             out << courses[i].getFinish()[j].finish;
             if (courses[i].getFinish()[j].finish) {
-                out << ' ' << courses[i].getFinish()[j].road << endl;
+                out << ' ' << courses[i].getFinish()[j].road << ' ' << courses[i].getFinish()[j].MD5 << endl;
             } else {
                 out << endl;
             }

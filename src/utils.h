@@ -1,6 +1,7 @@
 #ifndef COURSE_AUXILIARY_SYSTEM_UTILS_H
 #define COURSE_AUXILIARY_SYSTEM_UTILS_H
 #include "hashMap.h"
+#include "MD5.h"
 #include <iostream>
 #include <cstdlib>
 #include <ctime>

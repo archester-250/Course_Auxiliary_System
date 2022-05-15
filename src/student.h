@@ -17,13 +17,6 @@
 #include "hashMap.h"
 #include <string>
 
-struct hwork//家庭作业
-{
-    /* data */
-    string road = NULL;//上传的作业名称
-    bool finish;
-};
-
 class Activity;
 class course;
 

@@ -147,12 +147,10 @@ void course::setFinish(hw_con * finish_con, int size)
     for(int i = 0; i < size; i++)
     {
         this->finish_con[i].finish = finish_con[i].finish;
-        this->finish_con[i].road.resize(finish_con[i].road.size());
-        for(int j = 0; j < finish_con[i].road.length(); j++)
-        {
-            this->finish_con[i].road[j] = finish_con[i].road[j];
-        }
+        this->finish_con[i].road = finish_con[i].road;
+        this->finish_con[i].MD5 = finish_con[i].MD5;
     }
+    this->finish_size = size;
 }
 int course::getFinishSize(){return finish_size;}
 void course::setFinishSize(int size){this->finish_size = size;}
@@ -163,11 +161,29 @@ void course::setFinishSize(int size){this->finish_size = size;}
  * @param road 
  * @return string 
  */
-string course::uploadHomework(string road, string stuName, int no)
+void course::uploadHomework(string road, string stuName, int no)
 {
     finish_con[no].finish = true;
     finish_con[no].road = OurStr::getFilename(road);
     string cmd = "copy " + road + " ..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no);
     system(cmd.c_str());
-    return finish_con[no].road;
+    string input;
+    unsigned char decrypt[16];
+    ifstream in(road);
+    char c;
+    while(in.get(c))
+    {
+        input += c;
+    }
+    in.close();
+    MD5 md5;
+    md5.MD5Update(md5.getContext(), (unsigned char *)input.c_str(), input.length());
+    md5.MD5Final(md5.getContext(), decrypt);
+    md5.~MD5();
+    string md5str = "";
+    for(int i = 0; i < 16; i++)
+    {
+        md5str += (char)decrypt[i];
+    }
+    finish_con[no].MD5 = md5str;
 }
