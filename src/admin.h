@@ -11,7 +11,6 @@
 #ifndef ADMIN_H_
 #define ADMIN_H_
 
-#include "course.h"
 #include "student.h"
 #include "input.h"
 #include "prepocess.h"

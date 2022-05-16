@@ -15,6 +15,7 @@
 #include <iostream>
 #include "utils.h"
 #include <string>
+#include <cstring>
 
 class Time;
 

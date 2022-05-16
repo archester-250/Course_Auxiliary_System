@@ -156,21 +156,43 @@ void MD5::MD5Transform(unsigned int state[4], unsigned char block[64])
 	state[2] += c;
 	state[3] += d;
 }
-int main()
+
+MD5::MD5()
 {
-    int i;
-	unsigned char encrypt[] = "admin";//21232f297a57a5a743894a0e4a801fc3  
-	unsigned char decrypt[16];
- 
-	MD5 md5;
-    md5.MD5Update(md5.getContext(), encrypt, strlen((char*)encrypt));
-    md5.MD5Final(md5.getContext(), decrypt);
-	md5.~MD5();
-	//Md5加密后的32位结果
-	printf("\n加密前:%s\n加密后32位:", encrypt);
-	for (i = 0; i<16; i++)
-	{
-		printf("%02x", decrypt[i]);  
-	}
-    return 0;
+    context = new MD5_CTX;
+    context->count[0] = 0;
+	context->count[1] = 0;
+	context->state[0] = 0x67452301;
+	context->state[1] = 0xEFCDAB89;
+	context->state[2] = 0x98BADCFE;
+	context->state[3] = 0x10325476;
 }
+
+MD5::~MD5()
+{
+    delete context;
+}
+
+MD5_CTX * MD5::getContext()
+{
+    return context;
+}
+
+// int main()
+// {
+//     int i;
+// 	unsigned char encrypt[] = "admin";//21232f297a57a5a743894a0e4a801fc3  
+// 	unsigned char decrypt[16];
+ 
+// 	MD5 md5;
+//     md5.MD5Update(md5.getContext(), encrypt, strlen((char*)encrypt));
+//     md5.MD5Final(md5.getContext(), decrypt);
+// 	md5.~MD5();
+// 	//Md5加密后的32位结果
+// 	printf("\n加密前:%s\n加密后32位:", encrypt);
+// 	for (i = 0; i<16; i++)
+// 	{
+// 		printf("%02x", decrypt[i]);  
+// 	}
+//     return 0;
+// }

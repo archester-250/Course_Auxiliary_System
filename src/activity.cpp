@@ -1,6 +1,3 @@
-#include "hashMap.h"
-#include <iostream>
-#include <cstring>
 #include "activity.h"
 
 using namespace std;

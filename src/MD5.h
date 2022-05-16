@@ -56,26 +56,6 @@ public:
     MD5_CTX * getContext();
 };
 
-MD5::MD5()
-{
-    context = new MD5_CTX;
-    context->count[0] = 0;
-	context->count[1] = 0;
-	context->state[0] = 0x67452301;
-	context->state[1] = 0xEFCDAB89;
-	context->state[2] = 0x98BADCFE;
-	context->state[3] = 0x10325476;
-}
-
-MD5::~MD5()
-{
-    delete context;
-}
-
-MD5_CTX * MD5::getContext()
-{
-    return context;
-}
 
  
 #endif  
