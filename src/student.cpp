@@ -341,7 +341,6 @@ void Student::uploadHw()
         cout << "输入要上传第几次作业:(1-" << result.getHomeWorkSize() << ")";
         int num = Input<int>();
         result.uploadHomework(path, name, num - 1);
-        cout << "上传成功!" << endl;
     }
 }
 

@@ -166,24 +166,31 @@ void course::uploadHomework(string road, string stuName, int no)
     finish_con[no].finish = true;
     finish_con[no].road = OurStr::getFilename(road);
     string cmd = "copy " + road + " ..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no);
-    system(cmd.c_str());
-    string input;
-    unsigned char decrypt[16];
-    ifstream in(road);
-    char c;
-    while(in.get(c))
+    if(!system(cmd.c_str()))
     {
-        input += c;
+        cout << "上传成功" << endl;
+        string input;
+        unsigned char decrypt[16];
+        ifstream in(road);
+        char c;
+        while(in.get(c))
+        {
+            input += c;
+        }
+        in.close();
+        MD5 md5;
+        md5.MD5Update(md5.getContext(), (unsigned char *)input.c_str(), input.length());
+        md5.MD5Final(md5.getContext(), decrypt);
+        md5.~MD5();
+        string md5str = "";
+        for(int i = 0; i < 16; i++)
+        {
+            md5str += (char)decrypt[i];
+        }
+        finish_con[no].MD5 = md5str;
     }
-    in.close();
-    MD5 md5;
-    md5.MD5Update(md5.getContext(), (unsigned char *)input.c_str(), input.length());
-    md5.MD5Final(md5.getContext(), decrypt);
-    md5.~MD5();
-    string md5str = "";
-    for(int i = 0; i < 16; i++)
+    else
     {
-        md5str += (char)decrypt[i];
+        cout << "上传失败" << endl;
     }
-    finish_con[no].MD5 = md5str;
 }
