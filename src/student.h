@@ -20,6 +20,8 @@
 class Activity;
 class course;
 
+bool time_conflict(int timestamp);
+
 class Student {
 
 private:

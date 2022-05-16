@@ -15,9 +15,7 @@
 #include <iostream>
 #include "utils.h"
 #include <string>
-#include "student.h"
 
-bool time_conflict(int);
 class Time;
 
 class Activity {

@@ -5,21 +5,6 @@
 
 using namespace std;
 
-extern Student* student;
-
-/* return true if conflict */
-bool time_conflict(int timestamp){
-    int len = student->getActivityArray()->getSize();
-    for (int i = 0; i < len; i++){
-        Activity activity = student->getActivityArray()->get(i);
-        if (timestamp >= activity.getStartTime().timeStamp() && \
-            timestamp < activity.getEndTime().timeStamp()) {
-            cout << "Ê±¼äÓë" << activity.toString() << "³åÍ»" << endl;
-            return true;
-        }
-    }
-    return false;
-}
 
 const Time &Activity::getStartTime() const {
     return startTime;

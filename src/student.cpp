@@ -22,6 +22,19 @@ string Student::getName() {
 void Student::setName(string name) {
     this->name = name;
 }
+/* return true if conflict */
+bool time_conflict(int timestamp){
+    int len = student->getActivityArray()->getSize();
+    for (int i = 0; i < len; i++){
+        Activity activity = student->getActivityArray()->get(i);
+        if (timestamp >= activity.getStartTime().timeStamp() && \
+            timestamp < activity.getEndTime().timeStamp()) {
+            cout << "Ê±¼äÓë" << activity.toString() << "³åÍ»" << endl;
+            return true;
+        }
+    }
+    return false;
+}
 
 void Student::addActivity() {
     Activity activity;
