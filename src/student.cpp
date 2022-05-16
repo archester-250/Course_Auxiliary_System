@@ -24,7 +24,22 @@ void Student::setName(string name) {
 }
 /* return true if conflict */
 bool time_conflict(int timestamp){
+    if (timestamp < 20000000){
+        cout << "时间格式错误" << endl;
+        return true;
+    }
     int len = student->getActivityArray()->getSize();
+    Time tmp;
+    tmp.inputTime(timestamp);
+    for (int i = 0; i < student->getCourseSize(); i++){
+        course cse = student->getCourses()[i];
+        if (tmp.calculateWeekDay() == cse.getTime()->week &&\
+            tmp.hr >= cse.getTime()->starthour && \
+            tmp.hr < cse.getTime()->endhour) {
+            cout << "时间与课程" << cse.getName() << "冲突" << endl;
+            return true;
+        }
+    }
     for (int i = 0; i < len; i++){
         Activity activity = student->getActivityArray()->get(i);
         if (timestamp >= activity.getStartTime().timeStamp() && \
@@ -341,7 +356,7 @@ void Student::uploadHw()
         cout << "输入要上传第几次作业:(1-" << result.getHomeWorkSize() << ")";
         int num = Input<int>();
         result.uploadHomework(path, name, num - 1);
-        cout << "上传成功!" << endl;
+        cout << "上传流程完成!" << endl;
     }
 }
 

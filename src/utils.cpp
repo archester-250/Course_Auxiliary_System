@@ -41,7 +41,7 @@ void Time::incre(int h) {
         }
     }
     sys_time_bias_times = SYS_TIME_BIAS_TIMES;
-    cout << "[当前时间]" << toString() << endl;
+    cout << "[当前时间]" << toString() << "星期" << calculateWeekDay() << endl;
 }
 
 Clock::Clock() {}
