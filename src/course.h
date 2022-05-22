@@ -18,6 +18,8 @@
 #include <fstream>
 #include "utils.h"
 #include "compression.h"
+#include "input.h"
+extern void updateTime();
 
 struct course_time
 {
@@ -29,7 +31,7 @@ struct course_time
 struct hw_con
 {
     bool finish;
-    string road = "null";
+    string road = "null";//交的作业的名称
     string MD5 = "null";
 };
 
@@ -47,7 +49,7 @@ private:
     string * documents;//课程资料
     int doc_size;
     string current;
-    string * homeWork;
+    string * homeWork;//显示的作业名称
     int hw_size;
     string QQGroup;
     Time extime;
@@ -123,8 +125,9 @@ public:
     int getFinishSize();
     void setFinishSize(int size);
     void operator=(course& c);
-    
+
     void uploadHomework(string road, string stuName, int no);
+    void viewDocument(string course_name);
 };
 
 

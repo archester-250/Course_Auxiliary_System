@@ -181,26 +181,88 @@ void course::uploadHomework(string road, string stuName, int no)
     {
         md5str += (char)decrypt[i];
     }
-    if(finish_con[no].MD5 == md5str)
+    if(OurStr::StrCmp(md5str, finish_con[no].MD5))
     {
-        cout << "该学生已经上传过该作业，请勿重复上传！" << endl;
+        cout << "已经上传过该作业，请勿重复上传！" << endl;
         return;
     }
     else
     {
-        string outRoad = "../documents/users/" + stuName + "/" + name + "/" + to_string(no);
-        compression c;
-        if(c.Code(road, outRoad))
+        if(OurStr::getSuffix(road) == "txt")
         {
-            cout << "上传成功" << endl;
-            finish_con[no].finish = true;
-            finish_con[no].road = OurStr::getFilename(road);
-            finish_con[no].MD5 = md5str;
+            string outRoad = "..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no) + "\\" +  OurStr::getFilename(road).substr(0, OurStr::getFilename(road).rfind('.'));
+            compression c;
+            if(c.Code(road, outRoad))
+            {
+                cout << "压缩上传成功" << endl;
+                finish_con[no].finish = true;
+                finish_con[no].road = OurStr::getFilename(road);
+                finish_con[no].MD5 = md5str;
+            }
+            else
+            {
+                cout << "压缩上传失败" << endl;
+            }
         }
         else
         {
-            cout << "上传失败" << endl;
+            cout << "检测到不是txt文件,取消压缩" << endl;
+            string cmd = "copy " + road + " ..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no);
+            system(cmd.c_str());
         }
     }
     
+}
+
+void course::viewDocument(string stuName)
+{
+    cout << "请选择要查看的类型:" << endl;
+    printf("1.课程资料\t2.课程作业\n");
+    int type = input::getOperatorNum();
+    if(type == 1)
+    {
+        cout << "请选择要查看的资料:" << endl;
+        for(int i = 0; i < doc_size; i++)
+        {
+            cout << i + 1 << "." << documents[i] << endl;
+        }
+        int no = input::getOperatorNum() - 1;
+        string inroad = "..\\documents\\public\\" + name + "\\" + documents[no];
+        string outroad = "..\\documents\\public\\" + name + "\\" + documents[no];
+        compression c;
+        if(c.Decode(inroad, outroad))
+        {
+            cout << "解压成功,正在打开文件..." << endl;
+            system(("start ..\\documents\\public\\" + name + "\\" + documents[no]).c_str());
+            cout << "浏览结束,自动删除解压文件" << endl;
+            system(("del ..\\documents\\public\\" + name + "\\" + documents[no]).c_str());
+        }
+        else
+        {
+            cout << "解压失败" << endl;
+        }
+    }
+    else if(type == 2)
+    {
+        cout << "请选择要查看的作业:" << endl;
+        for(int i = 0; i < hw_size; i++)
+        {
+            cout << i + 1 << "." << homeWork[i] << endl;
+        }
+        int no = input::getOperatorNum() - 1;
+        string inroad = "..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no) + '\\' + homeWork[no];
+        string outroad = "..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no) + '\\' + homeWork[no];
+        compression c;
+        if(c.Decode(inroad, outroad))
+        {
+            cout << "解压成功,正在打开文件..." << endl;
+            system(("start ..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no) + '\\' + homeWork[no]).c_str());
+            cout << "浏览结束,自动删除解压文件" << endl;
+            system(("del ..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no) + '\\' + homeWork[no]).c_str());
+        }
+        else
+        {
+            cout << "解压失败" << endl;
+        }
+    }
 }

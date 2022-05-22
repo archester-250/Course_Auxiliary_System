@@ -14,6 +14,7 @@
 #include "student.h"
 #include "input.h"
 #include "prepocess.h"
+#include "course.h"
 
 
 
@@ -35,9 +36,10 @@ public:
     course * getCourses();
     void setCourses(course * courses);
     void addCourse();
-    void addHomework(string Course_name, string Homework);//todo
-    string uploadDocument(string road, string name);
+    void addHomework();//todo
+    string uploadDocument();
     void showMenu();
+    void showDocument();
 };
 
 

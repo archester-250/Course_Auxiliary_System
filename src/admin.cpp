@@ -148,18 +148,74 @@ void admin::addCourse()
  * 
  * @param road 上传路径
  */
-string admin::uploadDocument(string road, string name)
+string admin::uploadDocument()
 {
-    string cmd = "copy " + road + " ..\\documents\\public\\" + name;
-    system(cmd.c_str());
-    return " ..\\documents\\public\\" + name;
+    string road, course_name;
+    cout << "请输入要上传的资料路径(层级目录间以“\\\\”分隔)：";
+    road = Input<string>();
+    cout << "请输入课程名称：";
+    course_name = Input<string>();
+    Student s;
+    course c = s.searchCourse(courses, course_size, course_name);
+    if(c.getName() == "null")
+    {
+        return "null";
+    }
+    if(OurStr::getSuffix(road) == "txt")
+    {
+        string outRoad = "..\\documents\\public\\" + course_name + "\\" + OurStr::getFilename(road).substr(0, OurStr::getFilename(road).length() - 4);
+        compression c;
+        cout << "正在压缩文件..." << endl;
+        if(c.Code(road, outRoad))
+        {
+            cout << "压缩上传成功" << endl;
+        }
+        else
+        {
+            cout << "压缩上传失败" << endl;
+        }
+    }
+    else
+    {
+        cout << "检测到不是txt文件,取消压缩" << endl;
+        string cmd = "copy " + road + " ..\\documents\\public\\" + course_name;
+        system(cmd.c_str());
+    }
+    
+    return OurStr::getFilename(road);
 }
 
-void admin::addHomework(string Course_name, string Homework)
+void admin::addHomework()
 {
+    string Course_name,Homework;
+    cout << "请输入课程名称：";
+    Course_name = Input<string>();
+    Student s;
+    course c = s.searchCourse(courses, course_size, Course_name);
+    if(c.getName() == "null")
+    {
+        cout << "没有找到该课程!" << endl;
+        return;
+    }
+    cout << "请输入作业名称：";
+    Homework = Input<string>();
+    bool flag = false;
+    for(int j = 0; j < c.getHomeWorkSize(); j++)
+    {
+        if(!OurStr::StrCmp(Homework, c.getHomeWork()[j]))
+        {
+            flag = true;
+            break;
+        }
+    }
+    if(flag)
+    {
+        cout << "该作业已存在!" << endl;
+        return;
+    }
     for(int i = 0; i < student_size; i++)
     {
-        course c = students[i].searchCourse(courses, course_size, Course_name);
+        course c = students[i].searchCourse(students[i].getCourses(), students[i].getCourseSize(), Course_name);
         if(c.getName() != "null")
         {
             c.setHomeWorkSize(c.getHomeWorkSize() + 1);
@@ -179,5 +235,49 @@ void admin::addHomework(string Course_name, string Homework)
 
 void admin::showMenu()
 {
-
+    updateTime();
+    printf("欢迎管理员%s\n", name.c_str());
+    printf("1.查看现有课程\n");
+    printf("2.查看现有学生\n");
+    printf("3.添加课程\n");
+    printf("4.添加作业\n");
+    printf("5.查看课程资料\n");
+    printf("6.上传课程资料\n");
+    printf("0.退出\n");
+    printf("请输入您的选择：");
+    int choice = Input<int>();
+    switch(choice)
+    {
+        case 1:
+            for(int i = 0; i < course_size; i++)
+            {
+                printf("%s\t", courses[i].getName().c_str());
+            }
+            break;
+        case 2:
+            for(int i = 0; i < student_size; i++)
+            {
+                printf("%s\t", students[i].getName().c_str());
+            }
+            break;
+        case 3:
+            addCourse();
+            break;
+        case 4:
+            addHomework();
+            break;
+        case 5:
+            showDocument();
+            break;
+        case 6:
+            uploadDocument();
+            break;
+        case 0:
+            break;
+        default:
+            printf("输入错误，请重新输入！\n");
+            showMenu();
+            break;
+    }
 }
+

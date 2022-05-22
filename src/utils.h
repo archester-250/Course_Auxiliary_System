@@ -6,6 +6,8 @@
 #include <cstdlib>
 #include <ctime>
 #include <string>
+#include <vector>
+#include <io.h>
 
 #define SYS_TIME_BIAS_TIMES 3000
 //时间倍率，现在是3秒一小时
@@ -157,9 +159,55 @@ class OurStr
             int i;
             for(i = path.length() - 1; i >= 0; i--)
             {
-                if(path[i] == '/') break;
+                if(path[i] == '/' || path[i] == '\\') break;
             }
             return path.substr(i + 1);
+        }
+
+        static string getSuffix(string path)
+        {
+            int i;
+            for(i = path.length() - 1; i >= 0; i--)
+            {
+                if(path[i] == '.') break;
+            }
+            return path.substr(i + 1);
+        }
+};
+
+class Files
+{
+    public:   
+        static void getFiles(string path, vector<string>& files)
+        {
+            //文件句柄  
+            long   hFile = 0;
+            //文件信息，声明一个存储文件信息的结构体  
+            struct _finddata_t fileinfo;
+            string p;//字符串，存放路径
+            if ((hFile = _findfirst(p.assign(path).append("\\*").c_str(), &fileinfo)) != -1)//若查找成功，则进入
+            {
+                do
+                {
+                    //如果是目录,迭代之（即文件夹内还有文件夹）  
+                    if ((fileinfo.attrib &  _A_SUBDIR))
+                    {
+                        //文件名不等于"."&&文件名不等于".."
+                        //.表示当前目录
+                        //..表示当前目录的父目录
+                        //判断时，两者都要忽略，不然就无限递归跳不出去了！
+                        if (strcmp(fileinfo.name, ".") != 0 && strcmp(fileinfo.name, "..") != 0)
+                            getFiles(p.assign(path).append("\\").append(fileinfo.name), files);
+                    }
+                    //如果不是,加入列表  
+                    else
+                    {
+                        files.push_back(p.assign(path).append("\\").append(fileinfo.name));
+                    }
+                } while (_findnext(hFile, &fileinfo) == 0);
+                //_findclose函数结束查找
+                _findclose(hFile);
+            }
         }
 };
 

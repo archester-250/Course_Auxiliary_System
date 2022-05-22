@@ -213,6 +213,7 @@ int Student::showCourseMenu() {
     printf("3.搜索课程查看详情\n");
     printf("4.查看课程作业\n");
     printf("5.上传作业\n");
+    printf("6.打开某一文件\n");
     printf("9.返回上一级\n");
     printf("0.返回主页\n");
     int choice = input::getOperatorNum();
