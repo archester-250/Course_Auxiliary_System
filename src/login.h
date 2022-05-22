@@ -19,9 +19,11 @@
 #include "utils.h"
 #include "input.h"
 #include "student.h"
+#include "admin.h"
 
 using namespace std;
 extern Student* student;
+extern Admin* admin;
 
 struct info
 {
@@ -64,7 +66,7 @@ public:
                 printf("请输入密码(不能超过20位，中文一个字占2位):");
                 password = Input<string>();
             }while(password.length() > 20);
-            if (match(username, password, loginCode))
+            if (loginCode == 1 && match(username, password, loginCode))
             {
                 printf("登陆成功！\n");
                 inf.notEnd = loginCode;
@@ -72,6 +74,15 @@ public:
                 inf.user = suser;
                 student = new Student(inf.user);
                 student->InitStudent();
+                return inf;
+            }
+            else if (loginCode == 2 && match(username, password, loginCode))
+            {
+                printf("登陆成功！\n");
+                inf.notEnd = loginCode;
+                string suser(username);
+                inf.user = suser;
+                admin = new Admin(inf.user);
                 return inf;
             }
             else printf("登陆失败！\n");

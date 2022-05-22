@@ -8,7 +8,7 @@ using namespace std;
 extern Time modtime;
 
 template <typename T> T Input() {
-    //输入格式错误抛出异常
+    //TODO：输入格式错误抛出异常
     modtime.pause();
     T in;
     cin >> in;
