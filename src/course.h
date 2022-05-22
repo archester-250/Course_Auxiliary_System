@@ -17,6 +17,7 @@
 #include <iostream>
 #include <fstream>
 #include "utils.h"
+#include "compression.h"
 
 struct course_time
 {
