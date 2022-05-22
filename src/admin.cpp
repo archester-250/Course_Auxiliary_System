@@ -1,6 +1,8 @@
 #include "admin.h"
 
-admin::admin(/* args */)
+Admin* admin;
+
+Admin::Admin(/* args */)
 {
     this->name = "null";
     this->course_size = 0;
@@ -9,7 +11,7 @@ admin::admin(/* args */)
     this->students = NULL;
 }
 
-admin::~admin()
+Admin::~Admin()
 {
     if(this->courses != NULL)
     {
@@ -25,22 +27,24 @@ admin::~admin()
     }
 }
 
-admin::admin(string name)
+Admin::Admin(string name)
 {
     this->name = name;
     int all_count;
     prepocess p;
     courses = p.coursesInitialize(all_count);
     this->course_size = all_count;
-    ifstream in("../database/administers.data");
+    ifstream in("../database/Administers.data");
     int student_count;
     in >> student_count;
-    students = new Student[student_count];
+    if (student_count)
+        students = new Student[student_count];
     this->student_size = student_count;
     for(int i = 0; i < student_count; i++)
     {
         string stuname;
         in >> stuname;
+        clog << "获取学生" << stuname << "课程\n";
         Student s(stuname);
         students[i].setName(stuname);
         students[i].setCourseSize(s.getCourseSize());
@@ -49,22 +53,22 @@ admin::admin(string name)
     in.close();
 }
 
-int admin::getCourse_size()
+int Admin::getCourse_size()
 {
     return this->course_size;
 }
 
-void admin::setCourse_size(int course_size)
+void Admin::setCourse_size(int course_size)
 {
     this->course_size = course_size;
 }
 
-course * admin::getCourses()
+course * Admin::getCourses()
 {
     return this->courses;
 }
 
-void admin::setCourses(course * courses)
+void Admin::setCourses(course * courses)
 {
     this->courses = new course[course_size];
     for (int i = 0; i < course_size; i++) {
@@ -72,7 +76,7 @@ void admin::setCourses(course * courses)
     }
 }
 
-void admin::addCourse()
+void Admin::addCourse()
 {
     setCourse_size(getCourse_size() + 1);
     //done
@@ -148,7 +152,7 @@ void admin::addCourse()
  * 
  * @param road 上传路径
  */
-string admin::uploadDocument()
+string Admin::uploadDocument()
 {
     string road, course_name;
     cout << "请输入要上传的资料路径(层级目录间以“\\\\”分隔)：";
@@ -185,7 +189,7 @@ string admin::uploadDocument()
     return OurStr::getFilename(road);
 }
 
-void admin::addHomework()
+void Admin::addHomework()
 {
     string Course_name,Homework;
     cout << "请输入课程名称：";
@@ -233,7 +237,7 @@ void admin::addHomework()
     }
 }
 
-void admin::showMenu()
+void Admin::showMenu()
 {
     updateTime();
     printf("欢迎管理员%s\n", name.c_str());

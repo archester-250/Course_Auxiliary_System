@@ -1,5 +1,5 @@
 /**
- * @file admin.h
+ * @file Admin.h
  * @author your name (you@domain.com)
  * @brief 完成管理员类，在该类下定义管理员的一系列操作
  * @version 0.1
@@ -18,7 +18,7 @@
 
 
 
-class admin
+class Admin
 {
 private:
     string name;
@@ -28,9 +28,9 @@ private:
     int student_size;
     /* data */
 public:
-    admin();
-    admin(string name);
-    ~admin();
+    Admin();
+    Admin(string name);
+    ~Admin();
     int getCourse_size();
     void setCourse_size(int course_size);
     course * getCourses();
