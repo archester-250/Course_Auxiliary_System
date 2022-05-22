@@ -93,10 +93,22 @@ void course::operator=(course& c)
     {
         this->homeWork[i] = c.getHomeWork()[i];
     }
+    if(finish_con != NULL)
+    {
+        delete [] finish_con;
+        finish_con = NULL;
+        finish_size = 0;
+    }
+    finish_con = new hw_con[c.getFinishSize()];
+    finish_size = c.getFinishSize();
+    for(int i = 0; i < finish_size; i++)
+    {
+        finish_con[i] = c.getFinish()[i];
+    }
     extime = c.getExtime();
     exaddress = c.getExaddress();
     QQGroup = c.getQQGroup();
-}//使用了深拷贝（不拷贝作业完成情况）
+}//使用了深拷贝
 
 string course::getName(){return name;}
 void course::setName(string name){this->name = name;}
@@ -117,7 +129,14 @@ void course::setAddress(string address){this->address = address;}
 string* course::getDocuments(){return documents;}
 void course::setDocuments(string * documents, int size)
 {
+    if(this->documents != NULL)
+    {
+        delete [] this->documents;
+        this->documents = NULL;
+        doc_size = 0;
+    }
     this->documents = new string[size];
+    doc_size = size;
     for(int i = 0; i < size; i++)
         this->documents[i] = documents[i];
 }
@@ -128,7 +147,14 @@ void course::setCurrent(string current){this->current = current;}
 string * course::getHomeWork(){return this->homeWork;}
 void course::setHomeWork(string * homeWork, int size)
 {
+    if(this->homeWork != NULL)
+    {
+        delete [] this->homeWork;
+        this->homeWork = NULL;
+        hw_size = 0;
+    }
     this->homeWork = new string[size];
+    hw_size = size;
     for(int i = 0; i < size; i++)
         this->homeWork[i] = homeWork[i];
 }
@@ -143,6 +169,12 @@ void course::setQQGroup(string QQGroup){this->QQGroup = QQGroup;}
 hw_con * course::getFinish(){return finish_con;}
 void course::setFinish(hw_con * finish_con, int size)
 {
+    if(this->finish_con != NULL)
+    {
+        delete [] this->finish_con;
+        this->finish_con = NULL;
+        finish_size = 0;
+    }
     this->finish_con = new hw_con[size];
     for(int i = 0; i < size; i++)
     {

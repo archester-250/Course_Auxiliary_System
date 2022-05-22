@@ -129,8 +129,11 @@ course *Student::getCourses() {
 void Student::setCourses(course *courses, int c_count) {
     if(this->courses) {
         delete[] this->courses;
+        this->courses = NULL;
+        course_size = 0;
     }
     this->courses = new course[c_count];
+    this->course_size = c_count;
     for (int i = 0; i < c_count; i++) {
         this->courses[i] = courses[i];
     }

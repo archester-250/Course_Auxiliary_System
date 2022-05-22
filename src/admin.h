@@ -38,8 +38,9 @@ public:
     void addCourse();
     void addHomework();//todo
     string uploadDocument();
-    void showMenu();
+    int showMenu();
     void showDocument();
+    void saveAdminInfo();//保存数据至文件
 };
 
 

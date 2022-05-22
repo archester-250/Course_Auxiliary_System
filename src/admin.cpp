@@ -70,6 +70,11 @@ course * Admin::getCourses()
 
 void Admin::setCourses(course * courses)
 {
+    if(this->courses != NULL)
+    {
+        delete [] this->courses;
+        this->courses = NULL;
+    }
     this->courses = new course[course_size];
     for (int i = 0; i < course_size; i++) {
         this->courses[i] = courses[i];
@@ -130,10 +135,26 @@ void Admin::addCourse()
                 break;
             }
         }
+        in.close();
         if(flag)
         {
             string cmd = "mkdir ..\\documents\\users\\" + stuname + "\\" + newArray[getCourse_size() - 1].getName();
             system(cmd.c_str());
+            for(int i = 0; i < student_size; i++)
+            {
+                if(!OurStr::StrCmp(students[i].getName(), stuname))
+                {
+                    students[i].setCourseSize(students[i].getCourseSize() + 1);
+                    course * newCourse = new course[students[i].getCourseSize()];
+                    for(int j = 0; j < students[i].getCourseSize() - 1; j++)
+                    {
+                        newCourse[j] = students[i].getCourses()[j];
+                    }
+                    newCourse[students[i].getCourseSize() - 1] = newArray[getCourse_size() - 1];
+                    students[i].setCourses(newCourse, students[i].getCourseSize());
+                    delete [] newCourse;
+                }
+            }
         }
         else
         {
@@ -163,14 +184,23 @@ string Admin::uploadDocument()
     course c = s.searchCourse(courses, course_size, course_name);
     if(c.getName() == "null")
     {
+        cout << "没有找到该课程！" << endl;
         return "null";
+    }
+    for(int i = 0; i < c.getDocumentsSize(); i++)
+    {
+        if(OurStr::StrCmp(c.getDocuments()[i], OurStr::getFilename(road)))
+        {
+            cout << "该资料已存在！" << endl;
+            return "null";
+        }
     }
     if(OurStr::getSuffix(road) == "txt")
     {
         string outRoad = "..\\documents\\public\\" + course_name + "\\" + OurStr::getFilename(road).substr(0, OurStr::getFilename(road).length() - 4);
-        compression c;
+        compression com;
         cout << "正在压缩文件..." << endl;
-        if(c.Code(road, outRoad))
+        if(com.Code(road, outRoad))
         {
             cout << "压缩上传成功" << endl;
         }
@@ -185,7 +215,14 @@ string Admin::uploadDocument()
         string cmd = "copy " + road + " ..\\documents\\public\\" + course_name;
         system(cmd.c_str());
     }
-    
+    c.setDocumentsSize(c.getDocumentsSize() + 1);
+    string * newDocuments = new string[c.getDocumentsSize()];
+    for(int i = 0; i < c.getDocumentsSize() - 1; i++)
+    {
+        newDocuments[i] = c.getDocuments()[i];
+    }
+    newDocuments[c.getDocumentsSize() - 1] = OurStr::getFilename(road);
+    c.setDocuments(newDocuments, c.getDocumentsSize());
     return OurStr::getFilename(road);
 }
 
@@ -237,7 +274,7 @@ void Admin::addHomework()
     }
 }
 
-void Admin::showMenu()
+int Admin::showMenu()
 {
     updateTime();
     printf("欢迎管理员%s\n", name.c_str());
@@ -247,41 +284,75 @@ void Admin::showMenu()
     printf("4.添加作业\n");
     printf("5.查看课程资料\n");
     printf("6.上传课程资料\n");
-    printf("0.退出\n");
+    printf("9.返回上一级\n");
+    printf("0.返回主页\n");
     printf("请输入您的选择：");
     int choice = Input<int>();
-    switch(choice)
+    while(choice)
     {
-        case 1:
-            for(int i = 0; i < course_size; i++)
-            {
-                printf("%s\t", courses[i].getName().c_str());
-            }
-            break;
-        case 2:
-            for(int i = 0; i < student_size; i++)
-            {
-                printf("%s\t", students[i].getName().c_str());
-            }
-            break;
-        case 3:
-            addCourse();
-            break;
-        case 4:
-            addHomework();
-            break;
-        case 5:
-            showDocument();
-            break;
-        case 6:
-            uploadDocument();
-            break;
-        case 0:
-            break;
-        default:
-            printf("输入错误，请重新输入！\n");
-            showMenu();
-            break;
+        switch(choice)
+        {
+            case 1:
+                cout << "现有课程：" << endl;
+                for(int i = 0; i < course_size; i++)
+                {
+                    printf("%s\t", courses[i].getName().c_str());
+                }
+                break;
+            case 2:
+                cout << "现有学生：" << endl;
+                for(int i = 0; i < student_size; i++)
+                {
+                    printf("%s\t", students[i].getName().c_str());
+                }
+                break;
+            case 3:
+                addCourse();
+                break;
+            case 4:
+                addHomework();
+                break;
+            case 5:
+                showDocument();
+                break;
+            case 6:
+                uploadDocument();
+                break;
+            case 9:
+                return 1;
+            case 0:
+                return 0;
+            default:
+                printf("输入错误，请重新输入！\n");
+                break;
+        }
+    }
+    return 1;
+}
+
+void Admin::showDocument()
+{
+    string Course_name;
+    cout << "请输入课程名称：";
+    Course_name = Input<string>();
+    Student s;
+    course c = s.searchCourse(courses, course_size, Course_name);
+    if(c.getName() == "null")
+    {
+        cout << "没有找到该课程!" << endl;
+        return;
+    }
+    cout << "课程资料如下：" << endl;
+    for(int i = 0; i < c.getDocumentsSize(); i++)
+    {
+        printf("%s\t", c.getDocuments()[i].c_str());
     }
 }
 
+void Admin::saveAdminInfo()
+{
+    for(int i = 0; i < student_size; i++)
+    {
+        students[i].saveStuInfo();
+    }
+}

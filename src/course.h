@@ -124,6 +124,7 @@ public:
     void setFinish(hw_con * finish_con, int size);
     int getFinishSize();
     void setFinishSize(int size);
+    void setFinishCon(hw_con * finish_con);
     void operator=(course& c);
 
     void uploadHomework(string road, string stuName, int no);
