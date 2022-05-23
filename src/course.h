@@ -71,25 +71,25 @@ public:
                     Time extime,
                     string exaddress);
     ~course(){
-        if(time != NULL)
+        if(t_size > 0)
         {
             delete [] time;
             time = NULL;
             t_size = 0;
         }
-        if(documents != NULL)
+        if(doc_size > 0)
         {
             delete [] documents;
             documents = NULL;
             doc_size = 0;
         }
-        if(homeWork != NULL)
+        if(hw_size > 0)
         {
             delete [] homeWork;
             homeWork = NULL;
             hw_size = 0;
         }
-        if(finish_con != NULL)
+        if(finish_size > 0)
         {
             delete [] finish_con;
             finish_con = NULL;

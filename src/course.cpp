@@ -42,25 +42,25 @@ course::course( string name,
 course::course()
 {
     name = "null";
-    time = NULL;
+    time = new course_time[0];
     t_size = 0;
     address = "null";
-    documents = NULL;
+    documents = new string[0];
     doc_size = 0;
     current = "null";
-    homeWork = NULL;
+    homeWork = new string[0];
     hw_size = 0;
     QQGroup = "null";
     exaddress = "null";
-    finish_con = NULL;
+    finish_con = new hw_con[0];
     finish_size = 0;
 }
 
-course& course::operator=(const course& c)
+course& course::operator =(const course& c)
 {
     address = c.address;
     name = c.name;
-    if(time != NULL)
+    if(t_size > 0)
     {
         delete [] time;
         time = NULL;
@@ -72,7 +72,7 @@ course& course::operator=(const course& c)
     {
         time[i] = c.time[i];
     }
-    if(documents != NULL)
+    if(doc_size > 0)
     {
         delete [] documents;
         documents = NULL;
@@ -89,10 +89,10 @@ course& course::operator=(const course& c)
     {
         cout << homeWork[i] << endl;
     }
-    if(homeWork != NULL)
+    if(hw_size > 0)
     {
         delete [] homeWork;
-        homeWork = NULL;
+        homeWork = nullptr;
         hw_size = 0;
     }
     homeWork = new string[c.hw_size];
@@ -101,10 +101,10 @@ course& course::operator=(const course& c)
     {
         this->homeWork[i] = c.homeWork[i];
     }
-    if(finish_con != NULL)
+    if(finish_size > 0)
     {
         delete [] finish_con;
-        finish_con = NULL;
+        finish_con = nullptr;
         finish_size = 0;
     }
     finish_con = new hw_con[c.finish_size];

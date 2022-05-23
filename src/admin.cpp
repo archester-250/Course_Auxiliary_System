@@ -313,7 +313,7 @@ void Admin::addHomework()
 
 void Admin::showMenu()
 {
-    // updateTime();//BUG
+    updateTime();
     printf("欢迎管理员%s\n", name.c_str());
     printf("1.查看现有课程\n");
     printf("2.查看现有学生\n");
