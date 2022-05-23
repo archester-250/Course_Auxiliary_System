@@ -1,4 +1,5 @@
 #include "admin.h"
+#define DEBUG
 
 Admin * admin;
 
@@ -256,7 +257,25 @@ void Admin::addHomework()
     }
     for(int i = 0; i < student_size; i++)
     {
-        course c = students[i].searchCourse(students[i].getCourses(), students[i].getCourseSize(), Course_name);
+        course c;
+        //BUG!!!
+        /**
+         * @brief BUG原因:在调用=运算符重载时不知为何会调用参数c的析构函数导致信息丢失与形成野指针
+         * 
+         */
+        c = students[i].searchCourse(students[i].getCourses(), students[i].getCourseSize(), Course_name);
+        #ifdef DEBUG//显示students中course的信息已被delete
+        for(int j = 0; j < students[i].getCourseSize(); j++)
+        {
+            if(!OurStr::StrCmp(students[i].getCourses()[j].getName(), Course_name))
+            {
+                for(int k = 0; k < students[i].getCourses()[j].getTimeSize(); k++)
+                {
+                    cout << students[i].getCourses()[j].getTime()[k].week << endl;
+                }
+            }
+        }
+        #endif
         if(c.getName() != "null")
         {
             c.setHomeWorkSize(c.getHomeWorkSize() + 1);
@@ -274,11 +293,24 @@ void Admin::addHomework()
             hw_con * newArray2 = new hw_con[c.getFinishSize()];
             for(int j = 0; j < c.getFinishSize() - 1; j++)
             {
-                newArray2[j] = c.getFinish()[j];
+                newArray2[j].finish = c.getFinish()[j].finish;
+                if(c.getFinish()[j].finish)
+                {
+                    newArray2[j].road = c.getFinish()[j].road;
+                    newArray2[j].MD5 = c.getFinish()[j].MD5;
+                }
             }
             newArray2[c.getFinishSize() - 1].finish = false;
             c.setFinish(newArray2, c.getFinishSize());
             delete[] newArray2;
+            for(int j = 0; j < students[i].getCourseSize(); j++)
+            {
+                if(!OurStr::StrCmp(students[i].getCourses()[j].getName(), Course_name))
+                {
+                    students[i].getCourses()[j] = c;
+                    break;
+                }
+            }
         }
     }
     cout << "添加成功！" << endl;
@@ -286,7 +318,7 @@ void Admin::addHomework()
 
 void Admin::showMenu()
 {
-    updateTime();
+    // updateTime();//BUG
     printf("欢迎管理员%s\n", name.c_str());
     printf("1.查看现有课程\n");
     printf("2.查看现有学生\n");

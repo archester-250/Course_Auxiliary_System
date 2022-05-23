@@ -43,30 +43,34 @@ course::course()
 {
     name = "null";
     time = NULL;
+    t_size = 0;
     address = "null";
     documents = NULL;
+    doc_size = 0;
     current = "null";
     homeWork = NULL;
+    hw_size = 0;
     QQGroup = "null";
     exaddress = "null";
     finish_con = NULL;
+    finish_size = 0;
 }
 
-void course::operator=(course& c)
+course& course::operator=(const course& c)
 {
-    address = c.getAddress();
-    name = c.getName();
+    address = c.address;
+    name = c.name;
     if(time != NULL)
     {
         delete [] time;
         time = NULL;
         t_size = 0;
     }
-    time = new course_time[c.getTimeSize()];
-    t_size = c.getTimeSize();
+    time = new course_time[c.t_size];
+    t_size = c.t_size;
     for(int i = 0; i < t_size; i++)
     {
-        time[i] = c.getTime()[i];
+        time[i] = c.time[i];
     }
     if(documents != NULL)
     {
@@ -74,24 +78,28 @@ void course::operator=(course& c)
         documents = NULL;
         doc_size = 0;
     }
-    documents = new string[c.getDocumentsSize()];
-    doc_size = c.getDocumentsSize();
+    documents = new string[c.doc_size];
+    doc_size = c.doc_size;
     for(int i = 0; i < doc_size; i++)
     {
-        this->documents[i] = c.getDocuments()[i];
+        this->documents[i] = c.documents[i];
     }
-    current = c.getCurrent();
+    current = c.current;
+    for(int i = 0; i < hw_size; i++)
+    {
+        cout << homeWork[i] << endl;
+    }
     if(homeWork != NULL)
     {
         delete [] homeWork;
         homeWork = NULL;
         hw_size = 0;
     }
-    homeWork = new string[c.getHomeWorkSize()];
-    hw_size = c.getHomeWorkSize();
+    homeWork = new string[c.hw_size];
+    hw_size = c.hw_size;
     for(int i = 0; i < hw_size; i++)
     {
-        this->homeWork[i] = c.getHomeWork()[i];
+        this->homeWork[i] = c.homeWork[i];
     }
     if(finish_con != NULL)
     {
@@ -99,15 +107,16 @@ void course::operator=(course& c)
         finish_con = NULL;
         finish_size = 0;
     }
-    finish_con = new hw_con[c.getFinishSize()];
-    finish_size = c.getFinishSize();
+    finish_con = new hw_con[c.finish_size];
+    finish_size = c.finish_size;
     for(int i = 0; i < finish_size; i++)
     {
-        finish_con[i] = c.getFinish()[i];
+        finish_con[i] = c.finish_con[i];
     }
-    extime = c.getExtime();
-    exaddress = c.getExaddress();
-    QQGroup = c.getQQGroup();
+    extime = c.extime;
+    exaddress = c.exaddress;
+    QQGroup = c.QQGroup;
+    return *this;
 }//使用了深拷贝
 
 string course::getName(){return name;}
