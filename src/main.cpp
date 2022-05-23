@@ -12,6 +12,7 @@
 #define DEBUG
 #include "login.h"
 #include "student.h"
+#include "admin.h"
 #include <ctime>
 #include <fstream>
 #include <io.h>
@@ -22,6 +23,8 @@ HashMap<int, Student> students(128);
 
 using namespace std;
 
+extern Student * student;
+extern Admin * admin;
 Time modtime;
 int systime = clock();
 int sys_time_bias_times = SYS_TIME_BIAS_TIMES;
@@ -53,13 +56,16 @@ int main()
         notEnd = login_info.notEnd;
         if(notEnd == 1)
         {
-            Student student(login_info.user);
-            student.showMenu();
-            student.saveStuInfo();//保存学生个人信息至文件
+            student = new Student(login_info.user);
+            student->InitStudent();
+            student->showMenu();
+            student->saveStuInfo();//保存学生个人信息至文件
         }
         else if(notEnd == 2)
         {
-
+            admin = new Admin(login_info.user);
+            admin->showMenu();
+            admin->saveAdminInfo();//保存管理员个人信息至文件
         }
     }
     clog.rdbuf(clogbuf);

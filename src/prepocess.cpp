@@ -53,6 +53,9 @@ course * prepocess::coursesInitialize(int & all_count)
         courses[i].setHomeWork(homeWork, hw_count);
         delete[] homeWork;
 
+        courses[i].setFinishSize(0);
+        courses[i].setFinish(NULL, 0);
+
         string QQGroup;
         fin>>QQGroup;
         courses[i].setQQGroup(QQGroup);

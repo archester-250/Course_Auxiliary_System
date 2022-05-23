@@ -378,7 +378,8 @@ void Student::saveStuInfo() {
             }
         }
     }
-    cout << "已自动保存学生课程信息" << endl;
+    out.close();
+    cout << "已自动保存学生" << name << "的课程信息" << endl;
 }
 
 int Student::showActivityMenu() {
@@ -421,7 +422,9 @@ int Student::showActivityMenu() {
 }
 
 Student::Student() {
-
+    name = "null";
+    courses = NULL;
+    course_size = 0;
 }
 
 HashMap<int, Activity> *Student::getActivities() const {

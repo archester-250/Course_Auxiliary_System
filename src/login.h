@@ -66,23 +66,11 @@ public:
                 printf("请输入密码(不能超过20位，中文一个字占2位):");
                 password = Input<string>();
             }while(password.length() > 20);
-            if (loginCode == 1 && match(username, password, loginCode))
+            if (match(username, password, loginCode))
             {
                 printf("登陆成功！\n");
                 inf.notEnd = loginCode;
-                string suser(username);
-                inf.user = suser;
-                student = new Student(inf.user);
-                student->InitStudent();
-                return inf;
-            }
-            else if (loginCode == 2 && match(username, password, loginCode))
-            {
-                printf("登陆成功！\n");
-                inf.notEnd = loginCode;
-                string suser(username);
-                inf.user = suser;
-                admin = new Admin(inf.user);
+                inf.user = username;
                 return inf;
             }
             else printf("登陆失败！\n");
@@ -109,7 +97,7 @@ public:
                 system(cmd.c_str());
                 cmd = "cd ..\\documents\\users\\" + username + " & type nul > courseTable_" + username + ".csv";
                 system(cmd.c_str());
-                ifstream fin("../database/Administers.data");
+                ifstream fin("../database/Administer.data");
                 int n;
                 fin >> n;
                 string names[n];
@@ -118,7 +106,7 @@ public:
                     fin >> names[i];
                 }
                 fin.close();
-                ofstream fout("../database/Administers.data");
+                ofstream fout("../database/Administer.data");
                 fout << n + 1 << endl;
                 fout << username;
                 for(int i = 0; i < n; i++)
@@ -139,7 +127,7 @@ public:
             if(match(user, password, loginCode) && loginCode == 3) throw 2;
             FILE * fp;
             if(loginCode == 3) fp = fopen("../database/users.data", "a");
-            else fp = fopen("../database/Administers.data", "a");
+            else fp = fopen("../database/administers.data", "a");
             if(fp == NULL) throw 0;
             if(fprintf(fp, "%s %s\n", user.c_str(), password.c_str()) < 0)
             {
@@ -175,7 +163,7 @@ public:
 
             string s0;
             if(loginCode == 1 || loginCode == 3) s0 = "../database/users.data";
-            else s0 = "../database/Administers.data";
+            else s0 = "../database/administers.data";
             ifstream in(s0);
             char c;
             int index = 0;

@@ -1,6 +1,6 @@
 #include "admin.h"
 
-Admin* admin;
+Admin * admin;
 
 Admin::Admin(/* args */)
 {
@@ -34,7 +34,7 @@ Admin::Admin(string name)
     prepocess p;
     courses = p.coursesInitialize(all_count);
     this->course_size = all_count;
-    ifstream in("../database/Administers.data");
+    ifstream in("../database/Administer.data");
     int student_count;
     in >> student_count;
     if (student_count)
@@ -270,11 +270,21 @@ void Admin::addHomework()
             delete[] newArray;
             string cmd = "mkdir ..\\documents\\users\\" + students[i].getName() + "\\" + Course_name + "\\" + to_string(c.getHomeWorkSize());
             system(cmd.c_str());
+            c.setFinishSize(c.getFinishSize() + 1);
+            hw_con * newArray2 = new hw_con[c.getFinishSize()];
+            for(int j = 0; j < c.getFinishSize() - 1; j++)
+            {
+                newArray2[j] = c.getFinish()[j];
+            }
+            newArray2[c.getFinishSize() - 1].finish = false;
+            c.setFinish(newArray2, c.getFinishSize());
+            delete[] newArray2;
         }
     }
+    cout << "添加成功！" << endl;
 }
 
-int Admin::showMenu()
+void Admin::showMenu()
 {
     updateTime();
     printf("欢迎管理员%s\n", name.c_str());
@@ -284,10 +294,9 @@ int Admin::showMenu()
     printf("4.添加作业\n");
     printf("5.查看课程资料\n");
     printf("6.上传课程资料\n");
-    printf("9.返回上一级\n");
-    printf("0.返回主页\n");
+    printf("0.退出管理员系统\n");
     printf("请输入您的选择：");
-    int choice = Input<int>();
+    int choice = input::getOperatorNum();
     while(choice)
     {
         switch(choice)
@@ -298,6 +307,7 @@ int Admin::showMenu()
                 {
                     printf("%s\t", courses[i].getName().c_str());
                 }
+                cout << endl;
                 break;
             case 2:
                 cout << "现有学生：" << endl;
@@ -305,6 +315,7 @@ int Admin::showMenu()
                 {
                     printf("%s\t", students[i].getName().c_str());
                 }
+                cout << endl;
                 break;
             case 3:
                 addCourse();
@@ -318,16 +329,23 @@ int Admin::showMenu()
             case 6:
                 uploadDocument();
                 break;
-            case 9:
-                return 1;
             case 0:
-                return 0;
+                return;
             default:
                 printf("输入错误，请重新输入！\n");
                 break;
         }
+        printf("欢迎管理员%s\n", name.c_str());
+        printf("1.查看现有课程\n");
+        printf("2.查看现有学生\n");
+        printf("3.添加课程\n");
+        printf("4.添加作业\n");
+        printf("5.查看课程资料\n");
+        printf("6.上传课程资料\n");
+        printf("0.退出管理员系统\n");
+        printf("请输入您的选择：");
+        choice = input::getOperatorNum();
     }
-    return 1;
 }
 
 void Admin::showDocument()
@@ -355,4 +373,5 @@ void Admin::saveAdminInfo()
     {
         students[i].saveStuInfo();
     }
+    cout << "管理员信息保存完成！" << endl;
 }

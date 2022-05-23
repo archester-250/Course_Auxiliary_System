@@ -175,6 +175,12 @@ void course::setFinish(hw_con * finish_con, int size)
         this->finish_con = NULL;
         finish_size = 0;
     }
+    if(size == 0)
+    {
+        this->finish_con = NULL;
+        finish_size = 0;
+        return;
+    }
     this->finish_con = new hw_con[size];
     for(int i = 0; i < size; i++)
     {
