@@ -1,5 +1,5 @@
 #include "admin.h"
-#define DEBUG
+// #define DEBUG
 
 Admin * admin;
 
@@ -258,13 +258,8 @@ void Admin::addHomework()
     for(int i = 0; i < student_size; i++)
     {
         course c;
-        //BUG!!!
-        /**
-         * @brief BUG原因:在调用=运算符重载时不知为何会调用参数c的析构函数导致信息丢失与形成野指针
-         * 
-         */
         c = students[i].searchCourse(students[i].getCourses(), students[i].getCourseSize(), Course_name);
-        #ifdef DEBUG//显示students中course的信息已被delete
+        #ifdef DEBUG
         for(int j = 0; j < students[i].getCourseSize(); j++)
         {
             if(!OurStr::StrCmp(students[i].getCourses()[j].getName(), Course_name))

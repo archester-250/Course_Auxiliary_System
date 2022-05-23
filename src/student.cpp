@@ -116,7 +116,8 @@ course Student::searchCourse(course c[], int size, string name) {
     course temp;
     for (int i = 0; i < size; i++) {
         if (!OurStr::StrCmp(c[i].getName(), name)) {
-            return c[i];
+            temp = c[i];
+            return temp;
         }
     }
     return temp;
