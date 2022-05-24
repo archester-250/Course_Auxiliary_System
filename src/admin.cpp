@@ -84,9 +84,9 @@ void Admin::setCourses(course * courses)
 
 void Admin::addCourse()
 {
-    setCourse_size(getCourse_size() + 1);
+    
     //done
-    course * newArray = new course[getCourse_size()];
+    course * newArray = new course[getCourse_size() + 1];
     for (int i = 0; i < getCourse_size() - 1; i++)
     {
         newArray[i] = courses[i];
@@ -105,6 +105,20 @@ void Admin::addCourse()
         newTime[i].starthour = Input<int>();
         cout << "请输入第" << i + 1 << "次课程的结束时间：";
         newTime[i].endhour = Input<int>();
+        for(int j = 0; j < course_size; j++)
+        {
+            for(int k = 0; k < courses[j].getTimeSize(); k++)
+            {
+                if(newTime[i].week == courses[j].getTime()[k].week && 
+                (newTime[i].starthour >= courses[j].getTime()[k].starthour && newTime[i].starthour < courses[j].getTime()[k].endhour) ||
+                (newTime[i].endhour > courses[j].getTime()[k].starthour && newTime[i].endhour <= courses[j].getTime()[k].endhour))
+                {
+                    cout << "课程时间冲突，请重新输入\n";
+                    i--;
+                    return;
+                }
+            }
+        }
     }
     newArray[getCourse_size() - 1].setTime(newTime, newArray[getCourse_size() - 1].getTimeSize());
     cout << "请输入课程地点：";
@@ -172,6 +186,7 @@ void Admin::addCourse()
     system(cmd.c_str());
     delete[] newTime;
     delete[] newDocuments;
+    setCourse_size(getCourse_size() + 1);
     setCourses(newArray);
     delete[] newArray;
 }
