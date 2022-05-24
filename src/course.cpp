@@ -222,22 +222,36 @@ void course::uploadHomework(string road, string stuName, int no)
     MD5 md5;
     md5.MD5Update(md5.getContext(), (unsigned char *)input.c_str(), input.length());
     md5.MD5Final(md5.getContext(), decrypt);
-    md5.~MD5();
     string md5str = "";
     for(int i = 0; i < 16; i++)
     {
-        md5str += (char)decrypt[i];
+        md5str += decrypt[i];
     }
-    if(OurStr::StrCmp(md5str, finish_con[no].MD5))
+    if(!OurStr::StrCmp(md5str, finish_con[no].MD5))
     {
         cout << "已经上传过该作业，请勿重复上传！" << endl;
         return;
     }
     else
     {
+        if(finish_con[no].finish)
+        {
+            cout << "注意:此操作将覆盖旧文件,请确认是否继续？(y/n)" << endl;
+            char c = Input<char>();
+            if(c == 'y' || c == 'Y')
+            {
+                string inroad = "..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no + 1) + "\\" +  OurStr::getFilename(road).substr(0, OurStr::getFilename(road).rfind('.'));
+                system(("del " + inroad).c_str());
+            }
+            else
+            {
+                cout << "已取消上传" << endl;
+                return;
+            }
+        }
         if(OurStr::getSuffix(road) == "txt")
         {
-            string outRoad = "..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no) + "\\" +  OurStr::getFilename(road).substr(0, OurStr::getFilename(road).rfind('.'));
+            string outRoad = "..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no + 1) + "\\" +  OurStr::getFilename(road).substr(0, OurStr::getFilename(road).rfind('.'));
             compression c;
             if(c.Code(road, outRoad))
             {
@@ -274,13 +288,13 @@ void course::viewDocument(string stuName)
             cout << i + 1 << "." << documents[i] << endl;
         }
         int no = input::getOperatorNum() - 1;
-        string inroad = "..\\documents\\public\\" + name + "\\" + documents[no];
+        string inroad = "..\\documents\\public\\" + name + "\\" + documents[no].substr(0, documents[no].rfind('.'));
         string outroad = "..\\documents\\public\\" + name + "\\" + documents[no];
         compression c;
         if(c.Decode(inroad, outroad))
         {
             cout << "解压成功,正在打开文件..." << endl;
-            system(("start ..\\documents\\public\\" + name + "\\" + documents[no]).c_str());
+            system(("..\\documents\\public\\" + name + "\\" + documents[no]).c_str());
             cout << "浏览结束,自动删除解压文件" << endl;
             system(("del ..\\documents\\public\\" + name + "\\" + documents[no]).c_str());
         }
@@ -297,15 +311,16 @@ void course::viewDocument(string stuName)
             cout << i + 1 << "." << homeWork[i] << endl;
         }
         int no = input::getOperatorNum() - 1;
-        string inroad = "..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no) + '\\' + homeWork[no];
-        string outroad = "..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no) + '\\' + homeWork[no];
+        printf(homeWork[no].c_str());
+        string inroad = "..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no + 1) + '\\' + finish_con[no].road.substr(0, finish_con[no].road.rfind('.'));
+        string outroad = "..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no + 1) + '\\' + finish_con[no].road;
         compression c;
         if(c.Decode(inroad, outroad))
         {
             cout << "解压成功,正在打开文件..." << endl;
-            system(("start ..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no) + '\\' + homeWork[no]).c_str());
+            system(("..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no + 1) + '\\' + finish_con[no].road).c_str());
             cout << "浏览结束,自动删除解压文件" << endl;
-            system(("del ..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no) + '\\' + homeWork[no]).c_str());
+            system(("del ..\\documents\\users\\" + stuName + "\\" + name + "\\" + to_string(no + 1) + '\\' + finish_con[no].road).c_str());
         }
         else
         {

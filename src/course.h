@@ -23,7 +23,7 @@ extern void updateTime();
 
 struct course_time
 {
-    int week;//周几
+    int week;//周几,范围0-6
     int starthour;//开始时间
     int endhour;//结束时间
 };

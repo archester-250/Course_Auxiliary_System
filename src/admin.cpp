@@ -92,14 +92,15 @@ void Admin::addCourse()
         newArray[i] = courses[i];
     }
     cout << "请输入课程名称：";
-    newArray[getCourse_size() - 1].setName(Input<string>());
+    string courseName = Input<string>();
+    newArray[getCourse_size() - 1].setName(courseName);
     cout << "请输入每周课程次数：";
     newArray[getCourse_size() - 1].setTimeSize(Input<int>());
     course_time * newTime = new course_time[newArray[getCourse_size() - 1].getTimeSize()];
     for (int i = 0; i < newArray[getCourse_size() - 1].getTimeSize(); i++)
     {
-        cout << "请输入第" << i + 1 << "次课程在周几上课：";
-        newTime[i].week = Input<int>();
+        cout << "请输入第" << i + 1 << "次课程在周几上课：(输入1-7)";
+        newTime[i].week = Input<int>() - 1;
         cout << "请输入第" << i + 1 << "次课程的开始时间：";
         newTime[i].starthour = Input<int>();
         cout << "请输入第" << i + 1 << "次课程的结束时间：";
@@ -112,7 +113,7 @@ void Admin::addCourse()
     newArray[getCourse_size() - 1].setCurrent(Input<string>());
     string * newDocuments = NULL;
     newArray[getCourse_size() - 1].setDocuments(newDocuments, 0);
-    cout << "请输入课程QQ群：";
+    cout << "请输入课程QQ群:";
     newArray[getCourse_size() - 1].setQQGroup(Input<string>());
     Time t;
     t.yr = 0; t.mn = 0; t.day = 0; t.hr = 0;
@@ -165,8 +166,10 @@ void Admin::addCourse()
         {
             cout << "没有找到该学生!" << endl;
         }
-    }while(stuname == "" && stuname != "0");
+    }while(stuname != "" && stuname != "0");
     cout << "添加成功！" << endl;
+    string cmd = "mkdir ..\\documents\\public\\" + courseName;
+    system(cmd.c_str());
     delete[] newTime;
     delete[] newDocuments;
     setCourses(newArray);
@@ -181,7 +184,7 @@ void Admin::addCourse()
 string Admin::uploadDocument()
 {
     string road, course_name;
-    cout << "请输入要上传的资料路径(层级目录间以“\\\\”分隔)：";
+    cout << "请输入要上传的资料路径(层级目录间以“\\”分隔)：";
     road = Input<string>();
     cout << "请输入课程名称：";
     course_name = Input<string>();
@@ -194,7 +197,7 @@ string Admin::uploadDocument()
     }
     for(int i = 0; i < c.getDocumentsSize(); i++)
     {
-        if(OurStr::StrCmp(c.getDocuments()[i], OurStr::getFilename(road)))
+        if(!OurStr::StrCmp(c.getDocuments()[i], OurStr::getFilename(road)))
         {
             cout << "该资料已存在！" << endl;
             return "null";
@@ -220,14 +223,20 @@ string Admin::uploadDocument()
         string cmd = "copy " + road + " ..\\documents\\public\\" + course_name;
         system(cmd.c_str());
     }
-    c.setDocumentsSize(c.getDocumentsSize() + 1);
-    string * newDocuments = new string[c.getDocumentsSize()];
-    for(int i = 0; i < c.getDocumentsSize() - 1; i++)
+    for(int i = 0; i < course_size; i++)
     {
-        newDocuments[i] = c.getDocuments()[i];
+        if(!OurStr::StrCmp(courses[i].getName(), course_name))
+        {
+            string * newDocuments = new string[courses[i].getDocumentsSize() + 1];
+            for(int j = 0; j < courses[i].getDocumentsSize(); j++)
+            {
+                newDocuments[j] = courses[i].getDocuments()[j];
+            }
+            newDocuments[courses[i].getDocumentsSize()] = OurStr::getFilename(road);
+            courses[i].setDocuments(newDocuments, courses[i].getDocumentsSize() + 1);
+            delete [] newDocuments;
+        }
     }
-    newDocuments[c.getDocumentsSize() - 1] = OurStr::getFilename(road);
-    c.setDocuments(newDocuments, c.getDocumentsSize());
     return OurStr::getFilename(road);
 }
 

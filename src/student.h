@@ -91,6 +91,8 @@ public:
     void showCourseHw();//显示课程作业
 
     void uploadHw();//上传作业
+
+    void showDoc();//显示资料
 };
 
 #endif

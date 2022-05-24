@@ -24,10 +24,17 @@ public:
     static int getOperatorNum()
     {
         char op;
-        while(!_kbhit());
-        op = getch();
-        printf("%d\n", op - '0');
-        return op - '0';
+        bool flag = true;
+        do
+        {
+            if(!flag) cout << "输入的不是数字,请重新输入!" << endl;
+            flag = false;
+            while(!_kbhit());
+            op = getch();
+            printf("%d\n", op - '0');
+            return op - '0';
+            /* code */
+        } while (!isdigit(op));
     }
 
 };

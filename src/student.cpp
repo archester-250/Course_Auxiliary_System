@@ -238,6 +238,9 @@ int Student::showCourseMenu() {
             case 5:
                 uploadHw();//lack compress function
                 break;
+            case 6:
+                showDoc();//done
+                break;
             case 9:
                 return 1;
             case 0:
@@ -252,11 +255,23 @@ int Student::showCourseMenu() {
         printf("3.搜索课程查看详情\n");
         printf("4.查看课程作业\n");
         printf("5.上传作业\n");
+        printf("6.打开某一文件\n");
         printf("9.返回上一级\n");
         printf("0.返回主页\n");
         choice = input::getOperatorNum();
     }
     return 1;
+}
+
+void Student::showDoc()
+{
+    cout << "请输入要查看文件的课程名称:" << endl;
+    string courseName = Input<string>();
+    course c;
+    if((c = searchCourse(courses, course_size, courseName)).getName() != "null")
+    {
+        c.viewDocument(name);
+    }
 }
 
 void Student::showTodayCourse() {
@@ -353,17 +368,26 @@ void Student::showCourseHw()
 void Student::uploadHw()
 {
     cout << "输入要上传作业的课程名称:";
-    string name = Input<string>();
+    string courseName = Input<string>();
     course result;
-    result = searchCourse(courses, course_size, name);
+    result = searchCourse(courses, course_size, courseName);
     if(result.getName() == "null") printf("搜索的课程不存在!\n");
+    else if(result.getHomeWorkSize() == 0) printf("尚未布置作业!\n"); 
     else
     {
-        cout << "输入要上传的作业路径(层级目录间以“\\\\”分隔):";
+        cout << "输入要上传的作业路径(层级目录间以“\\”分隔):";
         string path = Input<string>();
         cout << "输入要上传第几次作业:(1-" << result.getHomeWorkSize() << ")";
         int num = Input<int>();
         result.uploadHomework(path, name, num - 1);
+    }
+    for(int i = 0; i < course_size; i++)
+    {
+        if(courses[i].getName() == courseName)
+        {
+            courses[i] = result;
+            break;
+        }
     }
 }
 
