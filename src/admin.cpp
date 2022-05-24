@@ -116,8 +116,12 @@ void Admin::addCourse()
     newArray[getCourse_size() - 1].setQQGroup(Input<string>());
     Time t;
     t.yr = 0; t.mn = 0; t.day = 0; t.hr = 0;
+    cout << "请输入考试时间(格式如:21010820)" << endl;
+    int exam_time = Input<int>();
+    t.inputTime(exam_time);
     newArray[getCourse_size() - 1].setExtime(t);
-    newArray[getCourse_size() - 1].setExaddress("null");
+    cout << "请输入考试地点：";
+    newArray[getCourse_size() - 1].setExaddress(Input<string>());
     newArray[getCourse_size() - 1].setHomeWork(newDocuments, 0);
     string stuname;
     //输入学生名字
@@ -254,6 +258,22 @@ void Admin::addHomework()
     {
         cout << "该作业已存在!" << endl;
         return;
+    }
+    for(int i = 0; i < course_size; i++)
+    {
+        if(!OurStr::StrCmp(courses[i].getName(), Course_name))
+        {
+            courses[i].setHomeWorkSize(courses[i].getHomeWorkSize() + 1);
+            string * newHomework = new string[courses[i].getHomeWorkSize()];
+            for(int j = 0; j < courses[i].getHomeWorkSize() - 1; j++)
+            {
+                newHomework[j] = courses[i].getHomeWork()[j];
+            }
+            newHomework[courses[i].getHomeWorkSize() - 1] = Homework;
+            courses[i].setHomeWork(newHomework, courses[i].getHomeWorkSize());
+            delete [] newHomework;
+            break;
+        }
     }
     for(int i = 0; i < student_size; i++)
     {
@@ -396,9 +416,43 @@ void Admin::showDocument()
 
 void Admin::saveAdminInfo()
 {
+    saveCourseInfo();
     for(int i = 0; i < student_size; i++)
     {
         students[i].saveStuInfo();
     }
     cout << "管理员信息保存完成！" << endl;
+}
+
+void Admin::saveCourseInfo()
+{
+    ofstream out("../database/course.data");
+    out << course_size << endl;
+    for(int i = 0; i < course_size; i++)
+    {
+        out << courses[i].getName() << endl;
+        out << courses[i].getTimeSize() << endl;
+        for(int j = 0; j < courses[i].getTimeSize(); j++)
+        {
+            out << courses[i].getTime()[j].week << " " << courses[i].getTime()[j].starthour << " " << courses[i].getTime()[j].endhour << endl;
+        }
+        out << courses[i].getAddress() << endl;
+        out << courses[i].getDocumentsSize() << ' ';
+        for(int j = 0; j < courses[i].getDocumentsSize(); j++)
+        {
+            out << courses[i].getDocuments()[j] << ' ';
+        }
+        out << endl;
+        out << courses[i].getCurrent() << endl;
+        out << courses[i].getHomeWorkSize() << endl;
+        for(int j = 0; j < courses[i].getHomeWorkSize(); j++)
+        {
+            out << courses[i].getHomeWork()[j] << ' ';
+        }
+        out << endl;
+        out << courses[i].getQQGroup() << endl;
+        out << courses[i].getExtime().yr << ' ' << courses[i].getExtime().mn << ' ' << courses[i].getExtime().day << ' ' << courses[i].getExtime().hr << endl;
+        out << courses[i].getExaddress() << endl;
+    }
+    out.close();
 }

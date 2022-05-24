@@ -302,7 +302,8 @@ void Student::showCourseDetail()
 {
     cout << "输入要搜索的课程名称:";
     string name = Input<string>();
-    course result = searchCourse(courses, course_size, name);
+    course result;
+    result = searchCourse(courses, course_size, name);
     if(result.getName() == "null") printf("搜索的课程不存在!\n");
     else
     {
@@ -332,7 +333,8 @@ void Student::showCourseHw()
 {
     cout << "输入要查看作业的课程名称:";
     string name = Input<string>();
-    course result = searchCourse(courses, course_size, name);
+    course result;
+    result = searchCourse(courses, course_size, name);
     if(result.getName() == "null") printf("搜索的课程不存在!\n");
     else
     {
@@ -352,7 +354,8 @@ void Student::uploadHw()
 {
     cout << "输入要上传作业的课程名称:";
     string name = Input<string>();
-    course result = searchCourse(courses, course_size, name);
+    course result;
+    result = searchCourse(courses, course_size, name);
     if(result.getName() == "null") printf("搜索的课程不存在!\n");
     else
     {

@@ -40,6 +40,7 @@ public:
     string uploadDocument();
     void showMenu();
     void showDocument();
+    void saveCourseInfo();
     void saveAdminInfo();//保存数据至文件
 };
 
