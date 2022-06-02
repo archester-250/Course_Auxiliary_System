@@ -97,6 +97,7 @@ public:
                 system(cmd.c_str());
                 cmd = "cd ..\\documents\\users\\" + username + " & type nul > courseTable_" + username + ".csv";
                 system(cmd.c_str());
+
                 ifstream fin("../database/Administer.data");
                 int n;
                 fin >> n;
@@ -104,6 +105,11 @@ public:
                 for(int i = 0; i < n; i++)
                 {
                     fin >> names[i];
+                    if (names[i] == username){
+                        cout << "学生已存在，返回错误\n";
+                        fin.close();
+                        return inf;
+                    }
                 }
                 fin.close();
                 ofstream fout("../database/Administer.data");
@@ -132,7 +138,6 @@ public:
                 _config.close();
                 _config.open("../database/clocks/" + user);
                 _config.close();
-
             }
             else fp = fopen("../database/administers.data", "a");
             if(fp == NULL) throw 0;
