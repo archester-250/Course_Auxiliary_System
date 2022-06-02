@@ -532,8 +532,16 @@ void Student::addClocks() {
     time.inputTime(timestamp);
     cout << "提醒间隔多少小时(提示：一周168小时）" << endl;
     interval = Input<int>();
+    while (interval <= 0){
+        cout << "间隔需大于0小时，不支持小数" << endl;
+        interval = Input<int>();
+    }
     cout << "一共需要提醒多少次" << endl;
     rep = Input<int>();
+    while (rep < 0){
+        cout << "次数不合法" << endl;
+        rep = Input<int>();
+    }
     cout << "事件描述(提醒时输出)" << endl;
     string description = Input<string>();
 
@@ -559,7 +567,11 @@ Array<Activity> *Student::getActivityArray() {
 void Student::guide() {
     cout << "你需要前往哪个事件的地点：";
     int num = Input<int>();
-    string addr = student->getActivities()->get(num)->second.getAddress();
-    cout << "出门左转谢谢" << endl;
-    return;
+    if (num >= getActivityArray()->getSize()) {
+        cout << "错误:事件序号应小于" << getActivityArray()->getSize() << endl;
+        return;
+    }
+    auto activity = student->getActivityArray()->get(num);
+    string addr = activity.getAddress();
+    cout << "前往" << addr << "请出门左转谢谢" << endl;
 }
