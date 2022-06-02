@@ -93,6 +93,7 @@ public:
     void uploadHw();//上传作业
 
     void showDoc();//显示资料
+    void guide();
 };
 
 #endif

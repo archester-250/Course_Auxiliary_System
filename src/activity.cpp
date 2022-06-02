@@ -40,8 +40,8 @@ void Activity::setAddress(const string &address) {
 }
 
 string Activity::toString() {
-    return "from " + startTime.toString() + " to " + endTime.toString() + ": "\
-            "In " + address + ":" + description;
+    return description + " from " + startTime.toString() + " to " + endTime.toString() + ": "\
+            "In " + address;
 }
 
 

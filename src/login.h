@@ -139,7 +139,9 @@ public:
                 _config.open("../database/clocks/" + user);
                 _config.close();
             }
-            else fp = fopen("../database/administers.data", "a");
+            else {
+                fp = fopen("../database/administers.data", "a");
+            }
             if(fp == NULL) throw 0;
             if(fprintf(fp, "%s %s\n", user.c_str(), password.c_str()) < 0)
             {

@@ -422,6 +422,7 @@ int Student::showActivityMenu() {
         cout << "2.事件一览(全部)" << endl;
         cout << "3.今日事件一览" << endl;
         cout << "4.增加(周期)闹钟" << endl;
+        cout << "5.事件地点导航" << endl;
         printf("9.返回上级\n");
         printf("0.返回主页\n");
         choice = input::getOperatorNum();
@@ -437,6 +438,10 @@ int Student::showActivityMenu() {
                 break;
             case 4:
                 student->addClocks();
+                break;
+            case 5:
+                student->showActivities(false);
+                student->guide();
                 break;
             case 9:
                 return 1;
@@ -508,7 +513,7 @@ void Student::showActivities(bool today) {
         if (today && activity.getStartTime().day != modtime.day) {
             continue;
         }
-        cout << Activities->get(i).toString() << endl;
+        cout << i << "." << Activities->get(i).toString() << endl;
     }
 }
 
@@ -549,4 +554,12 @@ void Student::addClocks() {
 
 Array<Activity> *Student::getActivityArray() {
     return Activities;
+}
+
+void Student::guide() {
+    cout << "你需要前往哪个事件的地点：";
+    int num = Input<int>();
+    string addr = student->getActivities()->get(num)->second.getAddress();
+    cout << "出门左转谢谢" << endl;
+    return;
 }
