@@ -24,7 +24,7 @@ HashMap<int, Student> students(128);
 using namespace std;
 
 extern Student * student;
-extern Admin * admin;
+
 Time modtime;
 int systime = clock();
 int sys_time_bias_times = SYS_TIME_BIAS_TIMES;
@@ -68,7 +68,7 @@ int main()
             admin->saveAdminInfo();//保存管理员个人信息至文件
         }
     }
-    clog.rdbuf(clogbuf);
+//    clog.rdbuf(clogbuf);
     ofstream _config("../database/config");
     _config << modtime.timeStamp();
     _config.close();

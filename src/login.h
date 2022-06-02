@@ -126,7 +126,14 @@ public:
         {
             if(match(user, password, loginCode) && loginCode == 3) throw 2;
             FILE * fp;
-            if(loginCode == 3) fp = fopen("../database/users.data", "a");
+            if(loginCode == 3) {
+                fp = fopen("../database/users.data", "a");
+                ofstream _config("../database/activities/" + user);
+                _config.close();
+                _config.open("../database/clocks/" + user);
+                _config.close();
+
+            }
             else fp = fopen("../database/administers.data", "a");
             if(fp == NULL) throw 0;
             if(fprintf(fp, "%s %s\n", user.c_str(), password.c_str()) < 0)

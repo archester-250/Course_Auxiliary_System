@@ -68,10 +68,10 @@ void Student::addActivity() {
     cout << "输入活动地址" << endl;
     string address = Input<string>();
     cout << "输入除自己外的活动成员数" << endl;
-    int memberCnt;
+    int memberCnt = 0;
     do {
         memberCnt = Input<int>();
-    } while (memberCnt >= 0);
+    } while (memberCnt <= 0);
     activity.setMemberCnt(memberCnt);
     while (memberCnt--) {
         cout << "添加成员：";
