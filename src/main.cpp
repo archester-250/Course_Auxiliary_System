@@ -36,10 +36,10 @@ void updateTime(){
     }
 }
 
-streambuf *clogbuf = std::clog.rdbuf();
-
 int main()
 {
+    ofstream ofs("../log");
+    clog.rdbuf(ofs.rdbuf());
     ifstream config("../database/config");
     int init_time = 0;
     config >> init_time;
@@ -68,13 +68,9 @@ int main()
             admin->saveAdminInfo();//保存管理员个人信息至文件
         }
     }
-//    clog.rdbuf(clogbuf);
     ofstream _config("../database/config");
     _config << modtime.timeStamp();
     _config.close();
-    ofstream _log("../log");
-    _log << clogbuf;
-    _log.close();
     return 0;
 }
 
