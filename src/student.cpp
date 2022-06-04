@@ -404,14 +404,14 @@ int Student::showActivityMenu() {
     int choice;
     do {
         updateTime();
-        printf("欢迎进入活动管理系统!请选择要进行的操作:\n");
+        cout << "欢迎进入活动管理系统!请选择要进行的操作:" << endl;
         cout << "1.增加事件" << endl;
         cout << "2.事件一览(全部)" << endl;
         cout << "3.今日事件一览" << endl;
         cout << "4.增加(周期)闹钟" << endl;
         cout << "5.事件地点导航" << endl;
         cout << "9.返回上一级" << endl;
-        cout << "0.退出登录" << endl;
+        cout << "0.退出登录\n";
         choice = input::getOperatorNum();
         switch (choice) {
             case 1:
@@ -439,7 +439,7 @@ int Student::showActivityMenu() {
                 break;
         }
     } while (choice);
-    return 1;
+    return choice;
 }
 
 Student::Student() {

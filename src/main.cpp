@@ -39,6 +39,7 @@ void updateTime(){
 int main()
 {
     ofstream ofs("../log", ios::app);
+    auto logbuf = clog.rdbuf();
     clog.rdbuf(ofs.rdbuf());
     ifstream config("../database/config");
     int init_time = 0;
@@ -50,8 +51,7 @@ int main()
 #endif
     int notEnd = 1;
     while (notEnd) {
-        cout << "\033[40;31m|\033[0m";
-        cout << "=====BUPT GUIDE====" << "时间：" <<  modtime.toString();
+        cout << "=====BUPT GUIDE====\n" << "时间：" <<  modtime.toString();
         updateTime();
         info login_info = login::dologin();
         notEnd = login_info.notEnd;
@@ -73,6 +73,7 @@ int main()
     _config << modtime.timeStamp();
     _config.close();
     ofs.close();
+    clog.rdbuf(logbuf);
     return 0;
 }
 
