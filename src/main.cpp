@@ -38,7 +38,7 @@ void updateTime(){
 
 int main()
 {
-    ofstream ofs("../log");
+    ofstream ofs("../log", ios::app);
     clog.rdbuf(ofs.rdbuf());
     ifstream config("../database/config");
     int init_time = 0;
@@ -71,6 +71,7 @@ int main()
     ofstream _config("../database/config");
     _config << modtime.timeStamp();
     _config.close();
+    ofs.close();
     return 0;
 }
 

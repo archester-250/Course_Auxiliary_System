@@ -210,18 +210,18 @@ void Student::showMenu() {
 }
 
 int Student::showCourseMenu() {
-    updateTime();
-    printf("欢迎进入课内管理系统!请选择要进行的操作:\n");
-    printf("1.查看今日课程信息\n");
-    printf("2.导出课程表\n");
-    printf("3.搜索课程查看详情\n");
-    printf("4.查看课程作业\n");
-    printf("5.上传作业\n");
-    printf("6.打开某一文件\n");
-    printf("9.返回上一级\n");
-    printf("0.返回主页\n");
-    int choice = input::getOperatorNum();
-    while (choice) {
+    do {
+        updateTime();
+        printf("欢迎进入课内管理系统!请选择要进行的操作:(按0退出)\n");
+        printf("1.查看今日课程信息\n");
+        printf("2.导出课程表\n");
+        printf("3.搜索课程查看详情\n");
+        printf("4.查看课程作业\n");
+        printf("5.上传作业\n");
+        printf("6.打开某一文件\n");
+        printf("9.返回上一级\n");
+        printf("0.退出登录\n");
+        int choice = input::getOperatorNum();
         switch (choice) {
             case 1:
                 showTodayCourse();//显示今日课程表
@@ -247,20 +247,8 @@ int Student::showCourseMenu() {
                 return 0;
             default:
                 printf("输入错误，请重新输入\n");
-                break;
         }
-        printf("欢迎进入课内管理系统!请选择要进行的操作:\n");
-        printf("1.查看今日课程信息\n");
-        printf("2.导出课程表并打开查看\n");
-        printf("3.搜索课程查看详情\n");
-        printf("4.查看课程作业\n");
-        printf("5.上传作业\n");
-        printf("6.打开某一文件\n");
-        printf("9.返回上一级\n");
-        printf("0.返回主页\n");
-        choice = input::getOperatorNum();
-    }
-    return 1;
+    }while (true);
 }
 
 void Student::showDoc()
@@ -416,15 +404,14 @@ int Student::showActivityMenu() {
     int choice;
     do {
         updateTime();
-        //亮神finish
         printf("欢迎进入活动管理系统!请选择要进行的操作:\n");
         cout << "1.增加事件" << endl;
         cout << "2.事件一览(全部)" << endl;
         cout << "3.今日事件一览" << endl;
         cout << "4.增加(周期)闹钟" << endl;
         cout << "5.事件地点导航" << endl;
-        printf("9.返回上级\n");
-        printf("0.返回主页\n");
+        cout << "9.返回上一级" << endl;
+        cout << "0.退出登录" << endl;
         choice = input::getOperatorNum();
         switch (choice) {
             case 1:
@@ -446,7 +433,6 @@ int Student::showActivityMenu() {
             case 9:
                 return 1;
             case 0:
-                student->Activities->size = 0;
                 return 0;
             default:
                 printf("输入错误，请重新输入\n");
