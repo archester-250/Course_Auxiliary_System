@@ -50,7 +50,8 @@ int main()
 #endif
     int notEnd = 1;
     while (notEnd) {
-        cout << "=====BUPT GUIDE====\n" << "时间：" <<  modtime.toString();
+        cout << "\033[40;31m|\033[0m";
+        cout << "=====BUPT GUIDE====" << "时间：" <<  modtime.toString();
         updateTime();
         info login_info = login::dologin();
         notEnd = login_info.notEnd;
