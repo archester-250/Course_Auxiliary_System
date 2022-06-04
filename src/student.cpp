@@ -1,5 +1,6 @@
 
 #include <cassert>
+#include <iostream>
 #include "hashMap.h"
 #include "activity.h"
 #include "student.h"
@@ -388,8 +389,8 @@ void Student::saveStuInfo() {
         for (int j = 0; j < courses[i].getFinishSize(); j++) {
             out << courses[i].getFinish()[j].finish;
             if (courses[i].getFinish()[j].finish) {
-                cout << courses[i].getFinish()[j].road << endl;//BUG
-                cout << courses[i].getFinish()[j].MD5 << endl;
+                // cout << courses[i].getFinish()[j].road << endl;//BUG
+                // cout << courses[i].getFinish()[j].MD5 << endl;
                 out << ' ' << courses[i].getFinish()[j].road << ' ' << courses[i].getFinish()[j].MD5 << endl;
             } else {
                 out << endl;
