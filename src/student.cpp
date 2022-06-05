@@ -107,6 +107,7 @@ void Student::addActivity() {
     for (int i = 0; i < activity.getMemberCnt(); i++) {
         _config.open("../database/activities/" + activity.getMembers()->get(i), ios::app);
         assert(_config);
+        clog << student->getName() << "为" << activity.getMembers()->get(i) << "添加事件：" << activity.toString() << endl;
         _config << activity.storeStr() << endl;
         _config.close();
     }
@@ -480,7 +481,7 @@ void Student::InitStudent() {
                 clocks->put(time.timeStamp(), clock);
             }
         }
-        clog << "读取本地活动：" << activity.toString() << endl;
+        clog << student->getName() << "读取本地活动：" << activity.toString() << endl;
         Activities->push(activity);
     }
     db.close();
@@ -490,12 +491,13 @@ void Student::InitStudent() {
         clock.setTimestamp(startTime);
         clock.addEvent(description);
         student->getClocks()->put(startTime, clock);
-        clog << "读取本地闹钟：" << clock.timestamp << ":" << description << endl;
+        clog << student->getName() << "读取本地闹钟：" << clock.timestamp << ":" << description << endl;
     }
 }
 
 void Student::showActivities(bool today) {
     int sz = Activities->size;
+    clog << student->getName() << "获取了事件列表" << endl;
     for (int i = 0; i < sz; i++) {
         Activity activity = Activities->get(i);
         if (today && activity.getStartTime().day != modtime.day) {
@@ -538,7 +540,7 @@ void Student::addClocks() {
         clock.setTimestamp(time.timeStamp());
         clock.addEvent(description);
         student->getClocks()->put(time.timeStamp(), clock);
-        clog << student->name << "已设置" << time.toString() << "的闹钟" << endl;
+        clog << student->name << "已设置" << time.toString() << "的闹钟: " << description << endl;
         time.incre(interval);
         ofstream _config("../database/clocks/" + student->name, ios::app);
         assert(_config);
