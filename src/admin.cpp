@@ -87,20 +87,20 @@ void Admin::addCourse()
     
     //done
     course * newArray = new course[getCourse_size() + 1];
-    for (int i = 0; i < getCourse_size() - 1; i++)
+    for (int i = 0; i < getCourse_size(); i++)
     {
         newArray[i] = courses[i];
     }
     cout << "请输入课程名称：";
     string courseName = Input<string>();
-    newArray[getCourse_size() - 1].setName(courseName);
+    newArray[getCourse_size()].setName(courseName);
     cout << "请输入每周课程次数：";
-    newArray[getCourse_size() - 1].setTimeSize(Input<int>());
-    course_time * newTime = new course_time[newArray[getCourse_size() - 1].getTimeSize()];
-    for (int i = 0; i < newArray[getCourse_size() - 1].getTimeSize(); i++)
+    newArray[getCourse_size()].setTimeSize(Input<int>());
+    course_time * newTime = new course_time[newArray[getCourse_size()].getTimeSize()];
+    for (int i = 0; i < newArray[getCourse_size()].getTimeSize(); i++)
     {
-        cout << "请输入第" << i + 1 << "次课程在周几上课：(输入1-7)";
-        newTime[i].week = Input<int>() - 1;
+        cout << "请输入第" << i + 1 << "次课程在周几上课：(输入0-6)";
+        newTime[i].week = Input<int>();
         cout << "请输入第" << i + 1 << "次课程的开始时间：";
         newTime[i].starthour = Input<int>();
         cout << "请输入第" << i + 1 << "次课程的结束时间：";
@@ -110,8 +110,8 @@ void Admin::addCourse()
             for(int k = 0; k < courses[j].getTimeSize(); k++)
             {
                 if(newTime[i].week == courses[j].getTime()[k].week && 
-                (newTime[i].starthour >= courses[j].getTime()[k].starthour && newTime[i].starthour < courses[j].getTime()[k].endhour) ||
-                (newTime[i].endhour > courses[j].getTime()[k].starthour && newTime[i].endhour <= courses[j].getTime()[k].endhour))
+                ((newTime[i].starthour >= courses[j].getTime()[k].starthour && newTime[i].starthour < courses[j].getTime()[k].endhour) ||
+                (newTime[i].endhour > courses[j].getTime()[k].starthour && newTime[i].endhour <= courses[j].getTime()[k].endhour)))
                 {
                     cout << "课程时间冲突，请重新输入\n";
                     i--;
@@ -120,24 +120,24 @@ void Admin::addCourse()
             }
         }
     }
-    newArray[getCourse_size() - 1].setTime(newTime, newArray[getCourse_size() - 1].getTimeSize());
+    newArray[getCourse_size()].setTime(newTime, newArray[getCourse_size() - 1].getTimeSize());
     cout << "请输入课程地点：";
-    newArray[getCourse_size() - 1].setAddress(Input<string>());
+    newArray[getCourse_size()].setAddress(Input<string>());
     cout << "请输入当前课程进度：";
-    newArray[getCourse_size() - 1].setCurrent(Input<string>());
+    newArray[getCourse_size()].setCurrent(Input<string>());
     string * newDocuments = NULL;
-    newArray[getCourse_size() - 1].setDocuments(newDocuments, 0);
+    newArray[getCourse_size()].setDocuments(newDocuments, 0);
     cout << "请输入课程QQ群:";
-    newArray[getCourse_size() - 1].setQQGroup(Input<string>());
+    newArray[getCourse_size()].setQQGroup(Input<string>());
     Time t;
     t.yr = 0; t.mn = 0; t.day = 0; t.hr = 0;
     cout << "请输入考试时间(格式如:21010820)" << endl;
     int exam_time = Input<int>();
     t.inputTime(exam_time);
-    newArray[getCourse_size() - 1].setExtime(t);
+    newArray[getCourse_size()].setExtime(t);
     cout << "请输入考试地点：";
-    newArray[getCourse_size() - 1].setExaddress(Input<string>());
-    newArray[getCourse_size() - 1].setHomeWork(newDocuments, 0);
+    newArray[getCourse_size()].setExaddress(Input<string>());
+    newArray[getCourse_size()].setHomeWork(newDocuments, 0);
     string stuname;
     //输入学生名字
     do
