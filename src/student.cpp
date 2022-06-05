@@ -342,6 +342,7 @@ void Student::showCourseHw()
     if(result.getName() == "null") printf("搜索的课程不存在!\n");
     else
     {
+        clog << "学生" << student->name << "查看了" << result.getName() << "课程作业";
         cout << "作业完成情况:" << endl;
         for(int i = 0; i < result.getHomeWorkSize(); i++)
         {
@@ -537,7 +538,7 @@ void Student::addClocks() {
         clock.setTimestamp(time.timeStamp());
         clock.addEvent(description);
         student->getClocks()->put(time.timeStamp(), clock);
-        clog << "已设置" << time.toString() << "的闹钟" << endl;
+        clog << student->name << "已设置" << time.toString() << "的闹钟" << endl;
         time.incre(interval);
         ofstream _config("../database/clocks/" + student->name, ios::app);
         assert(_config);

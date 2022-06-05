@@ -58,6 +58,7 @@ int main()
         if(notEnd == 1)
         {
             student = new Student(login_info.user);
+            clog << "学生" << student->getName() << "登录成功" << endl;
             student->InitStudent();
             student->showMenu();
             student->saveStuInfo();//保存学生个人信息至文件
@@ -65,6 +66,7 @@ int main()
         else if(notEnd == 2)
         {
             admin = new Admin(login_info.user);
+            clog << "管理员" << login_info.user << "登录成功" << endl;
             admin->showMenu();
             admin->saveAdminInfo();//保存管理员个人信息至文件
         }
