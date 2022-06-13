@@ -482,7 +482,17 @@ void Student::InitStudent() {
             }
         }
         clog << student->getName() << "读取本地活动：" << activity.toString() << endl;
-        Activities->push(activity);
+        int i = 0;
+        for (i = 0; i < Activities->getSize(); i++){
+            if (Activities->get(i).getStartTime().timeStamp() < startTime){
+                break;
+            }
+        }
+        Activities->size++;
+        for (int j = Activities->getSize() - 1; j >= i; j--){
+            Activities->vals[i + 1] = Activities->vals[i];
+        }
+        Activities->vals[i] = activity;
     }
     db.close();
     db = ifstream("../database/clocks/" + student->name);
@@ -563,5 +573,5 @@ void Student::guide() {
     }
     auto activity = student->getActivityArray()->get(num);
     string addr = activity.getAddress();
-    cout << "前往" << addr << "请出门左转谢谢" << endl;
+    cout << "前往" << addr << "请使用GUI版本，谢谢" << endl;
 }
