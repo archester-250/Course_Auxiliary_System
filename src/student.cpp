@@ -33,12 +33,15 @@ bool time_conflict(int timestamp){
     Time tmp;
     tmp.inputTime(timestamp);
     for (int i = 0; i < student->getCourseSize(); i++){
-        course cse = student->getCourses()[i];
-        if (tmp.calculateWeekDay() == cse.getTime()->week &&\
+        course cse;
+        cse = student->getCourses()[i];
+        for (int j = 0; j < cse.getTimeSize(); j++){
+            if (tmp.calculateWeekDay() == cse.getTime()[j].week &&\
             tmp.hr >= cse.getTime()->starthour && \
             tmp.hr < cse.getTime()->endhour) {
-            cout << "时间与课程" << cse.getName() << "冲突" << endl;
-            return true;
+                cout << "时间与课程" << cse.getName() << "冲突" << endl;
+                return true;
+            }
         }
     }
     for (int i = 0; i < len; i++){
@@ -72,7 +75,7 @@ void Student::addActivity() {
     int memberCnt = 0;
     do {
         memberCnt = Input<int>();
-    } while (memberCnt <= 0);
+    } while (memberCnt < 0);
     activity.setMemberCnt(memberCnt);
     while (memberCnt--) {
         cout << "添加成员：";

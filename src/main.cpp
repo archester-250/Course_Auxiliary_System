@@ -51,6 +51,7 @@ int main()
 #endif
     int notEnd = 1;
     while (notEnd) {
+        student = nullptr;
         cout << "=====BUPT GUIDE====\n" << "ʱ�䣺" <<  modtime.toString();
         updateTime();
         info login_info = login::dologin();
